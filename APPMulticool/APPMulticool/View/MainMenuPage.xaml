@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="APPMulticool.View.MainMenuPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <FlexLayout Direction="Column">
+                <Label Text="Seleccione una opcion" VerticalOptions="CenterAndExpand"
+                       HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center" FontSize="20"/>
+
+                <Grid Padding="10,20,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Row="0" Grid.Column="0" x:Name="BtnPedidoManagement"
+                            Text="Pedidos" BackgroundColor="LightBlue" FontSize="15"
+                            HeightRequest="130" WidthRequest="100" CornerRadius="15"/>
+                    
+                    <Button Grid.Row="0" Grid.Column="0" x:Name="BtnClienteManagement"
+                            Text="Clientes" BackgroundColor="LightBlue" FontSize="15"
+                            HeightRequest="130" WidthRequest="100" CornerRadius="15"/>
+                    
+                    <Button Grid.Row="0" Grid.Column="0" x:Name="BtnHerramientaManagement"
+                            Text="Herramientas" BackgroundColor="LightBlue" FontSize="15"
+                            HeightRequest="130" WidthRequest="100" CornerRadius="15"/>
+                    
+                    <Button Grid.Row="0" Grid.Column="0" x:Name="BtnRepuestoManagement"
+                            Text="Repuestos" BackgroundColor="LightBlue" FontSize="15"
+                            HeightRequest="130" WidthRequest="100" CornerRadius="15"/>
+                    
+                    <Button Grid.Row="0" Grid.Column="0" x:Name="BtnTipoRepuestoManagement"
+                            Text="Tipos de repuestos" BackgroundColor="LightBlue" FontSize="15"
+                            HeightRequest="130" WidthRequest="100" CornerRadius="15"/>
+                    
+                    <Button Grid.Row="0" Grid.Column="0" x:Name="BtnProductoManagement"
+                            Text="Productos" BackgroundColor="LightBlue" FontSize="15"
+                            HeightRequest="130" WidthRequest="100" CornerRadius="15"/>
+                    
+                    <Button Grid.Row="0" Grid.Column="0" x:Name="BtnTipoProductoManagement"
+                            Text="Tipos de productos" BackgroundColor="LightBlue" FontSize="15"
+                            HeightRequest="130" WidthRequest="100" CornerRadius="15"/>
+                    
+                    <Button Grid.Row="0" Grid.Column="0" x:Name="BtnUsuarioManagement"
+                            Text="Usuarios" BackgroundColor="LightBlue" FontSize="15"
+                            HeightRequest="130" WidthRequest="100" CornerRadius="15"/>
+                    
+                    <Button Grid.Row="0" Grid.Column="0" x:Name="BtnTipoUsuarioManagement"
+                            Text="Tipos de usuarios" BackgroundColor="LightBlue" FontSize="15"
+                            HeightRequest="130" WidthRequest="100" CornerRadius="15"/>
+                </Grid>
+            </FlexLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

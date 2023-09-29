@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="APPMulticool.View.LoginPage"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="White">
+    <ContentPage.Content>
+        <StackLayout Padding="50,50,50,250" VerticalOptions="Center">
+            <Entry x:Name="TxtNombre" Placeholder="Nombre de usuario" 
+                   FontSize="20" Keyboard="Default"/>
+
+            <Entry x:Name="TxtContra" Placeholder="Contraseña"
+                   FontSize="20" Keyboard="Default" IsPassword="True"/>
+            
+            <Switch x:Name="SwContra" IsToggled="False" Toggled="SwContra_Toggled"/>
+
+            <Button x:Name="BtnLogin" Text="Login" BackgroundColor="LightBlue"
+                    FontSize="20" CornerRadius="10" Clicked="BtnLogin_Clicked"/>
+            <Button x:Name="BtnRecContra" Text="Recuperar contraseña" BackgroundColor="LightGreen"
+                    FontSize="20" CornerRadius="10" Clicked="BtnRecContra_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
