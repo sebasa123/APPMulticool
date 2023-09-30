@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using APPMulticool.Models;
 using APPMulticool.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -10,10 +11,10 @@ using Xamarin.Forms.Xaml;
 namespace APPMulticool.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HerramientaManagementPage : ContentPage
+    public partial class Producto : ContentPage
     {
         UserViewModel vm;
-        public HerramientaManagementPage()
+        public Producto()
         {
             InitializeComponent();
             BindingContext = vm = new UserViewModel();
@@ -21,16 +22,16 @@ namespace APPMulticool.View
 
         private async void BtnApply_Clicked(object sender, EventArgs e)
         {
-            int cant = int.Parse(TxtNumero.Text.Trim());
-            bool R = await vm.AddHerramienta(TxtNombre.Text.Trim(), cant);
+            Models.TipoProducto tp = PckrTP.SelectedItem as Models.TipoProducto;
+            bool R = await vm.AddProducto(TxtNombre.Text.Trim(), tp.IDTP);
             if (R)
             {
-                await DisplayAlert("Herramienta", "Herramienta agregada", "OK");
+                await DisplayAlert("Producto", "Producto agregado", "OK");
                 await Navigation.PopAsync();
             }
             else
             {
-                await DisplayAlert("Herramienta", "Algo salio mal", "OK");
+                await DisplayAlert("Producto", "Algo salio mal", "OK");
             }
         }
 

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="APPMulticool.View.UsuarioPage">
+    <ContentPage.Content>
+        <StackLayout Padding="20, 20, 20, 20" BackgroundColor="White">
+            <SearchBar x:Name="SbUsuario" Placeholder="Busque un usuario..."/>
+
+            <CollectionView x:Name="CvUsuarios" ItemsSource="{Binding Usuarios}"
+                            EmptyView="No existen usuarios para mostrar">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid RowDefinitions="Auto, Auto, Auto">
+                            <Label Grid.Row="0" Text="{Binding NombreUs}"/>
+                            <Label Grid.Row="0" Text="{Binding FKTipoUsuario}"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <StackLayout Padding="0, 200">
+                <Button x:Name="BtnAgregar" Text="Agregar" BackgroundColor="LightGreen"
+                        TextColor="Black" CornerRadius="10" Clicked="BtnAgregar_Clicked"/>
+                <Button x:Name="BtnModificar" Text="Modificar" BackgroundColor="LightBlue"
+                        TextColor="Black" CornerRadius="10" Clicked="BtnModificar_Clicked"/>
+                <Button x:Name="BtnEliminar" Text="Eliminar" BackgroundColor="LightPink"
+                        TextColor="Black" CornerRadius="10" Clicked="BtnEliminar_Clicked"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

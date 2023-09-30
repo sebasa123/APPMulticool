@@ -20,8 +20,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="View\ProductoManagementPage.xaml.cs">
+      <DependentUpon>ProductoManagementPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="View\RepuestoManagementPage.xaml.cs">
       <DependentUpon>RepuestoManagementPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="View\TipoProductoManagementPage.xaml.cs">
+      <DependentUpon>TipoProductoManagementPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="View\TipoRepuestoManagementPage.xaml.cs">
+      <DependentUpon>TipoRepuestoManagementPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -44,13 +53,25 @@
     <EmbeddedResource Update="View\PedidoManagementPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="View\ProductoManagementPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="View\RepuestoManagementPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="View\TipoProductoManagementPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="View\TipoRepuestoManagementPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\TipoUsuarioManagementPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\UsuarioManagementPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="View\UsuarioPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

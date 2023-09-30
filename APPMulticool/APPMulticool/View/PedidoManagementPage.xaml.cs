@@ -48,7 +48,7 @@ namespace APPMulticool.View
         {
             Models.Repuesto rep = PckrRep.SelectedItem as Models.Repuesto;
             Cliente cli = PckrCli.SelectedItem as Cliente;
-            Producto prod = PckrProd.SelectedItem as Producto;
+            Models.Producto prod = PckrProd.SelectedItem as Models.Producto;
             Usuario us = PckrUs.SelectedItem as Usuario;
             bool R = await vm.AddPedido(TxtDesc.Text.Trim(), DtPckrFecha.Date,
                 rep.IDRep, cli.IDCli, prod.IDProd, us.IDUs);

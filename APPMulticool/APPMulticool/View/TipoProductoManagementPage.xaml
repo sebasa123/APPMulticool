@@ -1,20 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="APPMulticool.View.HerramientaManagementPage">
+             x:Class="APPMulticool.View.TipoProducto">
     <ContentPage.Content>
         <StackLayout Padding="20, 20, 20, 20" BackgroundColor="White">
-            <Entry x:Name="TxtNombre" Placeholder="Nombre de la herramienta">
-                <Entry.Triggers>
-                    <Trigger TargetType="Entry" Property="IsFocused" Value="True">
-                        <Setter Property="BackgroundColor" Value="LightGray"/>
-                        <Setter Property="TextColor" Value="Black"/>
-                        <Setter Property="FontSize" Value="15"/>
-                    </Trigger>
-                </Entry.Triggers>
-            </Entry>
+            <Label x:Name="LblTipoProducto" Text="Tipo de producto" FontSize="20" TextColor="Black"/>
 
-            <Entry x:Name="TxtNumero" Placeholder="Cantidad de este tipo de herramienta" Keyboard="Numeric">
+            <Entry x:Name="TxtNombre" Placeholder="Nombre del tipo de producto">
                 <Entry.Triggers>
                     <Trigger TargetType="Entry" Property="IsFocused" Value="True">
                         <Setter Property="BackgroundColor" Value="LightGray"/>

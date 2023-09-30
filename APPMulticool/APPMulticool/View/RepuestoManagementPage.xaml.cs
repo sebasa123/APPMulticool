@@ -30,7 +30,7 @@ namespace APPMulticool.View
 
         private async void BtnApply_Clicked(object sender, EventArgs e)
         {
-            TipoRepuesto tr = PckrTR.SelectedItem as TipoRepuesto;
+            Models.TipoRepuesto tr = PckrTR.SelectedItem as Models.TipoRepuesto;
             Herramienta her = PckrHer.SelectedItem as Herramienta;
             bool R = await vm.AddRepuesto(SwCompleto.IsToggled, TxtDesc.Text.Trim(),
                 tr.IDTR, her.IDHer);

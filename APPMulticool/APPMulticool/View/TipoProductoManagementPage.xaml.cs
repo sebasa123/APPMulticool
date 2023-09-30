@@ -10,10 +10,10 @@ using Xamarin.Forms.Xaml;
 namespace APPMulticool.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HerramientaManagementPage : ContentPage
+    public partial class TipoProducto : ContentPage
     {
         UserViewModel vm;
-        public HerramientaManagementPage()
+        public TipoProducto()
         {
             InitializeComponent();
             BindingContext = vm = new UserViewModel();
@@ -21,16 +21,15 @@ namespace APPMulticool.View
 
         private async void BtnApply_Clicked(object sender, EventArgs e)
         {
-            int cant = int.Parse(TxtNumero.Text.Trim());
-            bool R = await vm.AddHerramienta(TxtNombre.Text.Trim(), cant);
+            bool R = await vm.AddTipoProducto(TxtNombre.Text.Trim());
             if (R)
             {
-                await DisplayAlert("Herramienta", "Herramienta agregada", "OK");
+                await DisplayAlert("Tipo de producto", "Tipo de producto agregado", "OK");
                 await Navigation.PopAsync();
             }
             else
             {
-                await DisplayAlert("Herramienta", "Algo salio mal", "OK");
+                await DisplayAlert("Tipo de producto", "Algo salio mal", "OK");
             }
         }
 
