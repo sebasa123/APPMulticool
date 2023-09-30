@@ -109,5 +109,34 @@ namespace APPMulticool.Models
                 throw;
             }
         }
+        public async Task<List<Usuario>> GetAllUsuarioList()
+        {
+            try
+            {
+                string RouteSuffix = string.Format("Usuarios");
+                string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
+                RestClient client = new RestClient(URL);
+                Request = new RestRequest(URL, Method.Get);
+                Request.AddHeader(Services.APIConnection.ApiKeyName,
+                    Services.APIConnection.ApiKeyValue);
+                Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
+                RestResponse response = await client.ExecuteAsync(Request);
+                HttpStatusCode statusCode = response.StatusCode;
+                if (statusCode == HttpStatusCode.OK)
+                {
+                    var UsuarioLista = JsonConvert.DeserializeObject<List<Usuario>>(response.Content);
+                    return UsuarioLista;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                string ErrorMsg = ex.Message;
+                throw;
+            }
+        }
     }
 }

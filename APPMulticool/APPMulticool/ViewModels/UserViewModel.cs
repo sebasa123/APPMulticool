@@ -123,6 +123,126 @@ namespace APPMulticool.ViewModels
                 throw;
             }
         }
+        public async Task<List<Usuario>> GetUsuario()
+        {
+            try
+            {
+                List<Usuario> us = new List<Usuario>();
+                us = await MyUsuario.GetAllUsuarioList();
+                if (us == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return us;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<List<Repuesto>> GetRepuesto()
+        {
+            try
+            {
+                List<Repuesto> rep = new List<Repuesto>();
+                rep = await MyRepuesto.GetAllRepuestoList();
+                if (rep == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return rep;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<List<Cliente>> GetCliente()
+        {
+            try
+            {
+                List<Cliente> cli = new List<Cliente>();
+                cli = await MyCliente.GetAllClienteList();
+                if (cli == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return cli;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<List<Herramienta>> GetHerramienta()
+        {
+            try
+            {
+                List<Herramienta> her = new List<Herramienta>();
+                her = await MyHerramienta.GetAllHerramientaList();
+                if (her == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return her;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<List<TipoRepuesto>> GetTipoRepuesto()
+        {
+            try
+            {
+                List<TipoRepuesto> tr = new List<TipoRepuesto>();
+                tr = await MyTipoRepuesto.GetAllTipoRepuestoList();
+                if (tr == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return tr;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<List<Producto>> GetProducto()
+        {
+            try
+            {
+                List<Producto> prod = new List<Producto>();
+                prod = await MyProducto.GetAllProductoList();
+                if (prod == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return prod;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public async Task<bool> AddUsuario(string pNombreUs, 
             string pContraUs, int pTipo)
         {
@@ -213,13 +333,14 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> AddRepuesto(string pDescripcionRep, int pTR,
+        public async Task<bool> AddRepuesto(bool pCompletoRep, string pDescripcionRep, int pTR,
             int pHer)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
+                MyRepuesto.CompletoRep = pCompletoRep;
                 MyRepuesto.DescripcionRep = pDescripcionRep;
                 MyRepuesto.FKTipoRep = pTR;
                 MyRepuesto.FKHerramientas = pHer;
