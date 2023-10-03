@@ -1,4 +1,5 @@
 ﻿using System;
+using APPMulticool.View;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +11,11 @@ namespace APPMulticool
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            //MainPage = new LoginPage();
+            MainPage = new MainMenuPage();
+            //MainPage = new UsuarioManagementPage();
+            //MainPage = new UsuarioPage();
+            //MainPage = new PasswordRecoveryPage();
         }
 
         protected override void OnStart()

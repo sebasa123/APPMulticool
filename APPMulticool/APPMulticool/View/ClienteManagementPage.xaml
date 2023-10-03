@@ -9,9 +9,9 @@
             <Entry x:Name="TxtNombre" Placeholder="Nombre">
                 <Entry.Triggers>
                     <Trigger TargetType="Entry" Property="IsFocused" Value="True">
-                        <Setter Property="BackgroundColor" Value="LightGray"/>
+                        <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
                         <Setter Property="TextColor" Value="Black"/>
-                        <Setter Property="FontSize" Value="15"/>
+                        <Setter Property="FontSize" Value="20"/>
                     </Trigger>
                 </Entry.Triggers>
             </Entry>
@@ -19,9 +19,9 @@
             <Entry x:Name="TxtApellido" Placeholder="Apellido">
                 <Entry.Triggers>
                     <Trigger TargetType="Entry" Property="IsFocused" Value="True">
-                        <Setter Property="BackgroundColor" Value="LightGray"/>
+                        <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
                         <Setter Property="TextColor" Value="Black"/>
-                        <Setter Property="FontSize" Value="15"/>
+                        <Setter Property="FontSize" Value="20"/>
                     </Trigger>
                 </Entry.Triggers>
             </Entry>
@@ -29,9 +29,9 @@
             <Entry x:Name="TxtCedula" Placeholder="Cedula">
                 <Entry.Triggers>
                     <Trigger TargetType="Entry" Property="IsFocused" Value="True">
-                        <Setter Property="BackgroundColor" Value="LightGray"/>
+                        <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
                         <Setter Property="TextColor" Value="Black"/>
-                        <Setter Property="FontSize" Value="15"/>
+                        <Setter Property="FontSize" Value="20"/>
                     </Trigger>
                 </Entry.Triggers>
             </Entry>
@@ -39,15 +39,15 @@
             <Entry x:Name="TxtDireccion" Placeholder="Direccion">
                 <Entry.Triggers>
                     <Trigger TargetType="Entry" Property="IsFocused" Value="True">
-                        <Setter Property="BackgroundColor" Value="LightGray"/>
+                        <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
                         <Setter Property="TextColor" Value="Black"/>
-                        <Setter Property="FontSize" Value="15"/>
+                        <Setter Property="FontSize" Value="20"/>
                     </Trigger>
                 </Entry.Triggers>
             </Entry>
 
             <StackLayout Padding="0, 200">
-                <Button x:Name="BtnApply" Text="Aplicar" BackgroundColor="LightBlue"
+                <Button x:Name="BtnApply" Text="Aplicar" BackgroundColor="MediumSpringGreen"
                         TextColor="Black" CornerRadius="10" Clicked="BtnApply_Clicked"/>
                 <Button x:Name="BtnCancel" Text="Cancelar" BackgroundColor="LightGray"
                         TextColor="Black" CornerRadius="10" Clicked="BtnCancel_Clicked"/>

@@ -9,6 +9,6 @@ namespace APPMulticool.Services
         public static string ProductionURLPrefix = "";
         public static string TestingURLPrefix = "";
         public static string ApiKeyName = "ApiKey";
-        public static string ApiKeyValue = "MulticoolAFONonoabfosjg*";
+        public static string ApiKeyValue = "Multicoolosjenbfowuenbfui*";
     }
 }

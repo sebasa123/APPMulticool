@@ -11,7 +11,7 @@
                     <Trigger TargetType="Entry" Property="IsFocused" Value="True">
                         <Setter Property="BackgroundColor" Value="LightGray"/>
                         <Setter Property="TextColor" Value="Black"/>
-                        <Setter Property="FontSize" Value="15"/>
+                        <Setter Property="FontSize" Value="20"/>
                     </Trigger>
                 </Entry.Triggers>
             </Entry>
@@ -21,7 +21,7 @@
                     <Trigger TargetType="Entry" Property="IsFocused" Value="True">
                         <Setter Property="BackgroundColor" Value="LightGray"/>
                         <Setter Property="TextColor" Value="Black"/>
-                        <Setter Property="FontSize" Value="15"/>
+                        <Setter Property="FontSize" Value="20"/>
                     </Trigger>
                 </Entry.Triggers>
             </Entry>
