@@ -4,10 +4,12 @@
              x:Class="APPMulticool.View.UsuarioPage">
     <ContentPage.Content>
         <StackLayout Padding="20, 20, 20, 20" BackgroundColor="White">
-            <SearchBar x:Name="SbUsuario" Placeholder="Busque un usuario..."/>
+            <SearchBar x:Name="SbUsuario" Placeholder="Busque un usuario..."
+                       TextChanged="SbUsuario_TextChanged"/>
 
             <CollectionView x:Name="CvUsuarios" ItemsSource="{Binding Usuarios}"
-                            EmptyView="No existen usuarios para mostrar">
+                            EmptyView="No existen usuarios para mostrar" 
+                            SelectionMode="Single" SelectedItem="{Binding SelectedUsuario}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid RowDefinitions="Auto, Auto, Auto">

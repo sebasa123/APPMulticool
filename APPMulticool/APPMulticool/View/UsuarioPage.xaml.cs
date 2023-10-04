@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using APPMulticool.Models;
 using APPMulticool.Services;
 using APPMulticool.ViewModels;
 using Xamarin.Forms;
@@ -18,6 +20,11 @@ namespace APPMulticool.View
         {
             InitializeComponent();
             BindingContext = vm = new UserViewModel();
+            LoadUsuarioList();
+        }
+        private async void LoadUsuarioList()
+        {
+            CvUsuarios.ItemsSource = await vm.GetUsuario();
         }
 
         private async void BtnAgregar_Clicked(object sender, EventArgs e)
@@ -31,15 +38,19 @@ namespace APPMulticool.View
         }
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
+        {         
+            var result = await this.DisplayAlert("Usuario", "¿Desea borrar el usuario?", "OK", "Cancelar");
+            if (result)
+            {
+                bool R = await vm.DeleteUsuario((UsuarioDTO)CvUsuarios.SelectedItem);
+            }
+        }
+
+        private void SbUsuario_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //Device.BeginInvokeOnMainThread(async () =>
-            //{
-            //    var result = await this.DisplayAlert("Usuario", "Borrar el usuario?", "Si", "No");
-            //    if (result)
-            //    {
-            //        var db = new APIConnection(db.);
-            //    }
-            //}
+            var busq = SbUsuario.Text;
+            var itemsFilter = vm.GetNombreUsuario(busq).Result;
+            CvUsuarios.ItemsSource = itemsFilter;
         }
     }
 }

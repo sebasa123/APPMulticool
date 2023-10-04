@@ -520,5 +520,24 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
+        public async Task<bool> DeleteUsuario(UsuarioDTO pUsuario)
+        {
+            if (IsBusy) return false;
+            IsBusy = true;
+            try
+            {
+                bool R = await MyUsuario.DeleteUser();
+                return R;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
     }
 }

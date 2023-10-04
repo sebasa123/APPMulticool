@@ -21,6 +21,13 @@ namespace APPMulticool.View
             LoadTipoList();
         }
 
+        public UsuarioManagementPage()
+        {
+            InitializeComponent();
+            BindingContext = vm = new UserViewModel();
+            LoadTipoList();
+        }
+
         private async void BtnApply_Clicked(object sender, EventArgs e)
         {
             TipoUsuario tu = PckrTU.SelectedItem as TipoUsuario;
