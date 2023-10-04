@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APPMulticool.Android", "APPMulticool\APPMulticool.Android\APPMulticool.Android.csproj", "{E5142990-5691-456C-B24E-F47B57662E47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APPMulticool", "APPMulticool\APPMulticool\APPMulticool.csproj", "{C955CF5D-9FBD-458B-AAD0-697B96417957}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APPMulticool", "APPMulticool\APPMulticool\APPMulticool.csproj", "{C955CF5D-9FBD-458B-AAD0-697B96417957}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

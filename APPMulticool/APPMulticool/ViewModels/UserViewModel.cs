@@ -123,6 +123,26 @@ namespace APPMulticool.ViewModels
                 throw;
             }
         }
+        public async Task<List<TipoUsuario>> GetNombreTipoUsuario(string pNombre)
+        {
+            try
+            {
+                List<TipoUsuario> nombreTu = new List<TipoUsuario>();
+                nombreTu = await MyTipoUsuario.GetAllTipoUsuarioNameList(pNombre);
+                if (nombreTu == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return nombreTu;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public async Task<List<Usuario>> GetUsuario()
         {
             try
