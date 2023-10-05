@@ -4,7 +4,7 @@
              x:Class="APPMulticool.View.TipoUsuarioPage">
     <ContentPage.Content>
         <StackLayout Padding="20, 20, 20, 20" BackgroundColor="White">
-            <SearchBar x:Name="SbTipoUsuario" Placeholder="Busque un usuario..."
+            <SearchBar x:Name="SbTipoUsuario" Placeholder="Busque un tipo de usuario..."
                        TextChanged="SbTipoUsuario_TextChanged"/>
 
             <CollectionView x:Name="CvTipoUsuarios" ItemsSource="{Binding TipoUsuarios}"

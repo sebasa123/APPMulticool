@@ -1,12 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="APPMulticool.View.TipoRepuesto">
+             x:Class="APPMulticool.View.RepManagementPage">
     <ContentPage.Content>
         <StackLayout Padding="20, 20, 20, 20" BackgroundColor="White">
-            <Label x:Name="LblTipoRepuesto" Text="Tipo de repuesto" FontSize="20" TextColor="Black"/>
+            <Label x:Name="LblRespuesto" Text="Repuesto" FontSize="20" TextColor="Black"/>
 
-            <Entry x:Name="TxtDescripcion" Placeholder="Descripcion del tipo de repuesto">
+            <StackLayout Padding="0, 200">
+                <Label x:Name="LblCompleto" Text="Estado del repuesto: Completo"
+                       FontSize="20" TextColor="Black"/>
+
+                <Switch x:Name="SwCompleto" IsToggled="false" OnColor="LightGray" 
+                    ThumbColor="LightSkyBlue"/>
+            </StackLayout>
+
+            <Entry x:Name="TxtDesc" Placeholder="Descripcion">
                 <Entry.Triggers>
                     <Trigger TargetType="Entry" Property="IsFocused" Value="True">
                         <Setter Property="BackgroundColor" Value="LightGray"/>
@@ -16,8 +24,14 @@
                 </Entry.Triggers>
             </Entry>
 
+            <Picker x:Name="PckrTR" Title="Seleccione el tipo de repuesto"
+                    ItemDisplayBinding="{Binding DescripcionTR}"/>
+
+            <Picker x:Name="PckrHer" Title="Seleccione la herramienta"
+                    ItemDisplayBinding="{Binding NombreHer}"/>
+
             <StackLayout Padding="0, 200">
-                <Button x:Name="BtnApply" Text="Aplicar" BackgroundColor="LightBlue"
+                <Button x:Name="BtnApply" Text="Aplicar" BackgroundColor="MediumSpringGreen"
                         TextColor="Black" CornerRadius="10" Clicked="BtnApply_Clicked"/>
                 <Button x:Name="BtnCancel" Text="Cancelar" BackgroundColor="LightGray"
                         TextColor="Black" CornerRadius="10" Clicked="BtnCancel_Clicked"/>

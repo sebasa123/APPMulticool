@@ -1,24 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="APPMulticool.View.PedidoPage">
+             x:Class="APPMulticool.View.TipoProdPage">
     <ContentPage.Content>
         <StackLayout Padding="20, 20, 20, 20" BackgroundColor="White">
-            <SearchBar x:Name="SbPedido" Placeholder="Busque un pedido..."
-                       TextChanged="SbPedido_TextChanged"/>
+            <SearchBar x:Name="SbTipoProducto" Placeholder="Busque un tipo de producto..."
+                       TextChanged="SbTipoProducto_TextChanged"/>
 
-            <CollectionView x:Name="CvPedido" ItemsSource="{Binding Pedido}"
-                            EmptyView="No existen pedidos para mostrar" 
-                            SelectionMode="Single" SelectedItem="{Binding SelectedPedido}">
+            <CollectionView x:Name="CvTipoProducto" ItemsSource="{Binding TipoProducto}"
+                            EmptyView="No existen tipos de producto para mostrar" 
+                            SelectionMode="Single" SelectedItem="{Binding SelectedTipoProducto}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid RowDefinitions="Auto, Auto, Auto">
-                            <Label Grid.Row="0" Text="{Binding DescripcionPed}"/>
-                            <Label Grid.Row="0" Text="{Binding FechaPed}"/>
-                            <Label Grid.Row="0" Text="{Binding FKRep}"/>
-                            <Label Grid.Row="0" Text="{Binding FKCli}"/>
-                            <Label Grid.Row="0" Text="{Binding FKUs}"/>
-                            <Label Grid.Row="0" Text="{Binding FKProd}"/>
+                            <Label Grid.Row="0" Text="{Binding NombreTP}"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

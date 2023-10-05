@@ -10,10 +10,10 @@ using Xamarin.Forms.Xaml;
 namespace APPMulticool.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TipoRepuesto : ContentPage
+    public partial class TipoRepManagementPage : ContentPage
     {
         UserViewModel vm;
-        public TipoRepuesto()
+        public TipoRepManagementPage()
         {
             InitializeComponent();
             BindingContext = vm = new UserViewModel();

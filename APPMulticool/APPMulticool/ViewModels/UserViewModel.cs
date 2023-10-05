@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using APPMulticool.Models;
+using APPMulticool.ModelsDTO;
 using System.Threading.Tasks;
 
 namespace APPMulticool.ViewModels
@@ -11,13 +12,21 @@ namespace APPMulticool.ViewModels
         public Usuario MyUsuario { get; set; }
         public UsuarioDTO MyUsuarioDTO { get; set; }
         public TipoUsuario MyTipoUsuario { get; set; }
+        public TipoUsuarioDTO MyTipoUsuarioDTO { get; set; }
         public Cliente MyCliente { get; set; }
+        public ClienteDTO MyClienteDTO { get; set; }
         public Pedido MyPedido { get; set; }
+        public PedidoDTO MyPedidoDTO { get; set; }
         public Repuesto MyRepuesto { get; set; }
+        public RepuestoDTO MyRepuestoDTO { get; set; }
         public Herramienta MyHerramienta { get; set; }
+        public HerramientaDTO MyHerramientaDTO { get; set; }
         public TipoRepuesto MyTipoRepuesto { get; set; }
+        public TipoRepuestoDTO MyTipoRepuestoDTO { get; set; }
         public Producto MyProducto { get; set; }
+        public ProductoDTO MyProductoDTO { get; set; }
         public TipoProducto MyTipoProducto { get; set; }
+        public TipoProductoDTO MyTipoProductoDTO { get; set; }
         public CodigoRecuperacion MyCodigoRec { get; set; }
         public Models.Email MyEmail { get; set; }
         public UserViewModel()
@@ -136,6 +145,146 @@ namespace APPMulticool.ViewModels
                 else
                 {
                     return nombreTu;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<List<TipoRepuesto>> GetNombreTipoRepuesto(string pDescripcion)
+        {
+            try
+            {
+                List<TipoRepuesto> descTR = new List<TipoRepuesto>();
+                descTR = await MyTipoRepuesto.GetAllTipoRepuestoNameList(pDescripcion);
+                if (descTR == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return descTR;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<List<TipoProducto>> GetNombreTipoProducto(string pNombre)
+        {
+            try
+            {
+                List<TipoProducto> nom = new List<TipoProducto>();
+                nom = await MyTipoProducto.GetAllTipoProductoNameList(pNombre);
+                if (nom == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return nom;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<List<Repuesto>> GetNombreRepuesto(string pDesc)
+        {
+            try
+            {
+                List<Repuesto> desc = new List<Repuesto>();
+                desc = await MyRepuesto.GetAllRepuestoNameList(pDesc);
+                if (desc == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return desc;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<List<Producto>> GetNombreProducto(string pNombre)
+        {
+            try
+            {
+                List<Producto> nom = new List<Producto>();
+                nom = await MyProducto.GetAllProductoNameList(pNombre);
+                if (nom == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return nom;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<List<Pedido>> GetNombrePedido(string pDesc)
+        {
+            try
+            {
+                List<Pedido> desc = new List<Pedido>();
+                desc = await MyPedido.GetAllPedidoNameList(pDesc);
+                if (desc == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return desc;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<List<Herramienta>> GetNombreHerramienta(string pNombre)
+        {
+            try
+            {
+                List<Herramienta> nom = new List<Herramienta>();
+                nom = await MyHerramienta.GetAllHerramientaNameList(pNombre);
+                if (nom == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return nom;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<List<Cliente>> GetNombreCliente(string pNombre)
+        {
+            try
+            {
+                List<Cliente> nom = new List<Cliente>();
+                nom = await MyCliente.GetAllClienteNameList(pNombre);
+                if (nom == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return nom;
                 }
             }
             catch (Exception)
@@ -547,6 +696,158 @@ namespace APPMulticool.ViewModels
             try
             {
                 bool R = await MyUsuario.DeleteUser();
+                return R;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<bool> DeleteTipoUsuario(TipoUsuarioDTO pTipoUsuario)
+        {
+            if (IsBusy) return false;
+            IsBusy = true;
+            try
+            {
+                bool R = await MyTipoUsuario.DeleteTipoUsuario();
+                return R;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<bool> DeleteTipoRepuesto(TipoRepuestoDTO pTipoRepuesto)
+        {
+            if (IsBusy) return false;
+            IsBusy = true;
+            try
+            {
+                bool R = await MyTipoRepuesto.DeleteTipoRepuesto();
+                return R;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<bool> DeleteTipoProducto(TipoProductoDTO pTipoProducto)
+        {
+            if (IsBusy) return false;
+            IsBusy = true;
+            try
+            {
+                bool R = await MyTipoProducto.DeleteTipoProducto();
+                return R;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<bool> DeleteRepuesto(RepuestoDTO pRepuesto)
+        {
+            if (IsBusy) return false;
+            IsBusy = true;
+            try
+            {
+                bool R = await MyRepuesto.DeleteRepuesto();
+                return R;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<bool> DeleteProducto(ProductoDTO pProducto)
+        {
+            if (IsBusy) return false;
+            IsBusy = true;
+            try
+            {
+                bool R = await MyProducto.DeleteProducto();
+                return R;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<bool> DeletePedido(PedidoDTO pPedido)
+        {
+            if (IsBusy) return false;
+            IsBusy = true;
+            try
+            {
+                bool R = await MyPedido.DeletePedido();
+                return R;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<bool> DeleteHerramienta(HerramientaDTO pHerramienta)
+        {
+            if (IsBusy) return false;
+            IsBusy = true;
+            try
+            {
+                bool R = await MyHerramienta.DeleteHerramienta();
+                return R;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<bool> DeleteCliente(ClienteDTO pCliente)
+        {
+            if (IsBusy) return false;
+            IsBusy = true;
+            try
+            {
+                bool R = await MyCliente.DeleteCliente();
                 return R;
             }
             catch (Exception)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using APPMulticool.Models;
+using APPMulticool.ModelsDTO;
 using APPMulticool.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -27,14 +28,14 @@ namespace APPMulticool.View
             CvTipoUsuarios.ItemsSource = itemsFilter;
         }
 
-        private void BtnAgregar_Clicked(object sender, EventArgs e)
+        private async void BtnAgregar_Clicked(object sender, EventArgs e)
         {
-
+            await Navigation.PushAsync(new TipoUsuarioManagementPage());
         }
 
-        private void BtnModificar_Clicked(object sender, EventArgs e)
+        private async void BtnModificar_Clicked(object sender, EventArgs e)
         {
-
+            await Navigation.PushAsync(new TipoUsuarioManagementPage());
         }
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
@@ -42,7 +43,7 @@ namespace APPMulticool.View
             var result = await this.DisplayAlert("Tipo de usuario", "¿Desea borrar el tipo de usuario?", "OK", "Cancelar");
             if (result == true)
             {
-                //bool R = await vm.DeleteTipoUsuario(CvTipoUsuarios.SelectedItem);
+                bool R = await vm.DeleteTipoUsuario((TipoUsuarioDTO)CvTipoUsuarios.SelectedItem);
             }
         }
     }

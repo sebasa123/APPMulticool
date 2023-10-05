@@ -12,39 +12,39 @@ using Xamarin.Forms.Xaml;
 namespace APPMulticool.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RepuestoPage : ContentPage
+    public partial class TipoProdPage : ContentPage
     {
         UserViewModel vm;
-        public RepuestoPage()
+        public TipoProdPage()
         {
             InitializeComponent();
             BindingContext = vm = new UserViewModel();
         }
 
-        private void SbRepuesto_TextChanged(object sender, TextChangedEventArgs e)
+        private void SbTipoProducto_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var busq = SbRepuesto.Text;
-            var itemsFilter = vm.GetNombreRepuesto(busq).Result;
-            CvRepuesto.ItemsSource = itemsFilter;
+            var busq = SbTipoProducto.Text;
+            var itemsFilter = vm.GetNombreTipoProducto(busq).Result;
+            CvTipoProducto.ItemsSource = itemsFilter;
         }
 
         private async void BtnAgregar_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new RepManagementPage());
+            await Navigation.PushAsync(new TipoProdManagementPage());
         }
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
-            var result = await this.DisplayAlert("Repuesto", "¿Desea borrar el repuesto?", "OK", "Cancelar");
-            if (result == true)
-            {
-                bool R = await vm.DeleteRepuesto((RepuestoDTO)CvRepuesto.SelectedItem);
-            }
+            await Navigation.PushAsync(new TipoProdManagementPage());
         }
 
         private async void BtnModificar_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new RepManagementPage());
+            var result = await this.DisplayAlert("Tipo de usuario", "¿Desea borrar el tipo de usuario?", "OK", "Cancelar");
+            if (result == true)
+            {
+                bool R = await vm.DeleteTipoProducto((TipoProductoDTO)CvTipoProducto.SelectedItem);
+            }
         }
     }
 }

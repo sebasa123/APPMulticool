@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using APPMulticool.Models;
 using APPMulticool.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,37 +10,32 @@ using Xamarin.Forms.Xaml;
 namespace APPMulticool.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Repuesto : ContentPage
+    public partial class ProdManagementPage : ContentPage
     {
         UserViewModel vm;
-        public Repuesto()
+        public ProdManagementPage()
         {
             InitializeComponent();
             BindingContext = vm = new UserViewModel();
+            LoadTPList();
         }
-        private async void LoadTRList()
+        private async void LoadTPList()
         {
-            PckrTR.ItemsSource = await vm.GetTipoRepuesto();
-        }
-        private async void LoadTHList()
-        {
-            PckrHer.ItemsSource = await vm.GetHerramienta();
+            PckrTP.ItemsSource = await vm.GetProducto();
         }
 
         private async void BtnApply_Clicked(object sender, EventArgs e)
         {
-            Models.TipoRepuesto tr = PckrTR.SelectedItem as Models.TipoRepuesto;
-            Herramienta her = PckrHer.SelectedItem as Herramienta;
-            bool R = await vm.AddRepuesto(SwCompleto.IsToggled, TxtDesc.Text.Trim(),
-                tr.IDTR, her.IDHer);
+            Models.TipoProducto tp = PckrTP.SelectedItem as Models.TipoProducto;
+            bool R = await vm.AddProducto(TxtNombre.Text.Trim(), tp.IDTP);
             if (R)
             {
-                await DisplayAlert("Repuesto", "Repuesto agregado", "OK");
+                await DisplayAlert("Producto", "Producto agregado", "OK");
                 await Navigation.PopAsync();
             }
             else
             {
-                await DisplayAlert("Repuesto", "Algo salio mal", "OK");
+                await DisplayAlert("Producto", "Algo salio mal", "OK");
             }
         }
 

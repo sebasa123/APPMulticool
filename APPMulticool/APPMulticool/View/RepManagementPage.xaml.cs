@@ -11,27 +11,39 @@ using Xamarin.Forms.Xaml;
 namespace APPMulticool.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Producto : ContentPage
+    public partial class RepManagementPage : ContentPage
     {
         UserViewModel vm;
-        public Producto()
+        public RepManagementPage()
         {
             InitializeComponent();
             BindingContext = vm = new UserViewModel();
+            LoadTRList();
+            LoadHerList();
+        }
+        private async void LoadTRList()
+        {
+            PckrTR.ItemsSource = await vm.GetTipoRepuesto();
+        }
+        private async void LoadHerList()
+        {
+            PckrHer.ItemsSource = await vm.GetHerramienta();
         }
 
         private async void BtnApply_Clicked(object sender, EventArgs e)
         {
-            Models.TipoProducto tp = PckrTP.SelectedItem as Models.TipoProducto;
-            bool R = await vm.AddProducto(TxtNombre.Text.Trim(), tp.IDTP);
+            Models.TipoRepuesto tr = PckrTR.SelectedItem as Models.TipoRepuesto;
+            Herramienta her = PckrHer.SelectedItem as Herramienta;
+            bool R = await vm.AddRepuesto(SwCompleto.IsToggled, TxtDesc.Text.Trim(),
+                tr.IDTR, her.IDHer);
             if (R)
             {
-                await DisplayAlert("Producto", "Producto agregado", "OK");
+                await DisplayAlert("Repuesto", "Repuesto agregado", "OK");
                 await Navigation.PopAsync();
             }
             else
             {
-                await DisplayAlert("Producto", "Algo salio mal", "OK");
+                await DisplayAlert("Repuesto", "Algo salio mal", "OK");
             }
         }
 

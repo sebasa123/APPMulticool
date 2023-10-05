@@ -72,5 +72,63 @@ namespace APPMulticool.Models
                 throw;
             }
         }
+        public async Task<List<TipoRepuesto>> GetAllTipoRepuestoNameList(string pDesc)
+        {
+            try
+            {
+                string RouteSuffix = string.Format("TipoRepuesto");
+                string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
+                RestClient client = new RestClient(URL);
+                Request = new RestRequest(URL, Method.Get);
+                Request.AddHeader(Services.APIConnection.ApiKeyName,
+                    Services.APIConnection.ApiKeyValue);
+                Request.AddHeader(GlobalObjects.ContentType,
+                    GlobalObjects.MimeType);
+                RestResponse response = await client.ExecuteAsync(Request);
+                HttpStatusCode statusCode = response.StatusCode;
+                if (statusCode == HttpStatusCode.OK)
+                {
+                    var DescTRLista = JsonConvert.DeserializeObject<List<TipoRepuesto>>(pDesc);
+                    return DescTRLista;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                string ErrorMsg = ex.Message;
+                throw;
+            }
+        }
+        public async Task<bool> DeleteTipoRepuesto()
+        {
+            try
+            {
+                string RouteSuffix =
+                     string.Format("TipoRepuestos/DeleteTipoRepuesto?pDescripcionTR={0}",
+                     this.DescripcionTR);
+                string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
+                RestClient client = new RestClient(URL);
+                Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);
+                Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
+                RestResponse response = await client.ExecuteAsync(Request);
+                HttpStatusCode statusCode = response.StatusCode;
+                if (statusCode == HttpStatusCode.OK)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                string ErrorMsg = ex.Message;
+                throw;
+            }
+        }
     }
 }

@@ -3,10 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="APPMulticool.View.HerramientaPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Padding="20, 20, 20, 20" BackgroundColor="White">
+            <SearchBar x:Name="SbHeramienta" Placeholder="Busque una herramienta..."
+                       TextChanged="SbHeramienta_TextChanged"/>
+
+            <CollectionView x:Name="CvHerramienta" ItemsSource="{Binding Herramienta}"
+                            EmptyView="No existen tipos de usuario para mostrar" 
+                            SelectionMode="Single" SelectedItem="{Binding SelectedHerramienta}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid RowDefinitions="Auto, Auto, Auto">
+                            <Label Grid.Row="0" Text="{Binding NombreHer}"/>
+                            <Label Grid.Row="0" Text="{Binding NumeroHer}"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <StackLayout Padding="0, 200">
+                <Button x:Name="BtnAgregar" Text="Agregar" BackgroundColor="LightGreen"
+                        TextColor="Black" CornerRadius="10" Clicked="BtnAgregar_Clicked"/>
+                <Button x:Name="BtnModificar" Text="Modificar" BackgroundColor="LightBlue"
+                        TextColor="Black" CornerRadius="10" Clicked="BtnModificar_Clicked"/>
+                <Button x:Name="BtnEliminar" Text="Eliminar" BackgroundColor="LightPink"
+                        TextColor="Black" CornerRadius="10" Clicked="BtnEliminar_Clicked"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
