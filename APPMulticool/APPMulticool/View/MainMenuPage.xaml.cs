@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using APPMulticool.View;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -44,7 +45,7 @@ namespace APPMulticool.View
 
         private async void BtnTipoProductoManagement_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new TipoProductoPage());
+            await Navigation.PushAsync(new TipoProdPage());
         }
 
         private async void BtnHerramientaManagement_Clicked(object sender, EventArgs e)
@@ -60,6 +61,21 @@ namespace APPMulticool.View
         private async void BtnTipoUsuarioManagement_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new TipoUsuarioPage());
+        }
+
+        private void BtnSideMenu_Clicked(object sender, EventArgs e)
+        {
+            SideMenu.State = SideMenuState.LeftMenuShown;
+        }
+
+        private async void SmInicio_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new MainMenuPage());
+        }
+
+        private async void SmSalir_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PopToRootAsync();
         }
     }
 }

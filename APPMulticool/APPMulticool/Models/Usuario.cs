@@ -23,7 +23,7 @@ namespace APPMulticool.Models
             try
             {
                 string RouteSuffix =
-                     string.Format("Users/ValidateUserLogin?pUserName={0}&pPassword={1}",
+                     string.Format("Usuarios/ValidateUserLogin?pNombreUs={0}&pContraUs={1}",
                      this.NombreUs, this.ContrasUs);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
@@ -51,7 +51,7 @@ namespace APPMulticool.Models
             try
             {
                 string RouteSuffix =
-                     string.Format("Users/DeleteUser?pUserName={0}",
+                     string.Format("Usuarios/DeleteUser?pNombreUs={0}",
                      this.NombreUs);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);

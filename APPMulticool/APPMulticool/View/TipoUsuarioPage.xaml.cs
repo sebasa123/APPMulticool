@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using APPMulticool.Models;
 using APPMulticool.ModelsDTO;
 using APPMulticool.ViewModels;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,10 +16,12 @@ namespace APPMulticool.View
     public partial class TipoUsuarioPage : ContentPage
     {
         UserViewModel vm;
+        string tipo;
         public TipoUsuarioPage()
         {
             InitializeComponent();
             BindingContext = vm = new UserViewModel();
+            tipo = ((TipoUsuario)CvTipoUsuarios.SelectedItem).NombreTU;
         }
 
         private void SbTipoUsuario_TextChanged(object sender, TextChangedEventArgs e)
@@ -35,16 +38,39 @@ namespace APPMulticool.View
 
         private async void BtnModificar_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new TipoUsuarioManagementPage());
+            await Navigation.PushAsync(new TipoUsuarioManagementPage(tipo));
         }
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
             var result = await this.DisplayAlert("Tipo de usuario", "¿Desea borrar el tipo de usuario?", "OK", "Cancelar");
-            if (result == true)
+            if (result)
             {
                 bool R = await vm.DeleteTipoUsuario((TipoUsuarioDTO)CvTipoUsuarios.SelectedItem);
+                if (R)
+                {
+                    await DisplayAlert("Tipo de usuario", "El tipo de usuario se borro correctamente", "OK");
+                }
+                else
+                {
+                    await DisplayAlert("Tipo de usuario", "Algo salio mal", "OK");
+                }
             }
+        }
+
+        private void BtnSideMenu_Clicked(object sender, EventArgs e)
+        {
+            SideMenu.State = SideMenuState.LeftMenuShown;
+        }
+
+        private async void SmInicio_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new MainMenuPage());
+        }
+
+        private async void SmSalir_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new LoginPage());
         }
     }
 }

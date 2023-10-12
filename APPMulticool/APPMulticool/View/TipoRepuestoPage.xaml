@@ -1,32 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="APPMulticool.View.TipoRepuestoPage">
+             x:Class="APPMulticool.View.TipoRepuestoPage"
+             xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit">
     <ContentPage.Content>
-        <StackLayout Padding="20, 20, 20, 20" BackgroundColor="White">
-            <SearchBar x:Name="SbTipoRepuesto" Placeholder="Busque un tipo de usuario..."
+
+        <xct:SideMenuView x:Name="SideMenu">
+            <StackLayout BackgroundColor="White">
+                <StackLayout Orientation="Horizontal">
+                    <Button x:Name="BtnSideMenu"
+                                    Text="///"
+                                    Clicked="BtnSideMenu_Clicked"
+                                    BackgroundColor="WhiteSmoke"/>
+                </StackLayout>
+
+                <ScrollView>
+                    <StackLayout Padding="20, 20, 20, 20" BackgroundColor="White">
+                        <SearchBar x:Name="SbTipoRepuesto" Placeholder="Busque un tipo de usuario..."
                        TextChanged="SbTipoRepuesto_TextChanged"/>
 
-            <CollectionView x:Name="CvTipoRepuesto" ItemsSource="{Binding TipoRepuesto}"
+                        <CollectionView x:Name="CvTipoRepuesto" ItemsSource="{Binding TipoRepuesto}"
                             EmptyView="No existen tipos de repuestos para mostrar" 
                             SelectionMode="Single" SelectedItem="{Binding SelectedTipoRepuesto}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid RowDefinitions="Auto, Auto, Auto">
-                            <Label Grid.Row="0" Text="{Binding DescripcionTR}"/>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid RowDefinitions="Auto, Auto, Auto">
+                                        <Label Grid.Row="0" Text="{Binding DescripcionTR}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
 
-            <StackLayout Padding="0, 200">
-                <Button x:Name="BtnAgregar" Text="Agregar" BackgroundColor="LightGreen"
+                        <StackLayout Padding="0, 200">
+                            <Button x:Name="BtnAgregar" Text="Agregar" BackgroundColor="LightGreen"
                         TextColor="Black" CornerRadius="10" Clicked="BtnAgregar_Clicked"/>
-                <Button x:Name="BtnModificar" Text="Modificar" BackgroundColor="LightBlue"
+                            <Button x:Name="BtnModificar" Text="Modificar" BackgroundColor="LightBlue"
                         TextColor="Black" CornerRadius="10" Clicked="BtnModificar_Clicked"/>
-                <Button x:Name="BtnEliminar" Text="Eliminar" BackgroundColor="LightPink"
+                            <Button x:Name="BtnEliminar" Text="Eliminar" BackgroundColor="LightPink"
                         TextColor="Black" CornerRadius="10" Clicked="BtnEliminar_Clicked"/>
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
             </StackLayout>
-        </StackLayout>
+
+            <StackLayout
+                        xct:SideMenuView.ParallaxValue="50"
+                        xct:SideMenuView.MenuAppearanceType="SlideIn"
+                        xct:SideMenuView.Position="RightMenu"
+                        xct:SideMenuView.MenuWidthPercentage=".5"
+                        xct:SideMenuView.MainViewScaleFactor=".95"
+                        BackgroundColor="WhiteSmoke">
+                <Button x:Name="SmInicio" Text="Inicio" 
+                        Clicked="SmInicio_Clicked" 
+                        BackgroundColor="WhiteSmoke"/>
+                <BoxView HorizontalOptions="FillAndExpand" HeightRequest="1" Color="Black"/>
+                <Button x:Name="SmSalir" Text="Salir"
+                        Clicked="SmSalir_Clicked" 
+                        BackgroundColor="WhiteSmoke"/>
+            </StackLayout>
+        </xct:SideMenuView>
     </ContentPage.Content>
 </ContentPage>

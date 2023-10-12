@@ -1,27 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="APPMulticool.View.TipoUsuarioManagementPage">
+             x:Class="APPMulticool.View.TipoUsuarioManagementPage"
+             xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit">
     <ContentPage.Content>
-        <StackLayout Padding="20, 20, 20, 20" BackgroundColor="White">
-            <Label x:Name="LblTipoUsuario" Text="Tipo de usuario" FontSize="20" TextColor="Black"/>
-            
-            <Entry x:Name="TxtNombre" Placeholder="Tipo de usuario">
-                <Entry.Triggers>
-                    <Trigger TargetType="Entry" Property="IsFocused" Value="True">
-                        <Setter Property="BackgroundColor" Value="LightGray"/>
-                        <Setter Property="TextColor" Value="Black"/>
-                        <Setter Property="FontSize" Value="20"/>
-                    </Trigger>
-                </Entry.Triggers>
-            </Entry>
 
-            <StackLayout Padding="0, 200">
-                <Button x:Name="BtnApply" Text="Aplicar" BackgroundColor="LightBlue"
+        <xct:SideMenuView x:Name="SideMenu">
+            <StackLayout BackgroundColor="White">
+                <StackLayout Orientation="Horizontal">
+                    <Button x:Name="BtnSideMenu"
+                                    Text="///"
+                                    Clicked="BtnSideMenu_Clicked"
+                                    BackgroundColor="WhiteSmoke"/>
+                </StackLayout>
+
+                <ScrollView>
+                    <StackLayout Padding="20, 20, 20, 20" BackgroundColor="White">
+                        <Label x:Name="LblTipoUsuario" Text="Tipo de usuario" FontSize="20" TextColor="Black"/>
+
+                        <Entry x:Name="TxtNombre" Placeholder="Tipo de usuario">
+                            <Entry.Triggers>
+                                <Trigger TargetType="Entry" Property="IsFocused" Value="True">
+                                    <Setter Property="BackgroundColor" Value="LightGray"/>
+                                    <Setter Property="TextColor" Value="Black"/>
+                                    <Setter Property="FontSize" Value="20"/>
+                                </Trigger>
+                            </Entry.Triggers>
+                        </Entry>
+
+                        <StackLayout Padding="0, 200">
+                            <Button x:Name="BtnApply" Text="Aplicar" BackgroundColor="LightBlue"
                         TextColor="Black" CornerRadius="10" Clicked="BtnApply_Clicked"/>
-                <Button x:Name="BtnCancel" Text="Cancelar" BackgroundColor="LightGray"
+                            <Button x:Name="BtnCancel" Text="Cancelar" BackgroundColor="LightGray"
                         TextColor="Black" CornerRadius="10" Clicked="BtnCancel_Clicked"/>
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
             </StackLayout>
-        </StackLayout>
+
+            <StackLayout
+                        xct:SideMenuView.ParallaxValue="50"
+                        xct:SideMenuView.MenuAppearanceType="SlideIn"
+                        xct:SideMenuView.Position="RightMenu"
+                        xct:SideMenuView.MenuWidthPercentage=".5"
+                        xct:SideMenuView.MainViewScaleFactor=".95"
+                        BackgroundColor="WhiteSmoke">
+                <Button x:Name="SmInicio" Text="Inicio" 
+                        Clicked="SmInicio_Clicked" 
+                        BackgroundColor="WhiteSmoke"/>
+                <BoxView HorizontalOptions="FillAndExpand" HeightRequest="1" Color="Black"/>
+                <Button x:Name="SmSalir" Text="Salir"
+                        Clicked="SmSalir_Clicked"
+                        BackgroundColor="WhiteSmoke"/>
+            </StackLayout>
+        </xct:SideMenuView>
     </ContentPage.Content>
 </ContentPage>

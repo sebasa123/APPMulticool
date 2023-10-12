@@ -68,14 +68,14 @@ namespace APPMulticool.View
             }
             else
             {
-                await DisplayAlert("Validation failed", "Access denied", "OK");
+                await DisplayAlert("Error de validacion", "Acceso denegado", "OK");
                 return;
             }
         }
 
         private async void BtnRecContra_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new PasswordRecoveryPage());
+            await Navigation.PushAsync(new NavigationPage(new PasswordRecoveryPage()));
         }
     }
 }

@@ -13,9 +13,10 @@
             <Entry x:Name="TxtContra" Placeholder="Contraseña"
                    FontSize="20" Keyboard="Default" IsPassword="True"/>
             
-            <Switch x:Name="SwContra" IsToggled="False" Toggled="SwContra_Toggled"/>
+            <Switch x:Name="SwContra" IsToggled="False" Toggled="SwContra_Toggled" 
+                    OnColor="LightGray" ThumbColor="LightSkyBlue"/>
 
-            <Button x:Name="BtnLogin" Text="Login" BackgroundColor="LightBlue"
+            <Button x:Name="BtnLogin" Text="Login" BackgroundColor="LightSkyBlue"
                     FontSize="20" CornerRadius="10" Clicked="BtnLogin_Clicked"/>
             <Button x:Name="BtnRecContra" Text="Recuperar contraseña" BackgroundColor="LightGreen"
                     FontSize="20" CornerRadius="10" Clicked="BtnRecContra_Clicked"/>
