@@ -17,12 +17,35 @@ namespace APPMulticool.View
     public partial class TipoRepuestoPage : ContentPage
     {
         UserViewModel vm;
-        string desc;
         public TipoRepuestoPage()
         {
             InitializeComponent();
             BindingContext = vm = new UserViewModel();
-            desc = ((TipoRepuesto)CvTipoRepuesto.SelectedItem).DescripcionTR;
+            LoadTipoRepList();
+        }
+
+        private async void LoadTipoRepList()
+        {
+            CvTipoRepuesto.ItemsSource = await vm.GetUsuario();
+        }
+
+        private bool ValidateTipoRepData()
+        {
+            bool R = false;
+            if (TxtDescripcion.Text != null && !string.IsNullOrEmpty(TxtDescripcion.Text.Trim()))
+            {
+                R = true;
+            }
+            else
+            {
+                if (TxtDescripcion.Text == null || string.IsNullOrEmpty(TxtDescripcion.Text.Trim()))
+                {
+                    DisplayAlert("Error de validacion", "Debe de digitar la descripcion del tipo de repuesto", "OK");
+                    TxtDescripcion.Focus();
+                    return false;
+                }
+            }
+            return R;
         }
 
         private void SbTipoRepuesto_TextChanged(object sender, TextChangedEventArgs e)
@@ -34,20 +57,70 @@ namespace APPMulticool.View
 
         private async void BtnAgregar_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new TipoRepManagementPage());
+            if (ValidateTipoRepData())
+            {
+                var resp = await DisplayAlert("Tipo de repuesto", "¿Desea agregar la informacion?", "Si", "No");
+                if (resp)
+                {
+                    if (vm.GetNombreTipoRepuesto(TxtDescripcion.Text.Trim()) == null)
+                    {
+                        bool R = await vm.AddTipoRepuesto(TxtDescripcion.Text.Trim());
+                        if (R)
+                        {
+                            await DisplayAlert("Tipo de repuesto", "Tipo de repuesto agregado", "OK");
+                            await Navigation.PopAsync();
+                        }
+                        else
+                        {
+                            await DisplayAlert("Tipo de repuesto", "Algo salio mal", "OK");
+                        }
+                    }
+                    else
+                    {
+                        await DisplayAlert("Tipo de repuesto", "El tipo de repuesto ya existe", "OK");
+                    }
+                }
+            }
         }
 
         private async void BtnModificar_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new TipoRepManagementPage(desc));
+            if (ValidateTipoRepData())
+            {
+                var resp = await DisplayAlert("Tipo de repuesto", "¿Desea agregar la informacion?", "Si", "No");
+                if (resp)
+                {
+                    if (vm.GetNombreTipoRepuesto(TxtDescripcion.Text.Trim()) != null)
+                    {
+                        bool R = await vm.AddTipoRepuesto(TxtDescripcion.Text.Trim());
+                        if (R)
+                        {
+                            await DisplayAlert("Tipo de repuesto", "Tipo de repuesto modificado", "OK");
+                            await Navigation.PopAsync();
+                        }
+                        else
+                        {
+                            await DisplayAlert("Tipo de repuesto", "Algo salio mal", "OK");
+                        }
+                    }
+                    else
+                    {
+                        await DisplayAlert("Tipo de repuesto", "El tipo de repuesto no existe", "OK");
+                    }
+                }
+            }
         }
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
+            var btn = (Button)sender;
+            var tiporep = (TipoRepuesto)btn.BindingContext;
+            int id = tiporep.IDTR;
+
             var result = await this.DisplayAlert("Tipo de repuesto", "¿Desea borrar el tipo de repuesto?", "OK", "Cancelar");
             if (result)
             {
-                bool R = await vm.DeleteTipoRepuesto((TipoRepuestoDTO)CvTipoRepuesto.SelectedItem);
+                bool R = await vm.DeleteTipoRepuesto(id);
                 if (R)
                 {
                     await DisplayAlert("Tipo de repuesto", "El tipo de repuesto se borro correctamente", "OK");
@@ -59,19 +132,13 @@ namespace APPMulticool.View
             }
         }
 
-        private void BtnSideMenu_Clicked(object sender, EventArgs e)
+        private void CvTipoRepuesto_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SideMenu.State = SideMenuState.LeftMenuShown;
-        }
-
-        private async void SmInicio_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new MainMenuPage());
-        }
-
-        private async void SmSalir_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PopToRootAsync();
+            var seleccion = (TipoRepuesto)e.CurrentSelection;
+            TxtDescripcion.Text = seleccion.DescripcionTR;
+            BtnAgregar.IsEnabled = false;
+            BtnModificar.IsEnabled = true;
+            BtnEliminar.IsEnabled = true;
         }
     }
 }

@@ -104,13 +104,12 @@ namespace APPMulticool.Models
                 throw;
             }
         }
-        public async Task<bool> DeleteHerramienta()
+        public async Task<bool> DeleteHerramienta(int pID)
         {
             try
             {
                 string RouteSuffix =
-                     string.Format("Herramientas/DeleteHerramienta?pNombreHer={0}",
-                     this.NombreHer);
+                     string.Format("Herramientas/DeleteHerramienta?pIDHer={0}", pID);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);

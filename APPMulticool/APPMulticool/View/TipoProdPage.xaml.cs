@@ -16,12 +16,16 @@ namespace APPMulticool.View
     public partial class TipoProdPage : ContentPage
     {
         UserViewModel vm;
-        string nom;
         public TipoProdPage()
         {
             InitializeComponent();
             BindingContext = vm = new UserViewModel();
-            nom = ((TipoProducto)CvTipoProducto.SelectedItem).NombreTP;
+            LoadTipoProdList();
+        }
+
+        private async void LoadTipoProdList()
+        {
+            CvTipoProducto.ItemsSource = await vm.GetTipoProducto();
         }
 
         private void SbTipoProducto_TextChanged(object sender, TextChangedEventArgs e)
@@ -31,17 +35,63 @@ namespace APPMulticool.View
             CvTipoProducto.ItemsSource = itemsFilter;
         }
 
+        private bool ValidateTipoProdData()
+        {
+            bool R = false;
+            if (TxtNombre.Text != null && !string.IsNullOrEmpty(TxtNombre.Text.Trim()))
+            {
+                R = true;
+            }
+            else
+            {
+                if (TxtNombre.Text == null || string.IsNullOrEmpty(TxtNombre.Text.Trim()))
+                {
+                    DisplayAlert("Error de validacion", "Debe de digitar el nombre del tipo de producto", "OK");
+                    TxtNombre.Focus();
+                    return false;
+                }
+            }
+            return R;
+        }
+
         private async void BtnAgregar_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new TipoProdManagementPage());
+            if (ValidateTipoProdData())
+            {
+                var resp = await DisplayAlert("Tipo de producto", "¿Desea agregar la informacion?", "Si", "No");
+                if (resp)
+                {
+                    if (vm.GetNombreTipoProducto(TxtNombre.Text.Trim()) == null)
+                    {
+                        bool R = await vm.AddTipoProducto(TxtNombre.Text.Trim());
+                        if (R)
+                        {
+                            await DisplayAlert("Tipo de producto", "Tipo de producto agregado", "OK");
+                            await Navigation.PopAsync();
+                        }
+                        else
+                        {
+                            await DisplayAlert("Tipo de producto", "Algo salio mal", "OK");
+                        }
+                    }
+                    else
+                    {
+                        await DisplayAlert("Tipo de producto", "El tipo de productoario ya existe", "OK");
+                    }
+                }
+            }
         }
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
-            var result = await this.DisplayAlert("Tipo de producto", "¿Desea borrar el tipo de producto?", "OK", "Cancelar");
+            var btn = (Button)sender;
+            var tipoprod = (TipoProducto)btn.BindingContext;
+            int id = tipoprod.IDTP;
+
+            var result = await DisplayAlert("Tipo de producto", "¿Desea borrar el tipo de producto?", "OK", "Cancelar");
             if (result == true)
             {
-                bool R = await vm.DeleteTipoProducto((TipoProductoDTO)CvTipoProducto.SelectedItem);
+                bool R = await vm.DeleteTipoProducto(id);
                 if (R)
                 {
                     await DisplayAlert("Tipo de producto", "El tipo de producto se borro correctamente", "OK");
@@ -55,22 +105,39 @@ namespace APPMulticool.View
 
         private async void BtnModificar_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new TipoProdManagementPage(nom));
+            if (ValidateTipoProdData())
+            {
+                var resp = await DisplayAlert("Tipo de producto", "¿Desea modificar la informacion?", "Si", "No");
+                if (resp)
+                {
+                    if (vm.GetNombreTipoProducto(TxtNombre.Text.Trim()) != null)
+                    {
+                        bool R = await vm.AddTipoProducto(TxtNombre.Text.Trim());
+                        if (R)
+                        {
+                            await DisplayAlert("Tipo de producto", "Tipo de producto modificado", "OK");
+                            await Navigation.PopAsync();
+                        }
+                        else
+                        {
+                            await DisplayAlert("Tipo de producto", "Algo salio mal", "OK");
+                        }
+                    }
+                    else
+                    {
+                        await DisplayAlert("Tipo de producto", "El tipo de productoario no existe", "OK");
+                    }
+                }
+            }
         }
 
-        private void BtnSideMenu_Clicked(object sender, EventArgs e)
+        private void CvTipoProducto_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SideMenu.State = SideMenuState.LeftMenuShown;
-        }
-
-        private async void SmInicio_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new MainMenuPage());
-        }
-
-        private async void SmSalir_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PopToRootAsync();
+            var seleccion = (TipoProducto)e.CurrentSelection.FirstOrDefault();
+            TxtNombre.Text = seleccion.NombreTP;
+            BtnAgregar.IsEnabled = false;
+            BtnModificar.IsEnabled = true;
+            BtnEliminar.IsEnabled = true;
         }
     }
 }

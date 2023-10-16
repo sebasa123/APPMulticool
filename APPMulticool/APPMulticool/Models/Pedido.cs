@@ -28,8 +28,8 @@ namespace APPMulticool.Models
         {
             try
             {
-                string RouteSuffix = string.Format("Pedidos/GetPedidoByCliente?pIDCli={0}",
-                this.FKCli);
+                string RouteSuffix = string.Format("Pedidos/GetPedidoByCliente?pNombreCli={0}",
+                PedXCli.NombreCli);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Get);
@@ -114,13 +114,42 @@ namespace APPMulticool.Models
                 throw;
             }
         }
-        public async Task<bool> DeletePedido()
+        public async Task<List<Pedido>> GetAllPedidoList()
+        {
+            try
+            {
+                string RouteSuffix = string.Format("Pedido");
+                string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
+                RestClient client = new RestClient(URL);
+                Request = new RestRequest(URL, Method.Get);
+                Request.AddHeader(Services.APIConnection.ApiKeyName,
+                    Services.APIConnection.ApiKeyValue);
+                Request.AddHeader(GlobalObjects.ContentType,
+                    GlobalObjects.MimeType);
+                RestResponse response = await client.ExecuteAsync(Request);
+                HttpStatusCode statusCode = response.StatusCode;
+                if (statusCode == HttpStatusCode.OK)
+                {
+                    var PedidoLista = JsonConvert.DeserializeObject<List<Pedido>>(response.Content);
+                    return PedidoLista;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                string ErrorMsg = ex.Message;
+                throw;
+            }
+        }
+        public async Task<bool> DeletePedido(int pID)
         {
             try
             {
                 string RouteSuffix =
-                     string.Format("Pedidos/DeletePedido?pDescripcionPed={0}",
-                     this.DescripcionPed);
+                     string.Format("Pedidos/DeletePedido?pIDPed={0}", pID);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);

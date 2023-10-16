@@ -3,13 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="APPMulticool.View.ProductoPage">
     <ContentPage.Content>
+
         <StackLayout Padding="20, 20, 20, 20" BackgroundColor="White">
             <SearchBar x:Name="SbProducto" Placeholder="Busque un producto..."
                        TextChanged="SbProducto_TextChanged"/>
 
             <CollectionView x:Name="CvProducto" ItemsSource="{Binding Producto}"
                             EmptyView="No existen tipos de usuario para mostrar" 
-                            SelectionMode="Single" SelectedItem="{Binding SelectedProducto}">
+                            SelectionMode="Single" SelectedItem="{Binding SelectedProducto}"
+                            SelectionChanged="CvProducto_SelectionChanged">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid RowDefinitions="Auto, Auto, Auto">
@@ -20,6 +22,19 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
+            <Entry x:Name="TxtNombre" Placeholder="Nombre del producto">
+                <Entry.Triggers>
+                    <Trigger TargetType="Entry" Property="IsFocused" Value="True">
+                        <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
+                        <Setter Property="TextColor" Value="Black"/>
+                        <Setter Property="FontSize" Value="20"/>
+                    </Trigger>
+                </Entry.Triggers>
+            </Entry>
+
+            <Picker x:Name="PckrTP" Title="Seleccione el tipo de producto"
+                    ItemDisplayBinding="{Binding NombreTP}"/>
+
             <StackLayout Padding="0, 200">
                 <Button x:Name="BtnAgregar" Text="Agregar" BackgroundColor="LightGreen"
                         TextColor="Black" CornerRadius="10" Clicked="BtnAgregar_Clicked"/>
@@ -29,5 +44,6 @@
                         TextColor="Black" CornerRadius="10" Clicked="BtnEliminar_Clicked"/>
             </StackLayout>
         </StackLayout>
+
     </ContentPage.Content>
 </ContentPage>

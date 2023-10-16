@@ -108,13 +108,12 @@ namespace APPMulticool.Models
                 throw;
             }
         }
-        public async Task<bool> DeleteCliente()
+        public async Task<bool> DeleteCliente(int pID)
         {
             try
             {
                 string RouteSuffix =
-                     string.Format("Clientes/DeleteCliente?pNombreCli={0}",
-                     this.NombreCli);
+                     string.Format("Clientes/DeleteCliente?pIDCli={0}", pID);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using APPMulticool.Models;
 using APPMulticool.ModelsDTO;
 using APPMulticool.ViewModels;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -28,23 +29,137 @@ namespace APPMulticool.View
             CvCliente.ItemsSource = itemsFilter;
         }
 
+        private bool ValidateClienteData()
+        {
+            bool R = false;
+            if (TxtNombre.Text != null && !string.IsNullOrEmpty(TxtNombre.Text.Trim()) &&
+                TxtApellido.Text != null && !string.IsNullOrEmpty(TxtApellido.Text.Trim()) &&
+                TxtCedula.Text != null && !string.IsNullOrEmpty(TxtCedula.Text.Trim()) &&
+                TxtDireccion.Text != null && !string.IsNullOrEmpty(TxtDireccion.Text.Trim()))
+            {
+                R = true;
+            }
+            else
+            {
+                if (TxtNombre.Text == null || string.IsNullOrEmpty(TxtNombre.Text.Trim()))
+                {
+                    DisplayAlert("Error de validacion", "Debe de digitar el nombre del cliente", "OK");
+                    TxtNombre.Focus();
+                    return false;
+                }
+                if (TxtApellido.Text == null || string.IsNullOrEmpty(TxtApellido.Text.Trim()))
+                {
+                    DisplayAlert("Error de validacion", "Debe de digitar el apellido del usuario", "OK");
+                    TxtApellido.Focus();
+                    return false;
+                }
+                if (TxtCedula.Text == null || string.IsNullOrEmpty(TxtCedula.Text.Trim()))
+                {
+                    DisplayAlert("Error de validacion", "Debe de digitar el numero de cedula", "OK");
+                    TxtCedula.Focus();
+                    return false;
+                }
+                if (TxtDireccion.Text == null || string.IsNullOrEmpty(TxtDireccion.Text.Trim()))
+                {
+                    DisplayAlert("Error de validacion", "Debe de digitar la direccion", "OK");
+                    TxtDireccion.Focus();
+                    return false;
+                }
+            }
+            return R;
+        }
+
         private async void BtnAgregar_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ClienteManagementPage());
+            if (ValidateClienteData())
+            {
+                var resp = await DisplayAlert("Cliente", "¿Desea agregar la informacion?", "Si", "No");
+                if (resp)
+                {
+                    if (vm.GetNombreCliente(TxtNombre.Text.Trim()) == null)
+                    {
+                        bool R = await vm.AddCliente(TxtNombre.Text.Trim(),
+                            TxtApellido.Text.Trim(), ((int)TxtCedula.TextTransform),
+                            TxtDireccion.Text.Trim());
+                        if (R)
+                        {
+                            await DisplayAlert("Cliente", "Cliente agregado", "OK");
+                            await Navigation.PopAsync();
+                        }
+                        else
+                        {
+                            await DisplayAlert("Cliente", "Algo salio mal", "OK");
+                        }
+                    }
+                    else
+                    {
+                        await DisplayAlert("Cliente", "El cliente ya existe", "OK");
+                    }
+                }
+            }
         }
 
         private async void BtnModificar_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ClienteManagementPage());
+            if (ValidateClienteData())
+            {
+                var resp = await DisplayAlert("Cliente", "¿Desea modificar la informacion?", "Si", "No");
+                if (resp)
+                {
+                    if (vm.GetNombreCliente(TxtNombre.Text.Trim()) != null)
+                    {
+                        bool R = await vm.AddCliente(TxtNombre.Text.Trim(),
+                            TxtApellido.Text.Trim(), ((int)TxtCedula.TextTransform),
+                            TxtDireccion.Text.Trim());
+                        if (R)
+                        {
+                            await DisplayAlert("Cliente", "Cliente modificado", "OK");
+                            await Navigation.PopAsync();
+                        }
+                        else
+                        {
+                            await DisplayAlert("Cliente", "Algo salio mal", "OK");
+                        }
+                    }
+                    else
+                    {
+                        await DisplayAlert("Cliente", "El cliente no existe", "OK");
+                    }
+                }
+            }
         }
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
+            var btn = (Button)sender;
+            var cli = (Cliente)btn.BindingContext;
+            int id = cli.IDCli;
+
             var result = await this.DisplayAlert("Cliente", "¿Desea borrar el cliente?", "OK", "Cancelar");
             if (result == true)
             {
-                bool R = await vm.DeleteCliente((ClienteDTO)CvCliente.SelectedItem);
+                bool R = await vm.DeleteCliente(id);
+                if (R)
+                {
+                    await DisplayAlert("Cliente", "El cliente se borro correctamente", "OK");
+                }
+                else
+                {
+                    await DisplayAlert("Cliente", "Algo salio mal", "OK");
+                }
             }
+        }
+
+        private void CvCliente_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var seleccion = (Cliente)e.CurrentSelection.FirstOrDefault();
+            TxtNombre.Text = seleccion.NombreCli;
+            TxtApellido.Text = seleccion.ApellidoCli;
+            TxtCedula.Text = seleccion.CedulaCli.ToString();
+            TxtDireccion.Text = seleccion.DireccionCli;
+            BtnAgregar.IsEnabled = false;
+            BtnModificar.IsEnabled = true;
+            BtnEliminar.IsEnabled = true;
         }
     }
 }

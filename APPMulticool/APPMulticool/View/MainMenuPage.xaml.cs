@@ -63,19 +63,5 @@ namespace APPMulticool.View
             await Navigation.PushAsync(new TipoUsuarioPage());
         }
 
-        private void BtnSideMenu_Clicked(object sender, EventArgs e)
-        {
-            SideMenu.State = SideMenuState.LeftMenuShown;
-        }
-
-        private async void SmInicio_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new MainMenuPage());
-        }
-
-        private async void SmSalir_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PopToRootAsync();
-        }
     }
 }

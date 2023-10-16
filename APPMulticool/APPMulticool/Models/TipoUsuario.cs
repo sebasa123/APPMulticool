@@ -103,13 +103,12 @@ namespace APPMulticool.Models
                 throw;
             }
         }
-        public async Task<bool> DeleteTipoUsuario()
+        public async Task<bool> DeleteTipoUsuario(int pID)
         {
             try
             {
                 string RouteSuffix =
-                     string.Format("TipoUsuarios/DeleteTipoUsuario?pNombreTU={0}",
-                     this.NombreTU);
+                     string.Format("TipoUsuarios/DeleteTipoUsuario?pIDTU={0}", pID);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);

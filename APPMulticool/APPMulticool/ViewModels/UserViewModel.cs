@@ -92,6 +92,8 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
+
+
         public async Task<List<TipoUsuario>> GetTipoUsuario()
         {
             try
@@ -292,6 +294,8 @@ namespace APPMulticool.ViewModels
                 throw;
             }
         }
+
+
         public async Task<List<Usuario>> GetUsuario()
         {
             try
@@ -412,6 +416,48 @@ namespace APPMulticool.ViewModels
                 throw;
             }
         }
+        public async Task<List<TipoProducto>> GetTipoProducto()
+        {
+            try
+            {
+                List<TipoProducto> tprod = new List<TipoProducto>();
+                tprod = await MyTipoProducto.GetAllTipoProductoList();
+                if (tprod == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return tprod;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<List<Pedido>> GetPedido()
+        {
+            try
+            {
+                List<Pedido> ped = new List<Pedido>();
+                ped = await MyPedido.GetAllPedidoList();
+                if (ped == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return ped;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
         public async Task<bool> AddUsuario(string pNombreUs, 
             string pContraUs, int pTipo)
         {
@@ -649,6 +695,8 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
+
+
         public async Task<bool> ValidacionCodigoRecuperacion(string pEmail, string pCodigo)
         {
             if (IsBusy) return false;
@@ -689,13 +737,15 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> DeleteUsuario(UsuarioDTO pUsuario)
+
+
+        public async Task<bool> DeleteUsuario(int pID)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
-                bool R = await MyUsuario.DeleteUser();
+                bool R = await MyUsuario.DeleteUser(pID);
                 return R;
             }
             catch (Exception)
@@ -708,13 +758,13 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> DeleteTipoUsuario(TipoUsuarioDTO pTipoUsuario)
+        public async Task<bool> DeleteTipoUsuario(int pID)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
-                bool R = await MyTipoUsuario.DeleteTipoUsuario();
+                bool R = await MyTipoUsuario.DeleteTipoUsuario(pID);
                 return R;
             }
             catch (Exception)
@@ -727,13 +777,13 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> DeleteTipoRepuesto(TipoRepuestoDTO pTipoRepuesto)
+        public async Task<bool> DeleteTipoRepuesto(int pID)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
-                bool R = await MyTipoRepuesto.DeleteTipoRepuesto();
+                bool R = await MyTipoRepuesto.DeleteTipoRepuesto(pID);
                 return R;
             }
             catch (Exception)
@@ -746,13 +796,13 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> DeleteTipoProducto(TipoProductoDTO pTipoProducto)
+        public async Task<bool> DeleteTipoProducto(int pID)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
-                bool R = await MyTipoProducto.DeleteTipoProducto();
+                bool R = await MyTipoProducto.DeleteTipoProducto(pID);
                 return R;
             }
             catch (Exception)
@@ -765,13 +815,13 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> DeleteRepuesto(RepuestoDTO pRepuesto)
+        public async Task<bool> DeleteRepuesto(int pID)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
-                bool R = await MyRepuesto.DeleteRepuesto();
+                bool R = await MyRepuesto.DeleteRepuesto(pID);
                 return R;
             }
             catch (Exception)
@@ -784,13 +834,13 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> DeleteProducto(ProductoDTO pProducto)
+        public async Task<bool> DeleteProducto(int pID)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
-                bool R = await MyProducto.DeleteProducto();
+                bool R = await MyProducto.DeleteProducto(pID);
                 return R;
             }
             catch (Exception)
@@ -803,13 +853,13 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> DeletePedido(PedidoDTO pPedido)
+        public async Task<bool> DeletePedido(int pID)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
-                bool R = await MyPedido.DeletePedido();
+                bool R = await MyPedido.DeletePedido(pID);
                 return R;
             }
             catch (Exception)
@@ -822,13 +872,13 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> DeleteHerramienta(HerramientaDTO pHerramienta)
+        public async Task<bool> DeleteHerramienta(int pID)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
-                bool R = await MyHerramienta.DeleteHerramienta();
+                bool R = await MyHerramienta.DeleteHerramienta(pID);
                 return R;
             }
             catch (Exception)
@@ -841,13 +891,13 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> DeleteCliente(ClienteDTO pCliente)
+        public async Task<bool> DeleteCliente(int pID)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
-                bool R = await MyCliente.DeleteCliente();
+                bool R = await MyCliente.DeleteCliente(pID);
                 return R;
             }
             catch (Exception)

@@ -16,12 +16,10 @@ namespace APPMulticool.View
     public partial class TipoUsuarioPage : ContentPage
     {
         UserViewModel vm;
-        string tipo;
         public TipoUsuarioPage()
         {
             InitializeComponent();
             BindingContext = vm = new UserViewModel();
-            tipo = ((TipoUsuario)CvTipoUsuarios.SelectedItem).NombreTU;
         }
 
         private void SbTipoUsuario_TextChanged(object sender, TextChangedEventArgs e)
@@ -31,22 +29,91 @@ namespace APPMulticool.View
             CvTipoUsuarios.ItemsSource = itemsFilter;
         }
 
+        private bool ValidateTipoUsuarioData()
+        {
+            bool R = false;
+            if (TxtNombre.Text != null && !string.IsNullOrEmpty(TxtNombre.Text.Trim()))
+            {
+                R = true;
+            }
+            else
+            {
+                if (TxtNombre.Text == null || string.IsNullOrEmpty(TxtNombre.Text.Trim()))
+                {
+                    DisplayAlert("Error de validacion", "Debe de digitar el nombre del tipo de usuario", "OK");
+                    TxtNombre.Focus();
+                    return false;
+                }
+            }
+            return R;
+        }
+
         private async void BtnAgregar_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new TipoUsuarioManagementPage());
+            if (ValidateTipoUsuarioData())
+            {
+                var resp = await DisplayAlert("Tipo de usuario", "¿Desea agregar la informacion?", "Si", "No");
+                if (resp)
+                {
+                    if (vm.GetNombreTipoUsuario(TxtNombre.Text.Trim()) == null)
+                    {
+                        bool R = await vm.AddTipoUsuario(TxtNombre.Text.Trim());
+                        if (R)
+                        {
+                            await DisplayAlert("Tipo de usuario", "Tipo de usuario agregado", "OK");
+                            await Navigation.PopAsync();
+                        }
+                        else
+                        {
+                            await DisplayAlert("Tipo de usuario", "Algo salio mal", "OK");
+                        }
+                    }
+                    else
+                    {
+                        await DisplayAlert("Tipo de usuario", "El tipo de usuario ya existe", "OK");
+                    }
+                }
+            }
         }
 
         private async void BtnModificar_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new TipoUsuarioManagementPage(tipo));
+            if (ValidateTipoUsuarioData())
+            {
+                var resp = await DisplayAlert("Tipo de usuario", "¿Desea modificar la informacion?", "Si", "No");
+                if (resp)
+                {
+                    if (vm.GetNombreTipoUsuario(TxtNombre.Text.Trim()) != null)
+                    {
+                        bool R = await vm.AddTipoUsuario(TxtNombre.Text.Trim());
+                        if (R)
+                        {
+                            await DisplayAlert("Tipo de usuario", "Tipo de usuario modificado", "OK");
+                            await Navigation.PopAsync();
+                        }
+                        else
+                        {
+                            await DisplayAlert("Tipo de usuario", "Algo salio mal", "OK");
+                        }
+                    }
+                    else
+                    {
+                        await DisplayAlert("Tipo de usuario", "El tipo de usuario no existe", "OK");
+                    }
+                }
+            }
         }
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
+            var btn = (Button)sender;
+            var tipo = (TipoUsuario)btn.BindingContext;
+            int id = tipo.IDTU;
+
             var result = await this.DisplayAlert("Tipo de usuario", "¿Desea borrar el tipo de usuario?", "OK", "Cancelar");
             if (result)
             {
-                bool R = await vm.DeleteTipoUsuario((TipoUsuarioDTO)CvTipoUsuarios.SelectedItem);
+                bool R = await vm.DeleteTipoUsuario(id);
                 if (R)
                 {
                     await DisplayAlert("Tipo de usuario", "El tipo de usuario se borro correctamente", "OK");
@@ -58,19 +125,13 @@ namespace APPMulticool.View
             }
         }
 
-        private void BtnSideMenu_Clicked(object sender, EventArgs e)
+        private void CvTipoUsuarios_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SideMenu.State = SideMenuState.LeftMenuShown;
-        }
-
-        private async void SmInicio_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new MainMenuPage());
-        }
-
-        private async void SmSalir_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new LoginPage());
+            var seleccion = (TipoUsuario)e.CurrentSelection.FirstOrDefault();
+            TxtNombre.Text = seleccion.NombreTU;
+            BtnAgregar.IsEnabled = false;
+            BtnModificar.IsEnabled = true;
+            BtnEliminar.IsEnabled = true;
         }
     }
 }

@@ -4,96 +4,69 @@
              x:Class="APPMulticool.View.MainMenuPage"
              xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit">
     <ContentPage.Content>
-        <xct:SideMenuView x:Name="SideMenu">
-            <StackLayout BackgroundColor="White">
-                <StackLayout Orientation="Horizontal">
-                    <Button x:Name="BtnSideMenu"
-                                    Text="///"
-                                    Clicked="BtnSideMenu_Clicked"
-                                    BackgroundColor="WhiteSmoke"/>
-                </StackLayout>
 
-                <ScrollView>
-                    <FlexLayout Direction="Column" VerticalOptions="CenterAndExpand">
+        <FlexLayout Direction="Column" VerticalOptions="CenterAndExpand">
 
-                        <Label Text="Seleccione una opcion" VerticalOptions="CenterAndExpand"
+            <Label Text="Seleccione una opcion" VerticalOptions="CenterAndExpand"
                        HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center"
                        HorizontalTextAlignment="Center" FontSize="20"/>
 
-                        <Grid Padding="10,15,10,20">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+            <Grid Padding="10,15,10,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-                            <Button Grid.Row="0" Grid.ColumnSpan="2" x:Name="BtnPedidoManagement"
+                <Button Grid.Row="0" Grid.ColumnSpan="2" x:Name="BtnPedidoManagement"
                             Text="Pedidos" BackgroundColor="MediumSpringGreen" FontSize="20"
                             VerticalOptions="CenterAndExpand" HeightRequest="110" 
                             WidthRequest="100" CornerRadius="15" Clicked="BtnPedidoManagement_Clicked"/>
 
-                            <Button Grid.Row="1" Grid.Column="0" x:Name="BtnRepuestoManagement"
+                <Button Grid.Row="1" Grid.Column="0" x:Name="BtnRepuestoManagement"
                             Text="Repuestos" BackgroundColor="LightSkyBlue" FontSize="20"
                             VerticalOptions="CenterAndExpand" HeightRequest="110" 
                             WidthRequest="100" CornerRadius="15" Clicked="BtnRepuestoManagement_Clicked"/>
 
-                            <Button Grid.Row="1" Grid.Column="1" x:Name="BtnTipoRepuestoManagement"
+                <Button Grid.Row="1" Grid.Column="1" x:Name="BtnTipoRepuestoManagement"
                             Text="Tipos de repuestos" BackgroundColor="LightSkyBlue" FontSize="20"
                             VerticalOptions="CenterAndExpand" HeightRequest="110" 
                             WidthRequest="100" CornerRadius="15" Clicked="BtnTipoRepuestoManagement_Clicked"/>
 
-                            <Button Grid.Row="2" Grid.ColumnSpan="2" x:Name="BtnClienteManagement"
+                <Button Grid.Row="2" Grid.ColumnSpan="2" x:Name="BtnClienteManagement"
                             Text="Clientes" BackgroundColor="MediumSpringGreen" FontSize="20"
                             VerticalOptions="CenterAndExpand" HeightRequest="110" 
                             WidthRequest="100" CornerRadius="15" Clicked="BtnClienteManagement_Clicked"/>
 
-                            <Button Grid.Row="3" Grid.Column="0" x:Name="BtnProductoManagement"
+                <Button Grid.Row="3" Grid.Column="0" x:Name="BtnProductoManagement"
                             Text="Productos" BackgroundColor="LightSkyBlue" FontSize="20"
                             VerticalOptions="CenterAndExpand" HeightRequest="110" 
                             WidthRequest="100" CornerRadius="15" Clicked="BtnProductoManagement_Clicked"/>
 
-                            <Button Grid.Row="3" Grid.Column="1" x:Name="BtnTipoProductoManagement"
+                <Button Grid.Row="3" Grid.Column="1" x:Name="BtnTipoProductoManagement"
                             Text="Tipos de productos" BackgroundColor="LightSkyBlue" FontSize="20"
                             VerticalOptions="CenterAndExpand" HeightRequest="110" 
                             WidthRequest="100" CornerRadius="15" Clicked="BtnTipoProductoManagement_Clicked"/>
 
-                            <Button Grid.Row="4" Grid.ColumnSpan="2" x:Name="BtnHerramientaManagement"
+                <Button Grid.Row="4" Grid.ColumnSpan="2" x:Name="BtnHerramientaManagement"
                             Text="Herramientas" BackgroundColor="MediumSpringGreen" FontSize="20"
                             VerticalOptions="CenterAndExpand" HeightRequest="110" 
                             WidthRequest="100" CornerRadius="15" Clicked="BtnHerramientaManagement_Clicked"/>
 
-                            <Button Grid.Row="5" Grid.Column="0" x:Name="BtnUsuarioManagement"
+                <Button Grid.Row="5" Grid.Column="0" x:Name="BtnUsuarioManagement"
                             Text="Usuarios" BackgroundColor="LightSkyBlue" FontSize="20"
                             VerticalOptions="CenterAndExpand" HeightRequest="110" 
                             WidthRequest="100" CornerRadius="15" Clicked="BtnUsuarioManagement_Clicked"/>
 
-                            <Button Grid.Row="5" Grid.Column="1" x:Name="BtnTipoUsuarioManagement"
+                <Button Grid.Row="5" Grid.Column="1" x:Name="BtnTipoUsuarioManagement"
                             Text="Tipos de usuarios" BackgroundColor="LightSkyBlue" FontSize="20"
                             VerticalOptions="CenterAndExpand" HeightRequest="110" 
                             WidthRequest="100" CornerRadius="15" Clicked="BtnTipoUsuarioManagement_Clicked"/>
-                        </Grid>
-                    </FlexLayout>
-                </ScrollView>
-            </StackLayout>
+            </Grid>
+        </FlexLayout>
 
-            <StackLayout
-                        xct:SideMenuView.ParallaxValue="50"
-                        xct:SideMenuView.MenuAppearanceType="SlideIn"
-                        xct:SideMenuView.Position="RightMenu"
-                        xct:SideMenuView.MenuWidthPercentage=".5"
-                        xct:SideMenuView.MainViewScaleFactor=".95"
-                        BackgroundColor="WhiteSmoke">
-                <Button x:Name="SmInicio" Text="Inicio" 
-                        Clicked="SmInicio_Clicked" 
-                        BackgroundColor="WhiteSmoke"/>
-                <BoxView HorizontalOptions="FillAndExpand" HeightRequest="1" Color="Black"/>
-                <Button x:Name="SmSalir" Text="Salir"
-                        Clicked="SmSalir_Clicked" 
-                        BackgroundColor="WhiteSmoke"/>
-            </StackLayout>
-        </xct:SideMenuView>
     </ContentPage.Content>
 </ContentPage>

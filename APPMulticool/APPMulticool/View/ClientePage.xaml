@@ -3,13 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="APPMulticool.View.ClientePage">
     <ContentPage.Content>
+
         <StackLayout Padding="20, 20, 20, 20" BackgroundColor="White">
             <SearchBar x:Name="SbCliente" Placeholder="Busque un cliente..."
                        TextChanged="SbCliente_TextChanged"/>
 
             <CollectionView x:Name="CvCliente" ItemsSource="{Binding Cliente}"
                             EmptyView="No existen clientes para mostrar" 
-                            SelectionMode="Single" SelectedItem="{Binding SelectedCliente}">
+                            SelectionMode="Single" SelectedItem="{Binding SelectedCliente}"
+                            SelectionChanged="CvCliente_SelectionChanged">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid RowDefinitions="Auto, Auto, Auto">
@@ -22,6 +24,46 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
+            <Entry x:Name="TxtNombre" Placeholder="Nombre">
+                <Entry.Triggers>
+                    <Trigger TargetType="Entry" Property="IsFocused" Value="True">
+                        <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
+                        <Setter Property="TextColor" Value="Black"/>
+                        <Setter Property="FontSize" Value="20"/>
+                    </Trigger>
+                </Entry.Triggers>
+            </Entry>
+
+            <Entry x:Name="TxtApellido" Placeholder="Apellido">
+                <Entry.Triggers>
+                    <Trigger TargetType="Entry" Property="IsFocused" Value="True">
+                        <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
+                        <Setter Property="TextColor" Value="Black"/>
+                        <Setter Property="FontSize" Value="20"/>
+                    </Trigger>
+                </Entry.Triggers>
+            </Entry>
+
+            <Entry x:Name="TxtCedula" Placeholder="Cedula">
+                <Entry.Triggers>
+                    <Trigger TargetType="Entry" Property="IsFocused" Value="True">
+                        <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
+                        <Setter Property="TextColor" Value="Black"/>
+                        <Setter Property="FontSize" Value="20"/>
+                    </Trigger>
+                </Entry.Triggers>
+            </Entry>
+
+            <Entry x:Name="TxtDireccion" Placeholder="Direccion">
+                <Entry.Triggers>
+                    <Trigger TargetType="Entry" Property="IsFocused" Value="True">
+                        <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
+                        <Setter Property="TextColor" Value="Black"/>
+                        <Setter Property="FontSize" Value="20"/>
+                    </Trigger>
+                </Entry.Triggers>
+            </Entry>
+
             <StackLayout Padding="0, 200">
                 <Button x:Name="BtnAgregar" Text="Agregar" BackgroundColor="LightGreen"
                         TextColor="Black" CornerRadius="10" Clicked="BtnAgregar_Clicked"/>
@@ -31,5 +73,6 @@
                         TextColor="Black" CornerRadius="10" Clicked="BtnEliminar_Clicked"/>
             </StackLayout>
         </StackLayout>
+           
     </ContentPage.Content>
 </ContentPage>

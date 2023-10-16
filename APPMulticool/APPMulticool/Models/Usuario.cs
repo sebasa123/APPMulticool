@@ -24,7 +24,7 @@ namespace APPMulticool.Models
             {
                 string RouteSuffix =
                      string.Format("Usuarios/ValidateUserLogin?pNombreUs={0}&pContraUs={1}",
-                     this.NombreUs, this.ContrasUs);
+                     NombreUs, ContrasUs);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);
@@ -46,13 +46,13 @@ namespace APPMulticool.Models
                 throw;
             }
         }
-        public async Task<bool> DeleteUser()
+        public async Task<bool> DeleteUser(int pID)
         {
             try
             {
                 string RouteSuffix =
-                     string.Format("Usuarios/DeleteUser?pNombreUs={0}",
-                     this.NombreUs);
+                     string.Format("Usuarios/DeleteUser?pIDUs={0}",
+                     pID);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);

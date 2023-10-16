@@ -3,13 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="APPMulticool.View.RepuestoPage">
     <ContentPage.Content>
+        
         <StackLayout Padding="20, 20, 20, 20" BackgroundColor="White">
             <SearchBar x:Name="SbRepuesto" Placeholder="Busque un repuesto..."
                        TextChanged="SbRepuesto_TextChanged"/>
 
             <CollectionView x:Name="CvRepuesto" ItemsSource="{Binding Repuestos}"
                             EmptyView="No existen repuestos para mostrar" 
-                            SelectionMode="Single" SelectedItem="{Binding SelectedRepuesto}">
+                            SelectionMode="Single" SelectedItem="{Binding SelectedRepuesto}"
+                            SelectionChanged="CvRepuesto_SelectionChanged">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid RowDefinitions="Auto, Auto, Auto">
@@ -20,6 +22,30 @@
             </CollectionView>
 
             <StackLayout Padding="0, 200">
+                <Label x:Name="LblCompleto" Text="Estado del repuesto: Completo"
+                       FontSize="20" TextColor="Black"/>
+
+                <Switch x:Name="SwCompleto" IsToggled="false" OnColor="LightGray" 
+                    ThumbColor="LightSkyBlue"/>
+            </StackLayout>
+
+            <Entry x:Name="TxtDesc" Placeholder="Descripcion">
+                <Entry.Triggers>
+                    <Trigger TargetType="Entry" Property="IsFocused" Value="True">
+                        <Setter Property="BackgroundColor" Value="LightGray"/>
+                        <Setter Property="TextColor" Value="Black"/>
+                        <Setter Property="FontSize" Value="20"/>
+                    </Trigger>
+                </Entry.Triggers>
+            </Entry>
+
+            <Picker x:Name="PckrTR" Title="Seleccione el tipo de repuesto"
+                    ItemDisplayBinding="{Binding DescripcionTR}"/>
+
+            <Picker x:Name="PckrHer" Title="Seleccione la herramienta"
+                    ItemDisplayBinding="{Binding NombreHer}"/>
+            
+            <StackLayout Padding="0, 200">
                 <Button x:Name="BtnAgregar" Text="Agregar" BackgroundColor="LightGreen"
                         TextColor="Black" CornerRadius="10" Clicked="BtnAgregar_Clicked"/>
                 <Button x:Name="BtnModificar" Text="Modificar" BackgroundColor="LightBlue"
@@ -28,5 +54,6 @@
                         TextColor="Black" CornerRadius="10" Clicked="BtnEliminar_Clicked"/>
             </StackLayout>
         </StackLayout>
+
     </ContentPage.Content>
 </ContentPage>
