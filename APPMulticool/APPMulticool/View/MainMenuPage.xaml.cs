@@ -55,7 +55,7 @@ namespace APPMulticool.View
 
         private async void BtnUsuarioManagement_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new UsuarioPage());
+            await Navigation.PushAsync(new NavigationPage(new UsuarioPage()));
         }
 
         private async void BtnTipoUsuarioManagement_Clicked(object sender, EventArgs e)

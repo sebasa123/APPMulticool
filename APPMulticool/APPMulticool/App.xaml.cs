@@ -13,10 +13,9 @@ namespace APPMulticool
         {
             InitializeComponent();
             DependencyService.Register<MockDataStore>();
-            MainPage = new NavigationPage (new LoginPage());
-            //MainPage = new NavigationPage(new MainMenuPage());
+            //MainPage = new NavigationPage(new LoginPage()).RootPage;
+            MainPage = new NavigationPage(new MainMenuPage());
             //MainPage = new NavigationPage(new UsuarioPage());
-            //MainPage = new NavigationPage(new UsuarioManagementPage());
         }
 
         protected override void OnStart()

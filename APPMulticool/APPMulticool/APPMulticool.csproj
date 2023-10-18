@@ -21,9 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="View\ClienteManagementPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="View\ClientePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

@@ -75,7 +75,7 @@ namespace APPMulticool.View
 
         private async void BtnRecContra_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new NavigationPage(new PasswordRecoveryPage()));
+            await Navigation.PushAsync(new PasswordRecoveryPage());
         }
     }
 }
