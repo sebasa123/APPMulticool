@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:view="clr-namespace:APPMulticool.View"
+             x:Class="APPMulticool.AppShell"
+             Title="APPMulticool">
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="Usuario...">
+            <ShellContent Title="Usuario" ContentTemplate="{DataTemplate view:UsuarioPage}"/>
+            <ShellContent Title="Tipo de usuario" ContentTemplate="{DataTemplate view:TipoUsuarioPage}"/>
+        </Tab>
+    </FlyoutItem>
+
+    <TabBar>
+        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate view:LoginPage}"/>
+    </TabBar>
+
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid BackgroundColor="Black" HeightRequest="150">
+                <Image/>
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+</Shell>

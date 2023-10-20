@@ -6,6 +6,7 @@
     <ContentPage.Content>
 
         <FlexLayout Direction="Column" VerticalOptions="CenterAndExpand">
+            
 
             <Grid Padding="10,15,10,10">
                 <Grid.RowDefinitions>

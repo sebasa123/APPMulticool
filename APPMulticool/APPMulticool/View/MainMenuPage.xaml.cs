@@ -53,14 +53,14 @@ namespace APPMulticool.View
             await Navigation.PushAsync(new HerramientaPage());
         }
 
-        private async void BtnUsuarioManagement_Clicked(object sender, EventArgs e)
+        private void BtnUsuarioManagement_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new NavigationPage(new UsuarioPage()));
+            Navigation.PushAsync(new UsuarioPage());
         }
 
-        private async void BtnTipoUsuarioManagement_Clicked(object sender, EventArgs e)
+        private void BtnTipoUsuarioManagement_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new TipoUsuarioPage());
+            Navigation.PushAsync(new TipoUsuarioPage());
         }
 
     }

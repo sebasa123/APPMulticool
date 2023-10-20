@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using APPMulticool.Models;
 using APPMulticool.Services;
 using APPMulticool.ViewModels;
-using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

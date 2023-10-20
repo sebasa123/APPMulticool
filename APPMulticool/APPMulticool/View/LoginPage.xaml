@@ -7,6 +7,12 @@
              BackgroundColor="White">
     <ContentPage.Content>
         <StackLayout Padding="50,50,50,250" VerticalOptions="Center">
+            <StackLayout Orientation="Horizontal" Padding="0,0,0,40">
+                <Image Source="MulticoolLogo2.jpeg" HeightRequest="50" TranslationX="195" TranslationY="5"/>
+                <Image Source="MulticoolLogo1.jpeg" HeightRequest="40" TranslationX="-125"/>
+            </StackLayout>
+            
+
             <Entry x:Name="TxtNombre" Placeholder="Nombre de usuario" 
                    FontSize="20" Keyboard="Default"/>
 
