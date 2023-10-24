@@ -20,13 +20,19 @@ namespace APPMulticool.View
         {
             InitializeComponent();
             BindingContext = vm = new UserViewModel();
+            LoadTipoUsuarioList();
+        }
+
+        private async void LoadTipoUsuarioList()
+        {
+            LstTipoUsuario.ItemsSource = await vm.GetTipoUsuarios();
         }
 
         private void SbTipoUsuario_TextChanged(object sender, TextChangedEventArgs e)
         {
             var busq = SbTipoUsuario.Text;
             var itemsFilter = vm.GetNombreTipoUsuario(busq).Result;
-            CvTipoUsuarios.ItemsSource = itemsFilter;
+            LstTipoUsuario.ItemsSource = itemsFilter;
         }
 
         private bool ValidateTipoUsuarioData()
@@ -125,13 +131,19 @@ namespace APPMulticool.View
             }
         }
 
-        private void CvTipoUsuarios_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstTipoUsuario_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var seleccion = (TipoUsuario)e.CurrentSelection.FirstOrDefault();
+            var seleccion = (TipoUsuario)e.SelectedItem;
             TxtNombre.Text = seleccion.NombreTU;
             BtnAgregar.IsEnabled = false;
             BtnModificar.IsEnabled = true;
             BtnEliminar.IsEnabled = true;
+        }
+
+        private async void LstTipoUsuario_Refreshing(object sender, EventArgs e)
+        {
+            await Task.Delay(3000);
+            this.LstTipoUsuario.IsRefreshing = false;
         }
     }
 }

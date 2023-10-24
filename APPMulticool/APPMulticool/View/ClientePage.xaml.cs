@@ -20,13 +20,19 @@ namespace APPMulticool.View
         {
             InitializeComponent();
             BindingContext = vm = new UserViewModel();
+            LoadClienteList();
+        }
+
+        private async void LoadClienteList()
+        {
+            LstCliente.ItemsSource = await vm.GetClientes();
         }
 
         private void SbCliente_TextChanged(object sender, TextChangedEventArgs e)
         {
             var busq = SbCliente.Text;
             var itemsFilter = vm.GetNombreCliente(busq).Result;
-            CvCliente.ItemsSource = itemsFilter;
+            LstCliente.ItemsSource = itemsFilter;
         }
 
         private bool ValidateClienteData()
@@ -150,9 +156,9 @@ namespace APPMulticool.View
             }
         }
 
-        private void CvCliente_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstCliente_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var seleccion = (Cliente)e.CurrentSelection.FirstOrDefault();
+            var seleccion = (Cliente)e.SelectedItem;
             TxtNombre.Text = seleccion.NombreCli;
             TxtApellido.Text = seleccion.ApellidoCli;
             TxtCedula.Text = seleccion.CedulaCli.ToString();
@@ -160,6 +166,12 @@ namespace APPMulticool.View
             BtnAgregar.IsEnabled = false;
             BtnModificar.IsEnabled = true;
             BtnEliminar.IsEnabled = true;
+        }
+
+        private async void LstCliente_Refreshing(object sender, EventArgs e)
+        {
+            await Task.Delay(3000);
+            this.LstCliente.IsRefreshing = false;
         }
     }
 }

@@ -26,7 +26,7 @@ namespace APPMulticool.View
 
         private async void LoadProdList()
         {
-            CvProducto.ItemsSource = await vm.GetProducto();
+            LstProducto.ItemsSource = await vm.GetProductos();
         }
 
         private async void LoadTPList()
@@ -64,7 +64,7 @@ namespace APPMulticool.View
         {
             var busq = SbProducto.Text;
             var itemsFilter = vm.GetNombreProducto(busq).Result;
-            CvProducto.ItemsSource = itemsFilter;
+            LstProducto.ItemsSource = itemsFilter;
         }
 
         private async void BtnAgregar_Clicked(object sender, EventArgs e)
@@ -146,14 +146,20 @@ namespace APPMulticool.View
             }
         }
 
-        private void CvProducto_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstProducto_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var seleccion = (Producto)e.CurrentSelection.FirstOrDefault();
+            var seleccion = (Producto)e.SelectedItem;
             TxtNombre.Text = seleccion.NombreProd;
             PckrTP.SelectedIndex = seleccion.FKTipoProd;
             BtnAgregar.IsEnabled = false;
             BtnModificar.IsEnabled = true;
             BtnEliminar.IsEnabled = true;
+        }
+
+        private async void LstProducto_Refreshing(object sender, EventArgs e)
+        {
+            await Task.Delay(3000);
+            this.LstProducto.IsRefreshing = false;
         }
     }
 }

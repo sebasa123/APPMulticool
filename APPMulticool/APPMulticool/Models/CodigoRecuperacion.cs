@@ -23,7 +23,7 @@ namespace APPMulticool.Models
             try
             {
                 string RouteSuffix =
-                string.Format("CodigoRecuperacion/ValidateCode?pEmail={0}&pRecoveryCode={1}",
+                string.Format("CodigoRecuperacion/ValidateCode?pEmail={0}&pCodigo={1}",
                 this.Email, this.CodigoRec);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);

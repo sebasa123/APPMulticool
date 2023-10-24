@@ -7,27 +7,42 @@
         
         <StackLayout Padding="20, 20, 20, 20" BackgroundColor="White">
             <SearchBar x:Name="SbRepuesto" Placeholder="Busque un repuesto..."
-                       TextChanged="SbRepuesto_TextChanged"/>
+                       TextChanged="SbRepuesto_TextChanged" FontSize="18"/>
 
-            <CollectionView x:Name="CvRepuesto" ItemsSource="{Binding Repuestos}"
-                            EmptyView="No existen repuestos para mostrar" 
-                            SelectionMode="Single" SelectedItem="{Binding SelectedRepuesto}"
-                            SelectionChanged="CvRepuesto_SelectionChanged">
-                <CollectionView.ItemTemplate>
+            <ListView x:Name="LstRepuesto" SelectionMode="Single" ItemSelected="LstRepuesto_ItemSelected"
+                      BackgroundColor="WhiteSmoke" IsPullToRefreshEnabled="True" Refreshing="LstRepuesto_Refreshing"
+                      HasUnevenRows="True">
+                <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid RowDefinitions="Auto, Auto, Auto">
-                            <Label Grid.Row="0" Text="{Binding DescripcionRep}"/>
-                        </Grid>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackLayout VerticalOptions="FillAndExpand" Grid.Column="0">
+                                    <Label FontSize="18" Text="{Binding DescripcionRep}"/>
+                                    <Label FontSize="15" Text="{Binding CompletoRep, StringFormat='Completo: {0}'}"/>
+                                </StackLayout>
+                                <StackLayout VerticalOptions="FillAndExpand" Grid.Column="1">
+                                    <Label FontSize="15" Text="{Binding FKTipoRep, StringFormat='Tipo de repuesto: {0}'}"/>
+                                    <Label FontSize="15" Text="{Binding FKHer, StringFormat='Herramienta: {0}'}"/>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
                     </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                </ListView.ItemTemplate>
+            </ListView>
 
-            <StackLayout Padding="0, 200">
+            <BoxView HeightRequest="1" Color="Black" Margin="0,15,0,15"/>
+            
+            <StackLayout>
                 <Label x:Name="LblCompleto" Text="Estado del repuesto: Completo"
                        FontSize="20" TextColor="Black"/>
 
                 <Switch x:Name="SwCompleto" IsToggled="false" OnColor="LightGray" 
-                    ThumbColor="LightSkyBlue"/>
+                    ThumbColor="LightSkyBlue" IsEnabled="False"/>
             </StackLayout>
 
             <Entry x:Name="TxtDesc" Placeholder="Descripcion">
@@ -35,24 +50,30 @@
                     <Trigger TargetType="Entry" Property="IsFocused" Value="True">
                         <Setter Property="BackgroundColor" Value="LightGray"/>
                         <Setter Property="TextColor" Value="Black"/>
-                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="FontSize" Value="18"/>
+                        <Setter Property="IsEnabled" Value="False"/>
                     </Trigger>
                 </Entry.Triggers>
             </Entry>
 
             <Picker x:Name="PckrTR" Title="Seleccione el tipo de repuesto"
-                    ItemDisplayBinding="{Binding DescripcionTR}"/>
+                    IsEnabled="False"/>
 
             <Picker x:Name="PckrHer" Title="Seleccione la herramienta"
-                    ItemDisplayBinding="{Binding NombreHer}"/>
+                    IsEnabled="False"/>
+
+            <BoxView HeightRequest="1" Color="Black" Margin="0,15,0,15"/>
             
-            <StackLayout Padding="0, 200">
+            <StackLayout>
                 <Button x:Name="BtnAgregar" Text="Agregar" BackgroundColor="LightGreen"
-                        TextColor="Black" CornerRadius="10" Clicked="BtnAgregar_Clicked"/>
+                        TextColor="Black" CornerRadius="10" Clicked="BtnAgregar_Clicked"
+                        IsEnabled="True" FontSize="18" HeightRequest="60"/>
                 <Button x:Name="BtnModificar" Text="Modificar" BackgroundColor="LightBlue"
-                        TextColor="Black" CornerRadius="10" Clicked="BtnModificar_Clicked"/>
+                        TextColor="Black" CornerRadius="10" Clicked="BtnModificar_Clicked"
+                        IsEnabled="True" FontSize="18" HeightRequest="60"/>
                 <Button x:Name="BtnEliminar" Text="Eliminar" BackgroundColor="LightPink"
-                        TextColor="Black" CornerRadius="10" Clicked="BtnEliminar_Clicked"/>
+                        TextColor="Black" CornerRadius="10" Clicked="BtnEliminar_Clicked"
+                        IsEnabled="True" FontSize="18" HeightRequest="60"/>
             </StackLayout>
         </StackLayout>
 

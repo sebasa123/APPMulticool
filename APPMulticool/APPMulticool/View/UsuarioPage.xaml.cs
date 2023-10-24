@@ -25,7 +25,7 @@ namespace APPMulticool.View
         }
         private async void LoadUsuarioList()
         {
-            CvUsuarios.ItemsSource = await uvm.GetUsuario();
+            LstUsuario.ItemsSource = await uvm.GetUsuarios();
         }
 
         private async void LoadTipoList()
@@ -70,7 +70,7 @@ namespace APPMulticool.View
         {
             var busq = SbUsuario.Text.Trim();
             var itemsFilter = uvm.GetNombreUsuario(busq).Result;
-            CvUsuarios.ItemsSource = itemsFilter;
+            LstUsuario.ItemsSource = itemsFilter;
         }
 
         private async void BtnAgregar_Clicked(object sender, EventArgs e)
@@ -155,15 +155,21 @@ namespace APPMulticool.View
             }
         }
 
-        private void CvUsuarios_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstUsuario_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var seleccion = (Usuario)e.CurrentSelection.FirstOrDefault();
+            var seleccion = (Usuario)e.SelectedItem;
             TxtNombre.Text = seleccion.NombreUs;
             TxtContra.Text = seleccion.ContrasUs;
-            PckrTU.SelectedIndex = seleccion.UsXTU.IDTU;
+            PckrTU.SelectedIndex = seleccion.FKTipoUsuario;
             BtnAgregar.IsEnabled = false;
             BtnModificar.IsEnabled = true;
             BtnEliminar.IsEnabled = true;
+        }
+
+        private async void LstUsuario_Refreshing(object sender, EventArgs e)
+        {
+            await Task.Delay(3000);
+            this.LstUsuario.IsRefreshing = false;
         }
     }
 }

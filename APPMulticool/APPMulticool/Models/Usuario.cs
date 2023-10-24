@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using RestSharp;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace APPMulticool.Models
 {
@@ -23,8 +24,8 @@ namespace APPMulticool.Models
             try
             {
                 string RouteSuffix =
-                     string.Format("Usuarios/ValidateUserLogin?pNombreUs={0}&pContraUs={1}",
-                     NombreUs, ContrasUs);
+                     string.Format("Usuarios/ValidateUserLogin?pNombre={0}&pContra={0}",
+                     this.NombreUs, this.ContrasUs);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);
@@ -152,6 +153,36 @@ namespace APPMulticool.Models
                 if (statusCode == HttpStatusCode.OK)
                 {
                     var UsuarioLista = JsonConvert.DeserializeObject<List<Usuario>>(response.Content);
+                    return UsuarioLista;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                string ErrorMsg = ex.Message;
+                throw;
+            }
+        }
+
+        public async Task<ObservableCollection<Usuario>> GetUsuarios()
+        {
+            try
+            {
+                string RouteSuffix = string.Format("Usuarios");
+                string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
+                RestClient client = new RestClient(URL);
+                Request = new RestRequest(URL, Method.Get);
+                Request.AddHeader(Services.APIConnection.ApiKeyName,
+                    Services.APIConnection.ApiKeyValue);
+                Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
+                RestResponse response = await client.ExecuteAsync(Request);
+                HttpStatusCode statusCode = response.StatusCode;
+                if (statusCode == HttpStatusCode.OK)
+                {
+                    var UsuarioLista = JsonConvert.DeserializeObject<ObservableCollection<Usuario>>(response.Content);
                     return UsuarioLista;
                 }
                 else

@@ -29,7 +29,7 @@ namespace APPMulticool.View
 
         private async void LoadPedidoList()
         {
-            CvPedido.ItemsSource = await vm.GetPedido();
+            LstPedido.ItemsSource = await vm.GetPedidos();
         }
         private async void LoadRepList()
         {
@@ -52,7 +52,7 @@ namespace APPMulticool.View
         {
             var busq = SbPedido.Text;
             var itemsFilter = vm.GetNombrePedido(busq).Result;
-            CvPedido.ItemsSource = itemsFilter;
+            LstPedido.ItemsSource = itemsFilter;
         }
 
         private bool ValidatePedidoData()
@@ -193,9 +193,9 @@ namespace APPMulticool.View
             }
         }
 
-        private void CvPedido_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstPedido_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var seleccion = (Pedido)e.CurrentSelection.FirstOrDefault();
+            var seleccion = (Pedido)e.SelectedItem;
             TxtDesc.Text = seleccion.DescripcionPed;
             DtPckrFecha.Date = seleccion.FechaPed;
             PckrRep.SelectedIndex = seleccion.PedXRep.IDRep;
@@ -205,6 +205,12 @@ namespace APPMulticool.View
             BtnAgregar.IsEnabled = false;
             BtnModificar.IsEnabled = true;
             BtnEliminar.IsEnabled = true;
+        }
+
+        private async void LstPedido_Refreshing(object sender, EventArgs e)
+        {
+            await Task.Delay(3000);
+            this.LstPedido.IsRefreshing = false;
         }
     }
 }

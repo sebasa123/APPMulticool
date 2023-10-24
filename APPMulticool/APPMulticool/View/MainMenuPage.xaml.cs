@@ -18,39 +18,39 @@ namespace APPMulticool.View
             InitializeComponent();
         }
 
-        private async void BtnPedidoManagement_Clicked(object sender, EventArgs e)
+        private void BtnPedidoManagement_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new PedidoPage());
+            Navigation.PushAsync(new PedidoPage());
         }
 
-        private async void BtnRepuestoManagement_Clicked(object sender, EventArgs e)
+        private void BtnRepuestoManagement_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new RepuestoPage());
+            Navigation.PushAsync(new RepuestoPage());
         }
 
-        private async void BtnTipoRepuestoManagement_Clicked(object sender, EventArgs e)
+        private void BtnTipoRepuestoManagement_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new TipoRepuestoPage());
+            Navigation.PushAsync(new TipoRepuestoPage());
         }
 
-        private async void BtnClienteManagement_Clicked(object sender, EventArgs e)
+        private void BtnClienteManagement_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ClientePage());
+            Navigation.PushAsync(new ClientePage());
         }
 
-        private async void BtnProductoManagement_Clicked(object sender, EventArgs e)
+        private void BtnProductoManagement_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ProductoPage());
+            Navigation.PushAsync(new ProductoPage());
         }
 
-        private async void BtnTipoProductoManagement_Clicked(object sender, EventArgs e)
+        private void BtnTipoProductoManagement_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new TipoProdPage());
+            Navigation.PushAsync(new TipoProdPage());
         }
 
-        private async void BtnHerramientaManagement_Clicked(object sender, EventArgs e)
+        private void BtnHerramientaManagement_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new HerramientaPage());
+            Navigation.PushAsync(new HerramientaPage());
         }
 
         private void BtnUsuarioManagement_Clicked(object sender, EventArgs e)

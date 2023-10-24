@@ -9,28 +9,40 @@
             <SearchBar x:Name="SbCliente" Placeholder="Busque un cliente..."
                        TextChanged="SbCliente_TextChanged"/>
 
-            <CollectionView x:Name="CvCliente" ItemsSource="{Binding Cliente}"
-                            EmptyView="No existen clientes para mostrar" 
-                            SelectionMode="Single" SelectedItem="{Binding SelectedCliente}"
-                            SelectionChanged="CvCliente_SelectionChanged">
-                <CollectionView.ItemTemplate>
+            <ListView x:Name="LstCliente" SelectionMode="Single" ItemSelected="LstCliente_ItemSelected"
+                      BackgroundColor="WhiteSmoke" IsPullToRefreshEnabled="True" Refreshing="LstCliente_Refreshing"
+                      HasUnevenRows="True">
+                <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid RowDefinitions="Auto, Auto, Auto">
-                            <Label Grid.Row="0" Text="{Binding NombreCli}"/>
-                            <Label Grid.Row="0" Text="{Binding ApellidoCli}"/>
-                            <Label Grid.Row="0" Text="{Binding CedulaCli}"/>
-                            <Label Grid.Row="0" Text="{Binding DireccionCli}"/>
-                        </Grid>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackLayout VerticalOptions="FillAndExpand" Grid.Column="0">
+                                    <Label FontSize="18" Text="{Binding NombreCli}"/>
+                                    <Label FontSize="15" Text="{Binding CedulaCli, StringFormat='Cedula: {0}'}"/>
+                                </StackLayout>
+                                <StackLayout VerticalOptions="FillAndExpand" Grid.Column="1">
+                                    <Label FontSize="18" Text="{Binding ApellidoCli}"/>
+                                    <Label FontSize="15" Text="{Binding DireccionCli, StringFormat='Direccion: {0}'}"/>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
                     </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                </ListView.ItemTemplate>
+            </ListView>
 
+            <BoxView HeightRequest="1" Color="Black" Margin="0,15,0,15"/>
+            
             <Entry x:Name="TxtNombre" Placeholder="Nombre">
                 <Entry.Triggers>
                     <Trigger TargetType="Entry" Property="IsFocused" Value="True">
                         <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
                         <Setter Property="TextColor" Value="Black"/>
-                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="FontSize" Value="18"/>
+                        <Setter Property="IsEnabled" Value="False"/>
                     </Trigger>
                 </Entry.Triggers>
             </Entry>
@@ -40,7 +52,8 @@
                     <Trigger TargetType="Entry" Property="IsFocused" Value="True">
                         <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
                         <Setter Property="TextColor" Value="Black"/>
-                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="FontSize" Value="18"/>
+                        <Setter Property="IsEnabled" Value="False"/>
                     </Trigger>
                 </Entry.Triggers>
             </Entry>
@@ -50,7 +63,8 @@
                     <Trigger TargetType="Entry" Property="IsFocused" Value="True">
                         <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
                         <Setter Property="TextColor" Value="Black"/>
-                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="FontSize" Value="18"/>
+                        <Setter Property="IsEnabled" Value="False"/>
                     </Trigger>
                 </Entry.Triggers>
             </Entry>
@@ -60,18 +74,24 @@
                     <Trigger TargetType="Entry" Property="IsFocused" Value="True">
                         <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
                         <Setter Property="TextColor" Value="Black"/>
-                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="FontSize" Value="18"/>
+                        <Setter Property="IsEnabled" Value="False"/>
                     </Trigger>
                 </Entry.Triggers>
             </Entry>
 
-            <StackLayout Padding="0, 200">
+            <BoxView HeightRequest="1" Color="Black" Margin="0,15,0,15"/>
+
+            <StackLayout>
                 <Button x:Name="BtnAgregar" Text="Agregar" BackgroundColor="LightGreen"
-                        TextColor="Black" CornerRadius="10" Clicked="BtnAgregar_Clicked"/>
+                        TextColor="Black" CornerRadius="10" Clicked="BtnAgregar_Clicked"
+                        IsEnabled="False" FontSize="18" HeightRequest="60"/>
                 <Button x:Name="BtnModificar" Text="Modificar" BackgroundColor="LightBlue"
-                        TextColor="Black" CornerRadius="10" Clicked="BtnModificar_Clicked"/>
+                        TextColor="Black" CornerRadius="10" Clicked="BtnModificar_Clicked"
+                        IsEnabled="False" FontSize="18" HeightRequest="60"/>
                 <Button x:Name="BtnEliminar" Text="Eliminar" BackgroundColor="LightPink"
-                        TextColor="Black" CornerRadius="10" Clicked="BtnEliminar_Clicked"/>
+                        TextColor="Black" CornerRadius="10" Clicked="BtnEliminar_Clicked"
+                        IsEnabled="False" FontSize="18" HeightRequest="60"/>
             </StackLayout>
         </StackLayout>
            

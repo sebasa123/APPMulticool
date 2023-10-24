@@ -25,14 +25,14 @@ namespace APPMulticool.View
 
         private async void LoadTipoProdList()
         {
-            CvTipoProducto.ItemsSource = await vm.GetTipoProducto();
+            LstTipoProducto.ItemsSource = await vm.GetTipoProductos();
         }
 
         private void SbTipoProducto_TextChanged(object sender, TextChangedEventArgs e)
         {
             var busq = SbTipoProducto.Text;
             var itemsFilter = vm.GetNombreTipoProducto(busq).Result;
-            CvTipoProducto.ItemsSource = itemsFilter;
+            LstTipoProducto.ItemsSource = itemsFilter;
         }
 
         private bool ValidateTipoProdData()
@@ -131,13 +131,20 @@ namespace APPMulticool.View
             }
         }
 
-        private void CvTipoProducto_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void LstTipoProducto_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var seleccion = (TipoProducto)e.CurrentSelection.FirstOrDefault();
+            var seleccion = (TipoProducto)e.SelectedItem;
             TxtNombre.Text = seleccion.NombreTP;
             BtnAgregar.IsEnabled = false;
             BtnModificar.IsEnabled = true;
             BtnEliminar.IsEnabled = true;
+        }
+
+        private async void LstTipoProducto_Refreshing(object sender, EventArgs e)
+        {
+            await Task.Delay(3000);
+            this.LstTipoProducto.IsRefreshing = false;
         }
     }
 }

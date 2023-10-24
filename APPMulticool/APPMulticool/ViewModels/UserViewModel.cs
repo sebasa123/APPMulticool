@@ -4,11 +4,15 @@ using System.Text;
 using APPMulticool.Models;
 using APPMulticool.ModelsDTO;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
 
 namespace APPMulticool.ViewModels
 {
     public class UserViewModel : BaseViewModel
     {
+        #region Modelos
         public Usuario MyUsuario { get; set; }
         public UsuarioDTO MyUsuarioDTO { get; set; }
         public TipoUsuario MyTipoUsuario { get; set; }
@@ -44,6 +48,9 @@ namespace APPMulticool.ViewModels
             MyCodigoRec = new CodigoRecuperacion();
             MyEmail = new Models.Email();
         }
+        #endregion
+
+        #region Usuario
         public async Task<UsuarioDTO> GetUsuarioData(string pNombre)
         {
             if (IsBusy) return null;
@@ -92,28 +99,49 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-
-
-        public async Task<List<TipoUsuario>> GetTipoUsuario()
+        public async Task<bool> ValidacionCodigoRecuperacion(string pEmail, string pCodigo)
         {
+            if (IsBusy) return false;
+            IsBusy = true;
             try
             {
-                List<TipoUsuario> tipoUs = new List<TipoUsuario>();
-                tipoUs = await MyTipoUsuario.GetAllTipoUsuarioList();
-                if (tipoUs == null)
-                {
-                    return null;
-                }
-                else
-                {
-                    return tipoUs;
-                }
+                MyCodigoRec.Email = pEmail;
+                MyCodigoRec.CodigoRec = pCodigo;
+                bool R = await MyCodigoRec.ValidarCodigoRec();
+                return R;
             }
             catch (Exception)
             {
+                return false;
                 throw;
             }
+            finally
+            {
+                IsBusy = false;
+            }
         }
+        public async Task<bool> UpdateUsuario(UsuarioDTO pUsuario)
+        {
+            if (IsBusy) return false;
+            IsBusy = true;
+            try
+            {
+                bool R = await MyUsuario.AddUsuario();
+                return R;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        #endregion
+
+        #region GetNombre
         public async Task<List<Usuario>> GetNombreUsuario(string pNombre)
         {
             try
@@ -294,8 +322,9 @@ namespace APPMulticool.ViewModels
                 throw;
             }
         }
+        #endregion
 
-
+        #region Get(List)
         public async Task<List<Usuario>> GetUsuario()
         {
             try
@@ -309,6 +338,26 @@ namespace APPMulticool.ViewModels
                 else
                 {
                     return us;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<List<TipoUsuario>> GetTipoUsuario()
+        {
+            try
+            {
+                List<TipoUsuario> tipoUs = new List<TipoUsuario>();
+                tipoUs = await MyTipoUsuario.GetAllTipoUsuarioList();
+                if (tipoUs == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return tipoUs;
                 }
             }
             catch (Exception)
@@ -456,8 +505,255 @@ namespace APPMulticool.ViewModels
                 throw;
             }
         }
+        #endregion
 
+        #region Get(ObservableCollection)
+        public async Task<ObservableCollection<Usuario>> GetUsuarios()
+        {
+            if (IsBusy) return null;
+            IsBusy = true;
+            try
+            {
+                ObservableCollection<Usuario> list = new ObservableCollection<Usuario>();
+                list = await MyUsuario.GetUsuarios();
+                if (list == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return list;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<ObservableCollection<TipoUsuario>> GetTipoUsuarios()
+        {
+            if (IsBusy) return null;
+            IsBusy = true;
+            try
+            {
+                ObservableCollection<TipoUsuario> list = new ObservableCollection<TipoUsuario>();
+                list = await MyTipoUsuario.GetTipoUsuarios();
+                if (list == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return list;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<ObservableCollection<Pedido>> GetPedidos()
+        {
+            if (IsBusy) return null;
+            IsBusy = true;
+            try
+            {
+                ObservableCollection<Pedido> list = new ObservableCollection<Pedido>();
+                list = await MyPedido.GetPedidos();
+                if (list == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return list;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<ObservableCollection<Cliente>> GetClientes()
+        {
+            if (IsBusy) return null;
+            IsBusy = true;
+            try
+            {
+                ObservableCollection<Cliente> list = new ObservableCollection<Cliente>();
+                list = await MyCliente.GetClientes();
+                if (list == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return list;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<ObservableCollection<Repuesto>> GetRepuestos()
+        {
+            if (IsBusy) return null;
+            IsBusy = true;
+            try
+            {
+                ObservableCollection<Repuesto> list = new ObservableCollection<Repuesto>();
+                list = await MyRepuesto.GetRepuestos();
+                if (list == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return list;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<ObservableCollection<TipoRepuesto>> GetTipoRepuestos()
+        {
+            if (IsBusy) return null;
+            IsBusy = true;
+            try
+            {
+                ObservableCollection<TipoRepuesto> list = new ObservableCollection<TipoRepuesto>();
+                list = await MyTipoRepuesto.GetTipoRepuestos();
+                if (list == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return list;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<ObservableCollection<Herramienta>> GetHerramientas()
+        {
+            if (IsBusy) return null;
+            IsBusy = true;
+            try
+            {
+                ObservableCollection<Herramienta> list = new ObservableCollection<Herramienta>();
+                list = await MyHerramienta.GetHerramientas();
+                if (list == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return list;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<ObservableCollection<Producto>> GetProductos()
+        {
+            if (IsBusy) return null;
+            IsBusy = true;
+            try
+            {
+                ObservableCollection<Producto> list = new ObservableCollection<Producto>();
+                list = await MyProducto.GetProductos();
+                if (list == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return list;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<ObservableCollection<TipoProducto>> GetTipoProductos()
+        {
+            if (IsBusy) return null;
+            IsBusy = true;
+            try
+            {
+                ObservableCollection<TipoProducto> list = new ObservableCollection<TipoProducto>();
+                list = await MyTipoProducto.GetTipoProductos();
+                if (list == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return list;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        #endregion
 
+        #region Add
         public async Task<bool> AddUsuario(string pNombreUs, 
             string pContraUs, int pTipo)
         {
@@ -695,50 +991,9 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
+        #endregion
 
-
-        public async Task<bool> ValidacionCodigoRecuperacion(string pEmail, string pCodigo)
-        {
-            if (IsBusy) return false;
-            IsBusy = true;
-            try
-            {
-                MyCodigoRec.Email = pEmail;
-                MyCodigoRec.CodigoRec = pCodigo;
-                bool R = await MyCodigoRec.ValidarCodigoRec();
-                return R;
-            }
-            catch (Exception)
-            {
-                return false;
-                throw;
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-        public async Task<bool> UpdateUsuario(UsuarioDTO pUsuario)
-        {
-            if (IsBusy) return false;
-            IsBusy = true;
-            try
-            {
-                bool R = await MyUsuario.AddUsuario();
-                return R;
-            }
-            catch (Exception)
-            {
-                return false;
-                throw;
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-
+        #region Delete
         public async Task<bool> DeleteUsuario(int pID)
         {
             if (IsBusy) return false;
@@ -910,5 +1165,17 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
+        #endregion
+
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged([CallerMemberName] string propertyName =
+        null)
+        {
+            PropertyChanged?.Invoke(this, new
+         PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
     }
 }

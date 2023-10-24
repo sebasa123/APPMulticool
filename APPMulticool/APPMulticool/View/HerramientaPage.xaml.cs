@@ -25,14 +25,14 @@ namespace APPMulticool.View
 
         private async void LoadHerramientaList()
         {
-            CvHerramienta.ItemsSource = await vm.GetHerramienta();
+            LstHerramienta.ItemsSource = await vm.GetHerramientas();
         }
 
         private void SbHeramienta_TextChanged(object sender, TextChangedEventArgs e)
         {
             var busq = SbHeramienta.Text;
             var itemsFilter = vm.GetNombreHerramienta(busq).Result;
-            CvHerramienta.ItemsSource = itemsFilter;
+            LstHerramienta.ItemsSource = itemsFilter;
         }
 
         private bool ValidateHerramientaData()
@@ -138,14 +138,20 @@ namespace APPMulticool.View
             }
         }
 
-        private void CvHerramienta_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LstHerramienta_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var seleccion = (Herramienta)e.CurrentSelection.FirstOrDefault();
+            var seleccion = (Herramienta)e.SelectedItem;
             TxtNombre.Text = seleccion.NombreHer;
             TxtNumero.Text = seleccion.NumeroHer.ToString();
             BtnAgregar.IsEnabled = false;
             BtnModificar.IsEnabled = true;
             BtnEliminar.IsEnabled = true;
+        }
+
+        private async void LstHerramienta_Refreshing(object sender, EventArgs e)
+        {
+            await Task.Delay(3000);
+            this.LstHerramienta.IsRefreshing = false;
         }
     }
 }

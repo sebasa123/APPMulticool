@@ -27,7 +27,7 @@ namespace APPMulticool.View
 
         private async void LoadRepList()
         {
-            CvRepuesto.ItemsSource = await vm.GetRepuesto();
+            LstRepuesto.ItemsSource = await vm.GetRepuestos();
         }
 
         private async void LoadTipoRepList()
@@ -76,7 +76,7 @@ namespace APPMulticool.View
         {
             var busq = SbRepuesto.Text;
             var itemsFilter = vm.GetNombreRepuesto(busq).Result;
-            CvRepuesto.ItemsSource = itemsFilter;
+            LstRepuesto.ItemsSource = itemsFilter;
         }
 
         private async void BtnAgregar_Clicked(object sender, EventArgs e)
@@ -162,15 +162,22 @@ namespace APPMulticool.View
             }
         }
 
-        private void CvRepuesto_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void LstRepuesto_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var seleccion = (Repuesto)e.CurrentSelection.FirstOrDefault();
+            var seleccion = (Repuesto)e.SelectedItem;
             TxtDesc.Text = seleccion.DescripcionRep;
             PckrTR.SelectedIndex = seleccion.RepXTR.IDTR;
             PckrHer.SelectedIndex = seleccion.RepXHer.IDHer;
             BtnAgregar.IsEnabled = false;
             BtnModificar.IsEnabled = true;
             BtnEliminar.IsEnabled = true;
+        }
+
+        private async void LstRepuesto_Refreshing(object sender, EventArgs e)
+        {
+            await Task.Delay(3000);
+            this.LstRepuesto.IsRefreshing = false;
         }
     }
 }
