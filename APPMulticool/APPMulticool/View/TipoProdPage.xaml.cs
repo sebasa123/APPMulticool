@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using APPMulticool.Models;
 using APPMulticool.ModelsDTO;
 using APPMulticool.ViewModels;
-using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -84,14 +83,10 @@ namespace APPMulticool.View
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
-            var btn = (Button)sender;
-            var tipoprod = (TipoProducto)btn.BindingContext;
-            int id = tipoprod.IDTP;
-
             var result = await DisplayAlert("Tipo de producto", "¿Desea borrar el tipo de producto?", "OK", "Cancelar");
             if (result == true)
             {
-                bool R = await vm.DeleteTipoProducto(id);
+                bool R = await vm.DeleteTipoProducto(((int)TxtID.TextTransform));
                 if (R)
                 {
                     await DisplayAlert("Tipo de producto", "El tipo de producto se borro correctamente", "OK");
@@ -135,6 +130,7 @@ namespace APPMulticool.View
         private void LstTipoProducto_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var seleccion = (TipoProducto)e.SelectedItem;
+            TxtID.Text = seleccion.IDTP.ToString();
             TxtNombre.Text = seleccion.NombreTP;
             BtnAgregar.IsEnabled = false;
             BtnModificar.IsEnabled = true;

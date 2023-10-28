@@ -23,14 +23,15 @@ namespace APPMulticool.View
             LoadUsuarioList();
             LoadTipoList();
         }
+
         private async void LoadUsuarioList()
         {
             LstUsuario.ItemsSource = await uvm.GetUsuarios();
         }
-
         private async void LoadTipoList()
         {
             PckrTU.ItemsSource = await uvm.GetTipoUsuario();
+            PckrTU.ItemDisplayBinding = new Binding("NombreTU");
         }
 
         private bool ValidateUsuarioData()
@@ -80,8 +81,7 @@ namespace APPMulticool.View
                 var resp = await DisplayAlert("Usuario", "¿Desea agregar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    //if (vm.GetUsuarioData(TxtNombre.Text).Result.IDUs == 0)
-                    if (uvm.GetNombreUsuario(TxtNombre.Text.Trim()) == null)
+                    if (uvm.GetUsuarioData(TxtNombre.Text.Trim()).Result.NombreUs == null)
                     {
                         TipoUsuario tu = PckrTU.SelectedItem as TipoUsuario;
                         bool R = await uvm.AddUsuario(TxtNombre.Text.Trim(),
@@ -136,14 +136,10 @@ namespace APPMulticool.View
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
-            var btn = (Button)sender;
-            var usuario = (Usuario)btn.BindingContext;
-            int id = usuario.IDUs;
-
             var result = await DisplayAlert("Usuario", "¿Desea borrar el usuario?", "OK", "Cancelar");
             if (result)
             {
-                bool R = await uvm.DeleteUsuario(id);
+                bool R = await uvm.DeleteUsuario(((int)TxtID.TextTransform));
                 if (R)
                 {
                     await DisplayAlert("Usuario", "El usuario se borro correctamente", "OK");
@@ -158,9 +154,10 @@ namespace APPMulticool.View
         private void LstUsuario_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var seleccion = (Usuario)e.SelectedItem;
+            TxtID.Text = seleccion.IDUs.ToString();
             TxtNombre.Text = seleccion.NombreUs;
             TxtContra.Text = seleccion.ContrasUs;
-            PckrTU.SelectedIndex = seleccion.FKTipoUsuario;
+            PckrTU.SelectedIndex = seleccion.FKTipoUsuario - 1;
             BtnAgregar.IsEnabled = false;
             BtnModificar.IsEnabled = true;
             BtnEliminar.IsEnabled = true;

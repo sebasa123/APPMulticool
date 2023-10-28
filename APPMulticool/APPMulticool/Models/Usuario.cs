@@ -24,7 +24,7 @@ namespace APPMulticool.Models
             try
             {
                 string RouteSuffix =
-                     string.Format("Usuarios/ValidateUserLogin?pNombre={0}&pContra={0}",
+                     string.Format("Usuarios/ValidateUserLogin?pNombre={0}&pContra={1}",
                      this.NombreUs, this.ContrasUs);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
@@ -106,12 +106,11 @@ namespace APPMulticool.Models
                 throw;
             }
         }
-
         public async Task<List<Usuario>> GetAllUserNameList(string pNombre)
         {
             try
             {
-                string RouteSuffix = string.Format("Usuario");
+                string RouteSuffix = string.Format("Usuarios");
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Get);
@@ -166,7 +165,6 @@ namespace APPMulticool.Models
                 throw;
             }
         }
-
         public async Task<ObservableCollection<Usuario>> GetUsuarios()
         {
             try
@@ -184,6 +182,35 @@ namespace APPMulticool.Models
                 {
                     var UsuarioLista = JsonConvert.DeserializeObject<ObservableCollection<Usuario>>(response.Content);
                     return UsuarioLista;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                string ErrorMsg = ex.Message;
+                throw;
+            }
+        }
+        public async Task<Usuario> GetUsuarioID(int pID)
+        {
+            try
+            {
+                string RouteSufix = string.Format("Usuarios/{0}", pID);
+                string URL = Services.APIConnection.ProductionURLPrefix + RouteSufix;
+                RestClient client = new RestClient(URL);
+                Request = new RestRequest(URL, Method.Get);
+                Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);
+                Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
+                RestResponse response = await client.ExecuteAsync(Request);
+                HttpStatusCode statusCode = response.StatusCode;
+                if (statusCode == HttpStatusCode.OK)
+                {
+                    var list = JsonConvert.DeserializeObject<List<Usuario>>(response.Content);
+                    var item = list[0];
+                    return item;
                 }
                 else
                 {

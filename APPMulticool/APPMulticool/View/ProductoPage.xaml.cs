@@ -28,7 +28,6 @@ namespace APPMulticool.View
         {
             LstProducto.ItemsSource = await vm.GetProductos();
         }
-
         private async void LoadTPList()
         {
             PckrTP.ItemsSource = await vm.GetTipoProducto();
@@ -127,14 +126,10 @@ namespace APPMulticool.View
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
-            var btn = (Button)sender;
-            var prod = (Producto)btn.BindingContext;
-            int id = prod.IDProd;
-
             var result = await DisplayAlert("Producto", "¿Desea borrar el producto?", "OK", "Cancelar");
             if (result)
             {
-                bool R = await vm.DeleteProducto(id);
+                bool R = await vm.DeleteProducto(((int)TxtID.TextTransform));
                 if (R)
                 {
                     await DisplayAlert("Producto", "El producto se borro correctamente", "OK");
@@ -149,6 +144,7 @@ namespace APPMulticool.View
         private void LstProducto_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var seleccion = (Producto)e.SelectedItem;
+            TxtID.Text = seleccion.IDProd.ToString();
             TxtNombre.Text = seleccion.NombreProd;
             PckrTP.SelectedIndex = seleccion.FKTipoProd;
             BtnAgregar.IsEnabled = false;

@@ -137,14 +137,10 @@ namespace APPMulticool.View
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
-            var btn = (Button)sender;
-            var cli = (Cliente)btn.BindingContext;
-            int id = cli.IDCli;
-
             var result = await this.DisplayAlert("Cliente", "¿Desea borrar el cliente?", "OK", "Cancelar");
             if (result == true)
             {
-                bool R = await vm.DeleteCliente(id);
+                bool R = await vm.DeleteCliente(((int)TxtID.TextTransform));
                 if (R)
                 {
                     await DisplayAlert("Cliente", "El cliente se borro correctamente", "OK");
@@ -159,6 +155,7 @@ namespace APPMulticool.View
         private void LstCliente_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var seleccion = (Cliente)e.SelectedItem;
+            TxtID.Text = seleccion.IDCli.ToString();
             TxtNombre.Text = seleccion.NombreCli;
             TxtApellido.Text = seleccion.ApellidoCli;
             TxtCedula.Text = seleccion.CedulaCli.ToString();

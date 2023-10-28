@@ -29,15 +29,15 @@ namespace APPMulticool.View
         {
             LstRepuesto.ItemsSource = await vm.GetRepuestos();
         }
-
         private async void LoadTipoRepList()
         {
             PckrTR.ItemsSource = await vm.GetTipoRepuesto();
+            PckrTR.ItemDisplayBinding = new Binding("DescripcionTR");
         }
-
         private async void LoadHerramientaList()
         {
             PckrHer.ItemsSource = await vm.GetHerramienta();
+            PckrHer.ItemDisplayBinding = new Binding("NombreHer");
         }
 
         private bool ValidateRepuestoData()
@@ -112,14 +112,10 @@ namespace APPMulticool.View
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
-            var btn = (Button)sender;
-            var rep = (Repuesto)btn.BindingContext;
-            int id = rep.IDRep;
-
             var result = await DisplayAlert("Repuesto", "¿Desea borrar el repuesto?", "OK", "Cancelar");
             if (result == true)
             {
-                bool R = await vm.DeleteRepuesto(id);
+                bool R = await vm.DeleteRepuesto(((int)TxtID.TextTransform));
                 if (R)
                 {
                     await DisplayAlert("Respuesto", "El repuesto se borro correctamente", "OK");
@@ -166,9 +162,10 @@ namespace APPMulticool.View
         private void LstRepuesto_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var seleccion = (Repuesto)e.SelectedItem;
+            TxtID.Text = seleccion.IDRep.ToString();
             TxtDesc.Text = seleccion.DescripcionRep;
-            PckrTR.SelectedIndex = seleccion.RepXTR.IDTR;
-            PckrHer.SelectedIndex = seleccion.RepXHer.IDHer;
+            PckrTR.SelectedIndex = seleccion.FKTipoRep - 1;
+            PckrHer.SelectedIndex = seleccion.FKHerramientas - 1;
             BtnAgregar.IsEnabled = false;
             BtnModificar.IsEnabled = true;
             BtnEliminar.IsEnabled = true;

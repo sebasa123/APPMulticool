@@ -112,14 +112,10 @@ namespace APPMulticool.View
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
-            var btn = (Button)sender;
-            var tipo = (TipoUsuario)btn.BindingContext;
-            int id = tipo.IDTU;
-
             var result = await this.DisplayAlert("Tipo de usuario", "¿Desea borrar el tipo de usuario?", "OK", "Cancelar");
             if (result)
             {
-                bool R = await vm.DeleteTipoUsuario(id);
+                bool R = await vm.DeleteTipoUsuario(((int)TxtID.TextTransform));
                 if (R)
                 {
                     await DisplayAlert("Tipo de usuario", "El tipo de usuario se borro correctamente", "OK");
@@ -134,6 +130,7 @@ namespace APPMulticool.View
         private void LstTipoUsuario_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var seleccion = (TipoUsuario)e.SelectedItem;
+            TxtID.Text = seleccion.IDTU.ToString();
             TxtNombre.Text = seleccion.NombreTU;
             BtnAgregar.IsEnabled = false;
             BtnModificar.IsEnabled = true;

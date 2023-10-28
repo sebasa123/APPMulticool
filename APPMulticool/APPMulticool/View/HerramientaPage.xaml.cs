@@ -119,14 +119,10 @@ namespace APPMulticool.View
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
-            var btn = (Button)sender;
-            var her = (Herramienta)btn.BindingContext;
-            int id = her.IDHer;
-
             var result = await this.DisplayAlert("Herramienta", "¿Desea borrar la herramienta?", "OK", "Cancelar");
             if (result == true)
             {
-                bool R = await vm.DeleteHerramienta(id);
+                bool R = await vm.DeleteHerramienta(((int)TxtID.TextTransform));
                 if (R)
                 {
                     await DisplayAlert("Herramienta", "La herramienta se borro correctamente", "OK");
@@ -141,6 +137,7 @@ namespace APPMulticool.View
         private void LstHerramienta_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var seleccion = (Herramienta)e.SelectedItem;
+            TxtID.Text = seleccion.IDHer.ToString();
             TxtNombre.Text = seleccion.NombreHer;
             TxtNumero.Text = seleccion.NumeroHer.ToString();
             BtnAgregar.IsEnabled = false;

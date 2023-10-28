@@ -25,6 +25,7 @@ namespace APPMulticool.View
             LoadCliList();
             LoadProdList();
             LoadUsList();
+            CheckTipoUsuario(GlobalObjects.LocalUsuario.FKTipoUsuario);
         }
 
         private async void LoadPedidoList()
@@ -46,6 +47,21 @@ namespace APPMulticool.View
         private async void LoadUsList()
         {
             PckrUs.ItemsSource = await vm.GetUsuario();
+        }
+        private void CheckTipoUsuario(int pTipoUs)
+        {
+            if(pTipoUs == 1 || pTipoUs == 2)
+            {
+                TxtDesc.IsEnabled = true;
+                DtPckrFecha.IsEnabled = true;
+                PckrCli.IsEnabled = true;
+                PckrProd.IsEnabled = true;
+                PckrRep.IsEnabled = true;
+                PckrUs.IsEnabled = true;
+                BtnAgregar.IsEnabled = true;
+                BtnModificar.IsEnabled = true;
+                BtnEliminar.IsEnabled = true;
+            }
         }
 
         private void SbPedido_TextChanged(object sender, TextChangedEventArgs e)
@@ -174,14 +190,10 @@ namespace APPMulticool.View
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
-            var btn = (Button)sender;
-            var ped = (Pedido)btn.BindingContext;
-            int id = ped.IDPed;
-
             var result = await this.DisplayAlert("Pedido", "¿Desea borrar el pedido?", "OK", "Cancelar");
             if (result == true)
             {
-                bool R = await vm.DeletePedido(id);
+                bool R = await vm.DeletePedido(((int)TxtID.TextTransform));
                 if (R)
                 {
                     await DisplayAlert("Pedido", "El pedido se borro correctamente", "OK");
@@ -196,15 +208,13 @@ namespace APPMulticool.View
         private void LstPedido_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var seleccion = (Pedido)e.SelectedItem;
+            TxtID.Text = seleccion.IDPed.ToString();
             TxtDesc.Text = seleccion.DescripcionPed;
             DtPckrFecha.Date = seleccion.FechaPed;
             PckrRep.SelectedIndex = seleccion.PedXRep.IDRep;
             PckrCli.SelectedIndex = seleccion.PedXCli.IDCli;
             PckrProd.SelectedIndex = seleccion.PedXProd.IDProd;
             PckrUs.SelectedIndex = seleccion.PedXUs.IDUs;
-            BtnAgregar.IsEnabled = false;
-            BtnModificar.IsEnabled = true;
-            BtnEliminar.IsEnabled = true;
         }
 
         private async void LstPedido_Refreshing(object sender, EventArgs e)

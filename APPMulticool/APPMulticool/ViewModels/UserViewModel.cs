@@ -324,6 +324,252 @@ namespace APPMulticool.ViewModels
         }
         #endregion
 
+        #region GetID
+        public async Task<Usuario> GetUsuarioID(int pID)
+        {
+            if (IsBusy) return null;
+            IsBusy = true;
+            try
+            {
+                Usuario us = new Usuario();
+                us = await MyUsuario.GetUsuarioID(pID);
+                if (us == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return us;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<TipoUsuario> GetTipoUsuarioID(int pID)
+        {
+            if (IsBusy) return null;
+            IsBusy = true;
+            try
+            {
+                TipoUsuario tu = new TipoUsuario();
+                tu= await MyTipoUsuario.GetTipoUsuarioID(pID);
+                if (tu == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return tu;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<Cliente> GetClienteID(int pID)
+        {
+            if (IsBusy) return null;
+            IsBusy = true;
+            try
+            {
+                Cliente cli = new Cliente();
+                cli = await MyCliente.GetClienteID(pID);
+                if (cli == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return cli;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<Pedido> GetPedidoID(int pID)
+        {
+            if (IsBusy) return null;
+            IsBusy = true;
+            try
+            {
+                Pedido ped = new Pedido();
+                ped = await MyPedido.GetPedidoID(pID);
+                if (ped == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return ped;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<Repuesto> GetRepuestoID(int pID)
+        {
+            if (IsBusy) return null;
+            IsBusy = true;
+            try
+            {
+                Repuesto rep = new Repuesto();
+                rep = await MyRepuesto.GetRepuestoID(pID);
+                if (rep == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return rep;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<TipoRepuesto> GetTipoRepuestoID(int pID)
+        {
+            if (IsBusy) return null;
+            IsBusy = true;
+            try
+            {
+                TipoRepuesto trep = new TipoRepuesto();
+                trep = await MyTipoRepuesto.GetTipoRepuestoID(pID);
+                if (trep == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return trep;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<Herramienta> GetHerramientaID(int pID)
+        {
+            if (IsBusy) return null;
+            IsBusy = true;
+            try
+            {
+                Herramienta her = new Herramienta();
+                her = await MyHerramienta.GetHerramientaID(pID);
+                if (her == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return her;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<Producto> GetProductoID(int pID)
+        {
+            if (IsBusy) return null;
+            IsBusy = true;
+            try
+            {
+                Producto prod = new Producto();
+                prod = await MyProducto.GetProductoID(pID);
+                if (prod == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return prod;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<TipoProducto> GetTipoProductoID(int pID)
+        {
+            if (IsBusy) return null;
+            IsBusy = true;
+            try
+            {
+                TipoProducto tprod = new TipoProducto();
+                tprod = await MyTipoProducto.GetTipoProductoID(pID);
+                if (tprod == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return tprod;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        #endregion
+
         #region Get(List)
         public async Task<List<Usuario>> GetUsuario()
         {

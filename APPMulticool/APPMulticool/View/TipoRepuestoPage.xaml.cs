@@ -113,14 +113,10 @@ namespace APPMulticool.View
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
-            var btn = (Button)sender;
-            var tiporep = (TipoRepuesto)btn.BindingContext;
-            int id = tiporep.IDTR;
-
             var result = await this.DisplayAlert("Tipo de repuesto", "¿Desea borrar el tipo de repuesto?", "OK", "Cancelar");
             if (result)
             {
-                bool R = await vm.DeleteTipoRepuesto(id);
+                bool R = await vm.DeleteTipoRepuesto(((int)TxtID.TextTransform));
                 if (R)
                 {
                     await DisplayAlert("Tipo de repuesto", "El tipo de repuesto se borro correctamente", "OK");
@@ -135,6 +131,7 @@ namespace APPMulticool.View
         private void LstTipoRepuesto_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var seleccion = (TipoRepuesto)e.SelectedItem;
+            TxtID.Text = seleccion.IDTR.ToString();
             TxtDescripcion.Text = seleccion.DescripcionTR;
             BtnAgregar.IsEnabled = false;
             BtnModificar.IsEnabled = true;
