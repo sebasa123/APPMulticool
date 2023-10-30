@@ -81,7 +81,7 @@ namespace APPMulticool.View
                 var resp = await DisplayAlert("Usuario", "¿Desea agregar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    if (uvm.GetUsuarioData(TxtNombre.Text.Trim()).Result.NombreUs == null)
+                    if (uvm.GetNombreUsuario(TxtNombre.Text.Trim()) == null)
                     {
                         TipoUsuario tu = PckrTU.SelectedItem as TipoUsuario;
                         bool R = await uvm.AddUsuario(TxtNombre.Text.Trim(),
@@ -111,19 +111,31 @@ namespace APPMulticool.View
                 var resp = await DisplayAlert("Usuario", "¿Desea modificar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    if (uvm.GetUsuarioData(TxtNombre.Text).Result.IDUs != 0)
+                    UsuarioDTO backup = new UsuarioDTO();
+                    backup = GlobalObjects.LocalUs;
+                    GlobalObjects.LocalUs.NombreUs = TxtNombre.Text.Trim();
+                    GlobalObjects.LocalUs.ContrasUs = TxtContra.Text.Trim();
+                    GlobalObjects.LocalUs.FKTipoUsuario = PckrTU.SelectedIndex;
+
+                    if (uvm.GetUsuarioID((int)TxtID.TextTransform) != null)
                     {
-                        TipoUsuario tu = PckrTU.SelectedItem as TipoUsuario;
-                        bool R = await uvm.AddUsuario(TxtNombre.Text.Trim(),
-                            TxtContra.Text.Trim(), tu.IDTU);
-                        if (R)
+                        try
                         {
-                            await DisplayAlert("Usuario", "Usuario modificado", "OK");
-                            await Navigation.PopAsync();
+                            bool R = await uvm.UpdateUsuario(GlobalObjects.LocalUs);
+                            if (R)
+                            {
+                                await DisplayAlert("Usuario", "Usuario modificado", "OK");
+                                await Navigation.PopAsync();
+                            }
+                            else
+                            {
+                                await DisplayAlert("Usuario", "Algo salio mal", "OK");
+                                GlobalObjects.LocalUs = backup;
+                            }
                         }
-                        else
+                        catch (Exception)
                         {
-                            await DisplayAlert("Usuario", "Algo salio mal", "OK");
+                            GlobalObjects.LocalUs = backup;
                         }
                     }
                     else

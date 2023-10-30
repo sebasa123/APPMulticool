@@ -35,18 +35,22 @@ namespace APPMulticool.View
         private async void LoadRepList()
         {
             PckrRep.ItemsSource = await vm.GetRepuesto();
+            PckrRep.ItemDisplayBinding = new Binding("DescripcionRep");
         }
         private async void LoadCliList()
         {
             PckrCli.ItemsSource = await vm.GetCliente();
+            PckrCli.ItemDisplayBinding = new Binding("NombreCli");
         }
         private async void LoadProdList()
         {
             PckrProd.ItemsSource = await vm.GetProducto();
+            PckrProd.ItemDisplayBinding = new Binding("NombreProd");
         }
         private async void LoadUsList()
         {
             PckrUs.ItemsSource = await vm.GetUsuario();
+            PckrUs.ItemDisplayBinding = new Binding("NombreUs");
         }
         private void CheckTipoUsuario(int pTipoUs)
         {
@@ -211,10 +215,10 @@ namespace APPMulticool.View
             TxtID.Text = seleccion.IDPed.ToString();
             TxtDesc.Text = seleccion.DescripcionPed;
             DtPckrFecha.Date = seleccion.FechaPed;
-            PckrRep.SelectedIndex = seleccion.PedXRep.IDRep;
-            PckrCli.SelectedIndex = seleccion.PedXCli.IDCli;
-            PckrProd.SelectedIndex = seleccion.PedXProd.IDProd;
-            PckrUs.SelectedIndex = seleccion.PedXUs.IDUs;
+            PckrRep.SelectedIndex = seleccion.FKRep - 1;
+            PckrCli.SelectedIndex = seleccion.FKCli - 1;
+            PckrProd.SelectedIndex = seleccion.FKProd - 1;
+            PckrUs.SelectedIndex = seleccion.FKUs - 1;
         }
 
         private async void LstPedido_Refreshing(object sender, EventArgs e)

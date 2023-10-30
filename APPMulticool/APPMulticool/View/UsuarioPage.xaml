@@ -84,7 +84,7 @@
             <StackLayout>
                 <Button x:Name="BtnAgregar" Text="Agregar" BackgroundColor="LightGreen"
                         TextColor="Black" CornerRadius="10" Clicked="BtnAgregar_Clicked" 
-                        IsEnabled="False" FontSize="18" HeightRequest="60"/>
+                        IsEnabled="True" FontSize="18" HeightRequest="60"/>
                 <Button x:Name="BtnModificar" Text="Modificar" BackgroundColor="LightBlue"
                         TextColor="Black" CornerRadius="10" Clicked="BtnModificar_Clicked" 
                         IsEnabled="False" FontSize="18" HeightRequest="60"/>

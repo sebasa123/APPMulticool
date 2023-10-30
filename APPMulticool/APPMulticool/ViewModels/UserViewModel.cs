@@ -45,6 +45,14 @@ namespace APPMulticool.ViewModels
             MyTipoRepuesto = new TipoRepuesto();
             MyProducto = new Producto();
             MyTipoProducto = new TipoProducto();
+            MyTipoUsuarioDTO = new TipoUsuarioDTO();
+            MyClienteDTO = new ClienteDTO();
+            MyPedidoDTO = new PedidoDTO();
+            MyRepuestoDTO = new RepuestoDTO();
+            MyHerramientaDTO = new HerramientaDTO();
+            MyTipoRepuestoDTO = new TipoRepuestoDTO();
+            MyProductoDTO = new ProductoDTO();
+            MyTipoProductoDTO = new TipoProductoDTO();
             MyCodigoRec = new CodigoRecuperacion();
             MyEmail = new Models.Email();
         }
@@ -108,25 +116,6 @@ namespace APPMulticool.ViewModels
                 MyCodigoRec.Email = pEmail;
                 MyCodigoRec.CodigoRec = pCodigo;
                 bool R = await MyCodigoRec.ValidarCodigoRec();
-                return R;
-            }
-            catch (Exception)
-            {
-                return false;
-                throw;
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-        public async Task<bool> UpdateUsuario(UsuarioDTO pUsuario)
-        {
-            if (IsBusy) return false;
-            IsBusy = true;
-            try
-            {
-                bool R = await MyUsuario.AddUsuario();
                 return R;
             }
             catch (Exception)
@@ -1001,7 +990,7 @@ namespace APPMulticool.ViewModels
 
         #region Add
         public async Task<bool> AddUsuario(string pNombreUs, 
-            string pContraUs, int pTipo)
+            string pContraUs, int pTipo, bool pEstado = true)
         {
             if (IsBusy) return false;
             IsBusy = true;
@@ -1010,6 +999,7 @@ namespace APPMulticool.ViewModels
                 MyUsuario.NombreUs = pNombreUs;
                 MyUsuario.ContrasUs = pContraUs;
                 MyUsuario.FKTipoUsuario = pTipo;
+                MyUsuario.EstadoUs = pEstado;
                 bool R = await MyUsuario.AddUsuario();
                 return R;
             }
@@ -1225,6 +1215,188 @@ namespace APPMulticool.ViewModels
                     MyEmail.Message = string.Format("El codigo es: {0}", codigo);
                     R = MyEmail.SendEmail();
                 }
+                return R;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        #endregion
+
+        #region Update
+        public async Task<bool> UpdateUsuario(UsuarioDTO pUsuario)
+        {
+            if (IsBusy) return false;
+            IsBusy = true;
+            try
+            {
+                bool R = await MyUsuarioDTO.UpdateUsuario();
+                return R;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<bool> UpdateTipoUsuario(TipoUsuarioDTO pTipoUsuario)
+        {
+            if (IsBusy) return false;
+            IsBusy = true;
+            try
+            {
+                MyTipoUsuarioDTO = pTipoUsuario;
+                bool R = await MyTipoUsuarioDTO.UpdateTipoUsuario();
+                return R;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<bool> UpdateCliente(ClienteDTO pCliente)
+        {
+            if (IsBusy) return false;
+            IsBusy = true;
+            try
+            {
+                MyClienteDTO = pCliente;
+                bool R = await MyClienteDTO.UpdateCliente();
+                return R;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<bool> UpdatePedido(PedidoDTO pPedido)
+        {
+            if (IsBusy) return false;
+            IsBusy = true;
+            try
+            {
+                MyPedidoDTO = pPedido;
+                bool R = await MyPedidoDTO.UpdatePedido();
+                return R;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<bool> UpdateRepuesto(RepuestoDTO pRepuesto)
+        {
+            if (IsBusy) return false;
+            IsBusy = true;
+            try
+            {
+                MyRepuestoDTO = pRepuesto;
+                bool R = await MyRepuestoDTO.UpdateRepuesto();
+                return R;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<bool> UpdateTipoRepuesto(TipoRepuestoDTO pTipoRepuesto)
+        {
+            if (IsBusy) return false;
+            IsBusy = true;
+            try
+            {
+                MyTipoRepuestoDTO = pTipoRepuesto;
+                bool R = await MyTipoRepuestoDTO.UpdateTipoRepuesto();
+                return R;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<bool> UpdateHerramienta(HerramientaDTO pHerramienta)
+        {
+            if (IsBusy) return false;
+            IsBusy = true;
+            try
+            {
+                MyHerramientaDTO = pHerramienta;
+                bool R = await MyHerramientaDTO.UpdateHerramienta();
+                return R;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<bool> UpdateProducto(ProductoDTO pProducto)
+        {
+            if (IsBusy) return false;
+            IsBusy = true;
+            try
+            {
+                MyProductoDTO = pProducto;
+                bool R = await MyProductoDTO.UpdateProducto();
+                return R;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public async Task<bool> UpdateTipoProducto(TipoProductoDTO pTipoProducto)
+        {
+            if (IsBusy) return false;
+            IsBusy = true;
+            try
+            {
+                MyTipoProductoDTO = pTipoProducto;
+                bool R = await MyTipoProductoDTO.UpdateTipoProducto();
                 return R;
             }
             catch (Exception)

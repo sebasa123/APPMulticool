@@ -5,7 +5,7 @@
              Title="Pedido">
     <ContentPage.Content>
 
-        <StackLayout Padding="20, 20, 20, 20" BackgroundColor="White">
+        <StackLayout Padding="20, 5, 20, 20" BackgroundColor="White">
             <SearchBar x:Name="SbPedido" Placeholder="Busque un pedido..."
                        TextChanged="SbPedido_TextChanged"/>
 
@@ -17,22 +17,25 @@
                         <ViewCell>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="20*"/>
-                                    <ColumnDefinition Width="20*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
 
-                                <Label FontSize="15" Grid.Column="0" Grid.RowSpan="2" Text="{Binding IDPed}" VerticalOptions="Center" HorizontalOptions="Center"/>
-                                <Label FontSize="18" Grid.Column="1" Grid.Row="0" Text="{Binding DescripcionPed}"/>
-                                <Label FontSize="15" Grid.Column="1" Grid.Row="1" Text="{Binding FechaPed, StringFormat='Fecha: {0}'}"/>
-                                <Label FontSize="15" Grid.Column="2" Grid.Row="1" Text="{Binding FKRep, StringFormat='Repuesto: {0}'}"/>
-                                <Label FontSize="15" Grid.Column="3" Grid.Row="1" Text="{Binding FKCli, StringFormat='Cliente: {0}'}"/>
-                                <Label FontSize="15" Grid.Column="4" Grid.Row="1" Text="{Binding FKProd, StringFormat='Producto: {0}'}"/>
-                                <Label FontSize="15" Grid.Column="5" Grid.Row="1" Text="{Binding FKUs, StringFormat='Usuario: {0}'}"/>
+                                <Label FontSize="15" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Text="{Binding IDPed}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <Label FontSize="18" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Text="{Binding DescripcionPed}"/>
+                                <Label FontSize="15" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Text="{Binding FechaPed, StringFormat='Fecha: {0}'}"/>
+                                <Label FontSize="15" Grid.Column="1" Grid.Row="2" Text="{Binding FKRep, StringFormat='Repuesto: {0}'}"/>
+                                <Label FontSize="15" Grid.Column="2" Grid.Row="2" Text="{Binding FKCli, StringFormat='Cliente: {0}'}"/>
+                                <Label FontSize="15" Grid.Column="1" Grid.Row="3" Text="{Binding FKProd, StringFormat='Producto: {0}'}"/>
+                                <Label FontSize="15" Grid.Column="2" Grid.Row="3" Text="{Binding FKUs, StringFormat='Usuario: {0}'}"/>
 
                             </Grid>
                         </ViewCell>
@@ -42,7 +45,7 @@
 
             <BoxView HeightRequest="1" Color="Black" Margin="0,15,0,15"/>
 
-            <FlexLayout AlignItems="Center">
+            <FlexLayout AlignItems="Center" Padding="0, -10, 0, -10">
                 <Label Text="Pedido: " TextColor="Black" FontSize="18"/>
                 <Entry x:Name="TxtID" Placeholder="ID">
                     <Entry.Triggers>
@@ -71,17 +74,22 @@
                         IsEnabled="False" MinimumDate="1/1/2023"
                         MaximumDate="12/12/2030" FontSize="18"/>
 
-            <Picker x:Name="PckrRep" Title="Seleccione el repuesto"
+            <FlexLayout AlignItems="Center">
+                <Picker x:Name="PckrRep" Title="Repuesto"
                     IsEnabled="False" FontSize="18"/>
 
-            <Picker x:Name="PckrCli" Title="Seleccione el cliente"
+                <Picker x:Name="PckrCli" Title="Cliente"
+                    IsEnabled="False" FontSize="18"/>
+            </FlexLayout>
+
+            <FlexLayout AlignItems="Center">
+                <Picker x:Name="PckrProd" Title="Producto"
                     IsEnabled="False" FontSize="18"/>
 
-            <Picker x:Name="PckrProd" Title="Seleccione el producto"
+                <Picker x:Name="PckrUs" Title="Usuario"
                     IsEnabled="False" FontSize="18"/>
-
-            <Picker x:Name="PckrUs" Title="Seleccione el usuario"
-                    IsEnabled="False" FontSize="18"/>
+            </FlexLayout>
+            
 
             <BoxView HeightRequest="1" Color="Black" Margin="0,15,0,15"/>
             
