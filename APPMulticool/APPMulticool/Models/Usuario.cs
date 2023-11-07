@@ -23,6 +23,9 @@ namespace APPMulticool.Models
         {
             try
             {
+                //string RouteSuffix =
+                //     string.Format("Usuarios/ValidateUserLogin/{0}/{1}",
+                //     this.NombreUs, this.ContrasUs);
                 string RouteSuffix =
                      string.Format("Usuarios/ValidateUserLogin?pNombre={0}&pContra={1}",
                      this.NombreUs, this.ContrasUs);
@@ -77,47 +80,45 @@ namespace APPMulticool.Models
                 throw;
             }
         }
-        //public async Task<bool> UpdateUsuario(int pID)
-        //{
-        //    try
-        //    {
+        public async Task<bool> UpdateUsuario(int pID)
+        {
+            try
+            {
 
-        //        string RouteSufix = string.Format("Usuarios/{0}", this.IDUs);
-        //        string URL = Services.APIConnection.ProductionURLPrefix + RouteSufix;
-        //        RestClient client = new RestClient(URL);
-        //        Request = new RestRequest(URL, Method.Put);
-        //        Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);
-        //        Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
-        //        string SerializedModel = JsonConvert.SerializeObject(this);
-        //        Request.AddBody(SerializedModel, GlobalObjects.MimeType);
-        //        RestResponse response = await client.ExecuteAsync(Request);
-        //        HttpStatusCode statusCode = response.StatusCode;
-        //        if (statusCode == HttpStatusCode.OK)
-        //        {
-        //            return true;
-        //        }
-        //        else
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        string ErrorMsg = ex.Message;
-        //        throw;
-        //    }
-        //}
+                string RouteSufix = string.Format("Usuarios/PutUsuario/{0}", this.IDUs);
+                string URL = Services.APIConnection.ProductionURLPrefix + RouteSufix;
+                RestClient client = new RestClient(URL);
+                Request = new RestRequest(URL, Method.Put);
+                Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);
+                Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
+                string SerializedModel = JsonConvert.SerializeObject(this);
+                Request.AddBody(SerializedModel, GlobalObjects.MimeType);
+                RestResponse response = await client.ExecuteAsync(Request);
+                HttpStatusCode statusCode = response.StatusCode;
+                if (statusCode == HttpStatusCode.OK)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                string ErrorMsg = ex.Message;
+                throw;
+            }
+        }
         public async Task<bool> AddUsuario()
         {
             try
             {
                 string RouteSuffix = string.Format("Usuarios");
-                string URL =
-                    Services.APIConnection.ProductionURLPrefix + RouteSuffix;
+                string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Post);
-                Request.AddHeader(Services.APIConnection.ApiKeyName,
-                    Services.APIConnection.ApiKeyValue);
+                Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);
                 Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
                 string SerializedModel = JsonConvert.SerializeObject(this);
                 Request.AddBody(SerializedModel, GlobalObjects.MimeType);

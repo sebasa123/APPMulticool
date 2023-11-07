@@ -19,7 +19,7 @@ namespace APPMulticool.Models
         {
             try
             {
-                string RouteSuffix = string.Format("TipoUsuario");
+                string RouteSuffix = string.Format("TipoUsuarios");
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Post);

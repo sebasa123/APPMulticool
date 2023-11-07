@@ -76,18 +76,18 @@
 
             <FlexLayout AlignItems="Center">
                 <Picker x:Name="PckrRep" Title="Repuesto"
-                    IsEnabled="False" FontSize="18"/>
+                    IsEnabled="False" FontSize="18" WidthRequest="175"/>
 
                 <Picker x:Name="PckrCli" Title="Cliente"
-                    IsEnabled="False" FontSize="18"/>
+                    IsEnabled="False" FontSize="18" WidthRequest="175"/>
             </FlexLayout>
 
             <FlexLayout AlignItems="Center">
                 <Picker x:Name="PckrProd" Title="Producto"
-                    IsEnabled="False" FontSize="18"/>
+                    IsEnabled="False" FontSize="18" WidthRequest="175"/>
 
                 <Picker x:Name="PckrUs" Title="Usuario"
-                    IsEnabled="False" FontSize="18"/>
+                    IsEnabled="False" FontSize="18" WidthRequest="175"/>
             </FlexLayout>
             
 

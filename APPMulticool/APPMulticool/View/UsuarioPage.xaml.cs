@@ -81,25 +81,37 @@ namespace APPMulticool.View
                 var resp = await DisplayAlert("Usuario", "¿Desea agregar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    if (uvm.GetNombreUsuario(TxtNombre.Text.Trim()) == null)
+                    TipoUsuario tu = PckrTU.SelectedItem as TipoUsuario;
+                    bool R = await uvm.AddUsuario(TxtNombre.Text.Trim(),
+                        TxtContra.Text.Trim(), tu.IDTU);
+                    if (R)
                     {
-                        TipoUsuario tu = PckrTU.SelectedItem as TipoUsuario;
-                        bool R = await uvm.AddUsuario(TxtNombre.Text.Trim(),
-                            TxtContra.Text.Trim(), tu.IDTU);
-                        if (R)
-                        {
-                            await DisplayAlert("Usuario", "Usuario agregado", "OK");
-                            await Navigation.PopAsync();
-                        }
-                        else
-                        {
-                            await DisplayAlert("Usuario", "Algo salio mal", "OK");
-                        }
+                        await DisplayAlert("Usuario", "Usuario agregado", "OK");
+                        await Navigation.PopAsync();
                     }
                     else
                     {
-                        await DisplayAlert("Usuario", "El usuario ya existe", "OK");
+                        await DisplayAlert("Usuario", "Algo salio mal", "OK");
                     }
+                    //if (uvm.GetNombreUsuario(TxtNombre.Text.Trim()).Result == null)
+                    //{
+                    //    TipoUsuario tu = PckrTU.SelectedItem as TipoUsuario;
+                    //    bool R = await uvm.AddUsuario(TxtNombre.Text.Trim(),
+                    //        TxtContra.Text.Trim(), tu.IDTU);
+                    //    if (R)
+                    //    {
+                    //        await DisplayAlert("Usuario", "Usuario agregado", "OK");
+                    //        await Navigation.PopAsync();
+                    //    }
+                    //    else
+                    //    {
+                    //        await DisplayAlert("Usuario", "Algo salio mal", "OK");
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    await DisplayAlert("Usuario", "El usuario ya existe", "OK");
+                    //}
                 }
             }
         }
@@ -116,6 +128,7 @@ namespace APPMulticool.View
                     GlobalObjects.LocalUs.NombreUs = TxtNombre.Text.Trim();
                     GlobalObjects.LocalUs.ContrasUs = TxtContra.Text.Trim();
                     GlobalObjects.LocalUs.FKTipoUsuario = PckrTU.SelectedIndex;
+                    GlobalObjects.LocalUs.EstadoUs = true;
 
                     if (uvm.GetUsuarioID((int)TxtID.TextTransform) != null)
                     {
@@ -151,7 +164,7 @@ namespace APPMulticool.View
             var result = await DisplayAlert("Usuario", "¿Desea borrar el usuario?", "OK", "Cancelar");
             if (result)
             {
-                bool R = await uvm.DeleteUsuario(((int)TxtID.TextTransform));
+                bool R = await uvm.DeleteUsuario((int)TxtID.TextTransform);
                 if (R)
                 {
                     await DisplayAlert("Usuario", "El usuario se borro correctamente", "OK");

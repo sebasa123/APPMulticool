@@ -55,7 +55,7 @@
                             <Setter Property="Keyboard" Value="Text"/>
                             <Setter Property="TextColor" Value="Black"/>
                             <Setter Property="FontSize" Value="18"/>
-                            <Setter Property="IsEnabled" Value="False"/>
+                            <Setter Property="IsEnabled" Value="True"/>
                         </Trigger>
                     </Entry.Triggers>
                 </Entry>
@@ -66,7 +66,7 @@
             <StackLayout>
                 <Button x:Name="BtnAgregar" Text="Agregar" BackgroundColor="MediumSpringGreen"
                         TextColor="Black" CornerRadius="10" Clicked="BtnAgregar_Clicked"
-                        FontSize="18" HeightRequest="60" IsEnabled="False"/>
+                        FontSize="18" HeightRequest="60" IsEnabled="True"/>
                 <Button x:Name="BtnModificar" Text="Modificar" BackgroundColor="LightSkyBlue"
                         TextColor="Black" CornerRadius="10" Clicked="BtnModificar_Clicked"
                         FontSize="18" HeightRequest="60" IsEnabled="False"/>

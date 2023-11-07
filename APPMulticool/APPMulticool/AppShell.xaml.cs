@@ -18,5 +18,10 @@ namespace APPMulticool
             Routing.RegisterRoute(nameof(MainMenuPage), typeof(MainMenuPage));
             //Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
         }
+
+        private void MenuItem_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PopToRootAsync();
+        }
     }
 }

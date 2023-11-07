@@ -61,24 +61,38 @@ namespace APPMulticool.View
                 var resp = await DisplayAlert("Tipo de usuario", "¿Desea agregar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    if (vm.GetNombreTipoUsuario(TxtNombre.Text.Trim()) == null)
+                    bool R = await vm.AddTipoUsuario(TxtNombre.Text.Trim());
+                    if (R)
                     {
-                        bool R = await vm.AddTipoUsuario(TxtNombre.Text.Trim());
-                        if (R)
-                        {
-                            await DisplayAlert("Tipo de usuario", "Tipo de usuario agregado", "OK");
-                            await Navigation.PopAsync();
-                        }
-                        else
-                        {
-                            await DisplayAlert("Tipo de usuario", "Algo salio mal", "OK");
-                        }
+                        await DisplayAlert("Tipo de usuario", "Tipo de usuario agregado", "OK");
+                        await Navigation.PopAsync();
                     }
                     else
                     {
-                        await DisplayAlert("Tipo de usuario", "El tipo de usuario ya existe", "OK");
+                        await DisplayAlert("Tipo de usuario", "Algo salio mal", "OK");
                     }
                 }
+                //var resp = await DisplayAlert("Tipo de usuario", "¿Desea agregar la informacion?", "Si", "No");
+                //if (resp)
+                //{
+                //    if (vm.GetNombreTipoUsuario(TxtNombre.Text.Trim()) == null)
+                //    {
+                //        bool R = await vm.AddTipoUsuario(TxtNombre.Text.Trim());
+                //        if (R)
+                //        {
+                //            await DisplayAlert("Tipo de usuario", "Tipo de usuario agregado", "OK");
+                //            await Navigation.PopAsync();
+                //        }
+                //        else
+                //        {
+                //            await DisplayAlert("Tipo de usuario", "Algo salio mal", "OK");
+                //        }
+                //    }
+                //    else
+                //    {
+                //        await DisplayAlert("Tipo de usuario", "El tipo de usuario ya existe", "OK");
+                //    }
+                //}
             }
         }
 
@@ -89,24 +103,38 @@ namespace APPMulticool.View
                 var resp = await DisplayAlert("Tipo de usuario", "¿Desea modificar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    if (vm.GetNombreTipoUsuario(TxtNombre.Text.Trim()) != null)
+                    bool R = await vm.AddTipoUsuario(TxtNombre.Text.Trim());
+                    if (R)
                     {
-                        bool R = await vm.AddTipoUsuario(TxtNombre.Text.Trim());
-                        if (R)
-                        {
-                            await DisplayAlert("Tipo de usuario", "Tipo de usuario modificado", "OK");
-                            await Navigation.PopAsync();
-                        }
-                        else
-                        {
-                            await DisplayAlert("Tipo de usuario", "Algo salio mal", "OK");
-                        }
+                        await DisplayAlert("Tipo de usuario", "Tipo de usuario modificado", "OK");
+                        await Navigation.PopAsync();
                     }
                     else
                     {
-                        await DisplayAlert("Tipo de usuario", "El tipo de usuario no existe", "OK");
+                        await DisplayAlert("Tipo de usuario", "Algo salio mal", "OK");
                     }
                 }
+                //var resp = await DisplayAlert("Tipo de usuario", "¿Desea modificar la informacion?", "Si", "No");
+                //if (resp)
+                //{
+                //    if (vm.GetNombreTipoUsuario(TxtNombre.Text.Trim()) != null)
+                //    {
+                //        bool R = await vm.AddTipoUsuario(TxtNombre.Text.Trim());
+                //        if (R)
+                //        {
+                //            await DisplayAlert("Tipo de usuario", "Tipo de usuario modificado", "OK");
+                //            await Navigation.PopAsync();
+                //        }
+                //        else
+                //        {
+                //            await DisplayAlert("Tipo de usuario", "Algo salio mal", "OK");
+                //        }
+                //    }
+                //    else
+                //    {
+                //        await DisplayAlert("Tipo de usuario", "El tipo de usuario no existe", "OK");
+                //    }
+                //}
             }
         }
 

@@ -1236,6 +1236,7 @@ namespace APPMulticool.ViewModels
             IsBusy = true;
             try
             {
+                MyUsuarioDTO = pUsuario;
                 bool R = await MyUsuarioDTO.UpdateUsuario();
                 return R;
             }

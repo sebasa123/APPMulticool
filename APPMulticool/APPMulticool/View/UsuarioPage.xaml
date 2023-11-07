@@ -75,7 +75,7 @@
                     </Entry.Triggers>
                 </Entry>
 
-                <Picker x:Name="PckrTU" Title="Seleccione el tipo de usuario"/>
+                <Picker x:Name="PckrTU" Title="Seleccione el tipo de usuario" />
 
             </StackLayout>
 
