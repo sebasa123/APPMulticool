@@ -67,11 +67,18 @@ namespace APPMulticool.View
             return R;
         }
 
-        private void SbUsuario_TextChanged(object sender, TextChangedEventArgs e)
+        private async void SbUsuario_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var busq = SbUsuario.Text.Trim();
-            var itemsFilter = uvm.GetNombreUsuario(busq).Result;
-            LstUsuario.ItemsSource = itemsFilter;
+            if (SbUsuario.Text.Trim() == null)
+            {
+                LstUsuario.ItemsSource = await uvm.GetUsuarios();
+            }
+            else
+            {
+                var busq = SbUsuario.Text.Trim();
+                var itemsFilter = uvm.GetNombreUsuario(busq).Result;
+                LstUsuario.ItemsSource = itemsFilter;
+            }
         }
 
         private async void BtnAgregar_Clicked(object sender, EventArgs e)
@@ -93,25 +100,6 @@ namespace APPMulticool.View
                     {
                         await DisplayAlert("Usuario", "Algo salio mal", "OK");
                     }
-                    //if (uvm.GetNombreUsuario(TxtNombre.Text.Trim()).Result == null)
-                    //{
-                    //    TipoUsuario tu = PckrTU.SelectedItem as TipoUsuario;
-                    //    bool R = await uvm.AddUsuario(TxtNombre.Text.Trim(),
-                    //        TxtContra.Text.Trim(), tu.IDTU);
-                    //    if (R)
-                    //    {
-                    //        await DisplayAlert("Usuario", "Usuario agregado", "OK");
-                    //        await Navigation.PopAsync();
-                    //    }
-                    //    else
-                    //    {
-                    //        await DisplayAlert("Usuario", "Algo salio mal", "OK");
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    await DisplayAlert("Usuario", "El usuario ya existe", "OK");
-                    //}
                 }
             }
         }
@@ -130,30 +118,23 @@ namespace APPMulticool.View
                     GlobalObjects.LocalUs.FKTipoUsuario = PckrTU.SelectedIndex;
                     GlobalObjects.LocalUs.EstadoUs = true;
 
-                    if (uvm.GetUsuarioID((int)TxtID.TextTransform) != null)
+                    try
                     {
-                        try
+                        bool R = await uvm.UpdateUsuario(GlobalObjects.LocalUs);
+                        if (R)
                         {
-                            bool R = await uvm.UpdateUsuario(GlobalObjects.LocalUs);
-                            if (R)
-                            {
-                                await DisplayAlert("Usuario", "Usuario modificado", "OK");
-                                await Navigation.PopAsync();
-                            }
-                            else
-                            {
-                                await DisplayAlert("Usuario", "Algo salio mal", "OK");
-                                GlobalObjects.LocalUs = backup;
-                            }
+                            await DisplayAlert("Usuario", "Usuario modificado", "OK");
+                            await Navigation.PopAsync();
                         }
-                        catch (Exception)
+                        else
                         {
+                            await DisplayAlert("Usuario", "Algo salio mal", "OK");
                             GlobalObjects.LocalUs = backup;
                         }
                     }
-                    else
+                    catch (Exception)
                     {
-                        await DisplayAlert("Usuario", "El usuario no existe", "OK");
+                        GlobalObjects.LocalUs = backup;
                     }
                 }
             }
@@ -161,10 +142,11 @@ namespace APPMulticool.View
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
+            var us = (LstUsuario.SelectedItem as Usuario).IDUs;
             var result = await DisplayAlert("Usuario", "¿Desea borrar el usuario?", "OK", "Cancelar");
             if (result)
             {
-                bool R = await uvm.DeleteUsuario((int)TxtID.TextTransform);
+                bool R = await uvm.DeleteUsuario(us);
                 if (R)
                 {
                     await DisplayAlert("Usuario", "El usuario se borro correctamente", "OK");

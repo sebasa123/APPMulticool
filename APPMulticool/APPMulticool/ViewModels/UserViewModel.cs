@@ -131,11 +131,11 @@ namespace APPMulticool.ViewModels
         #endregion
 
         #region GetNombre
-        public async Task<List<Usuario>> GetNombreUsuario(string pNombre)
+        public async Task<ObservableCollection<Usuario>> GetNombreUsuario(string pNombre)
         {
             try
             {
-                List<Usuario> nombreUs = new List<Usuario>();
+                ObservableCollection<Usuario> nombreUs = new ObservableCollection<Usuario>();
                 nombreUs = await MyUsuario.GetAllUserNameList(pNombre);
                 if (nombreUs == null)
                 {

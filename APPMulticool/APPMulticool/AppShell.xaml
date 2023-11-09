@@ -6,31 +6,27 @@
        FlyoutHeaderBehavior="CollapseOnScroll"
        Title="APPMulticool">
 
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        <ShellContent Title="Menu principal" ContentTemplate="{DataTemplate view:MainMenuPage}"/>
-        <ShellContent Title="Pedido" ContentTemplate="{DataTemplate view:PedidoPage}"/>
-        <Tab Title="Repuesto...">
-            <ShellContent Title="Repuesto" ContentTemplate="{DataTemplate view:RepuestoPage}"/>
-            <ShellContent Title="Tipo de repuesto" ContentTemplate="{DataTemplate view:TipoRepuestoPage}"/>
+    <!--<FlyoutItem x:Name="shellViews" FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent x:Name="shellMainMenu" Title="Menu principal" ContentTemplate="{DataTemplate view:MainMenuPage}"/>
+        <ShellContent x:Name="shellPedido" Title="Pedido" ContentTemplate="{DataTemplate view:PedidoPage}"/>
+        <Tab x:Name="shellRep" Title="Repuesto...">
+            <ShellContent x:Name="shellRepuesto" Title="Repuesto" ContentTemplate="{DataTemplate view:RepuestoPage}"/>
+            <ShellContent x:Name="shellTipoRepuesto" Title="Tipo de repuesto" ContentTemplate="{DataTemplate view:TipoRepuestoPage}"/>
         </Tab>
-        <ShellContent Title="Cliente" ContentTemplate="{DataTemplate view:ClientePage}"/>
-        <Tab Title="Producto...">
-            <ShellContent Title="Producto" ContentTemplate="{DataTemplate view:ProductoPage}"/>
-            <ShellContent Title="Tipo de producto" ContentTemplate="{DataTemplate view:TipoProdPage}"/>
+        <ShellContent x:Name="shellCliente" Title="Cliente" ContentTemplate="{DataTemplate view:ClientePage}"/>
+        <Tab x:Name="shellProd" Title="Producto...">
+            <ShellContent x:Name="shellProducto" Title="Producto" ContentTemplate="{DataTemplate view:ProductoPage}"/>
+            <ShellContent x:Name="shellTipoProducto" Title="Tipo de producto" ContentTemplate="{DataTemplate view:TipoProdPage}"/>
         </Tab>
-        <ShellContent Title="Herramienta" ContentTemplate="{DataTemplate view:HerramientaPage}"/>
-        <Tab Title="Usuario...">
-            <ShellContent Title="Usuario" ContentTemplate="{DataTemplate view:UsuarioPage}"/>
-            <ShellContent Title="Tipo de usuario" ContentTemplate="{DataTemplate view:TipoUsuarioPage}"/>
+        <ShellContent x:Name="shellHerramienta" Title="Herramienta" ContentTemplate="{DataTemplate view:HerramientaPage}"/>
+        <Tab x:Name="shellUs" Title="Usuario...">
+            <ShellContent x:Name="shellUsuario" Title="Usuario" ContentTemplate="{DataTemplate view:UsuarioPage}"/>
+            <ShellContent x:Name="shellTipoUsuario" Title="Tipo de usuario" ContentTemplate="{DataTemplate view:TipoUsuarioPage}"/>
         </Tab>
-    </FlyoutItem>
+    </FlyoutItem>-->
 
-    <MenuItem Text="Salir" Clicked="MenuItem_Clicked"/>
+    <MenuItem x:Name="shellLogOut" Text="Salir" Clicked="MenuItem_Clicked"/>
 
-    <TabBar>
-        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate view:LoginPage}" />
-    </TabBar>
-    
     <Shell.FlyoutHeaderTemplate>
         <DataTemplate>
             <Grid BackgroundColor="White" HeightRequest="150">

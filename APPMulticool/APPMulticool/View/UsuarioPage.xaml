@@ -48,6 +48,7 @@
                                 <Setter Property="TextColor" Value="Black"/>
                                 <Setter Property="FontSize" Value="18"/>
                                 <Setter Property="IsEnabled" Value="False"/>
+                                <Setter Property="IsEnabled" Value="False"/>
                             </Trigger>
                         </Entry.Triggers>
                     </Entry>

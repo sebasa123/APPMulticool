@@ -5,7 +5,7 @@
              Title="Cliente">
     <ContentPage.Content>
 
-        <StackLayout Padding="20, 20, 20, 20" BackgroundColor="White">
+        <StackLayout Padding="20, 0, 20, 20" BackgroundColor="White">
             <SearchBar x:Name="SbCliente" Placeholder="Busque un cliente..."
                        TextChanged="SbCliente_TextChanged" FontSize="18" CancelButtonColor="LightPink"/>
 

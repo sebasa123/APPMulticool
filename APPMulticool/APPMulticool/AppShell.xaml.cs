@@ -15,6 +15,8 @@ namespace APPMulticool
         public AppShell()
         {
             InitializeComponent();
+            //CurrentItem = shellViews;
+            //shellViews.CurrentItem = shellMainMenu;
             Routing.RegisterRoute(nameof(MainMenuPage), typeof(MainMenuPage));
             //Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
         }
