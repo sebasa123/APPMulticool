@@ -54,17 +54,20 @@ namespace APPMulticool.View
         }
         private void CheckTipoUsuario(int pTipoUs)
         {
-            if(pTipoUs == 1 || pTipoUs == 2)
+            if(pTipoUs == 3)
             {
-                TxtDesc.IsEnabled = true;
-                DtPckrFecha.IsEnabled = true;
-                PckrCli.IsEnabled = true;
-                PckrProd.IsEnabled = true;
-                PckrRep.IsEnabled = true;
-                PckrUs.IsEnabled = true;
-                BtnAgregar.IsEnabled = true;
-                BtnModificar.IsEnabled = true;
-                BtnEliminar.IsEnabled = true;
+                Bv1.IsVisible = false;
+                LblPed.IsVisible = false;
+                TxtDesc.IsVisible = false;
+                DtPckrFecha.IsVisible = false;
+                PckrCli.IsVisible = false;
+                PckrProd.IsVisible = false;
+                PckrRep.IsVisible = false;
+                PckrUs.IsVisible = false;
+                Bv2.IsVisible = false;
+                BtnAgregar.IsVisible = false;
+                BtnModificar.IsVisible = false;
+                BtnEliminar.IsVisible = false;
             }
         }
 
@@ -225,6 +228,11 @@ namespace APPMulticool.View
         {
             await Task.Delay(3000);
             this.LstPedido.IsRefreshing = false;
+        }
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PopToRootAsync();
         }
     }
 }

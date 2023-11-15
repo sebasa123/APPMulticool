@@ -21,8 +21,23 @@ namespace APPMulticool.View
             InitializeComponent();
             BindingContext = vm = new UserViewModel();
             LoadHerramientaList();
+            CheckTipoUsuario(GlobalObjects.LocalUsuario.FKTipoUsuario);
         }
 
+        private void CheckTipoUsuario(int pTipoUs)
+        {
+            if (pTipoUs == 3)
+            {
+                Bv1.IsVisible = false;
+                TxtID.IsVisible = false;
+                TxtNombre.IsVisible = false;
+                TxtNumero.IsVisible = false;
+                Bv2.IsVisible = false;
+                BtnAgregar.IsVisible = false;
+                BtnModificar.IsVisible = false;
+                BtnEliminar.IsVisible = false;
+            }
+        }
         private async void LoadHerramientaList()
         {
             LstHerramienta.ItemsSource = await vm.GetHerramientas();
@@ -149,6 +164,11 @@ namespace APPMulticool.View
         {
             await Task.Delay(3000);
             this.LstHerramienta.IsRefreshing = false;
+        }
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PopToRootAsync();
         }
     }
 }

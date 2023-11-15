@@ -23,8 +23,27 @@ namespace APPMulticool.View
             LoadRepList();
             LoadTipoRepList();
             LoadHerramientaList();
+            CheckTipoUsuario(GlobalObjects.LocalUsuario.FKTipoUsuario);
         }
 
+        private void CheckTipoUsuario(int pTipoUs)
+        {
+            if (pTipoUs == 3)
+            {
+                Bv1.IsVisible = false;
+                LblRep.IsVisible = false;
+                TxtID.IsVisible = false;
+                TxtDesc.IsVisible = false;
+                PckrHer.IsVisible = false;
+                PckrTR.IsVisible = false;
+                LblCompleto.IsVisible = false;
+                SwCompleto.IsVisible = false;
+                Bv2.IsVisible = false;
+                BtnAgregar.IsEnabled = false;
+                BtnModificar.IsEnabled = false;
+                BtnEliminar.IsEnabled = false;
+            }
+        }
         private async void LoadRepList()
         {
             LstRepuesto.ItemsSource = await vm.GetRepuestos();
@@ -175,6 +194,11 @@ namespace APPMulticool.View
         {
             await Task.Delay(3000);
             this.LstRepuesto.IsRefreshing = false;
+        }
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PopToRootAsync();
         }
     }
 }

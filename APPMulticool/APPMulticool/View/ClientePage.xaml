@@ -3,6 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="APPMulticool.View.ClientePage"
              Title="Cliente">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Salir" Order="Secondary" Priority="0" Clicked="ToolbarItem_Clicked"/>
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
 
         <StackLayout Padding="20, 0, 20, 20" BackgroundColor="White">
@@ -41,10 +46,10 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <BoxView HeightRequest="1" Color="Black" Margin="0,15,0,15"/>
+            <BoxView x:Name="Bv1" HeightRequest="1" Color="Black" Margin="0,15,0,15"/>
 
             <FlexLayout AlignItems="Center">
-                <Label Text="Cliente: " TextColor="Black" FontSize="18"/>
+                <Label x:Name="LblCli" Text="Cliente: " TextColor="Black" FontSize="18"/>
                 <Entry x:Name="TxtID" Placeholder="ID">
                     <Entry.Triggers>
                         <Trigger TargetType="Entry" Property="IsFocused" Value="True">
@@ -63,7 +68,7 @@
                         <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
                         <Setter Property="TextColor" Value="Black"/>
                         <Setter Property="FontSize" Value="18"/>
-                        <Setter Property="IsEnabled" Value="False"/>
+                        <Setter Property="IsEnabled" Value="True"/>
                     </Trigger>
                 </Entry.Triggers>
             </Entry>
@@ -74,7 +79,7 @@
                         <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
                         <Setter Property="TextColor" Value="Black"/>
                         <Setter Property="FontSize" Value="18"/>
-                        <Setter Property="IsEnabled" Value="False"/>
+                        <Setter Property="IsEnabled" Value="True"/>
                     </Trigger>
                 </Entry.Triggers>
             </Entry>
@@ -85,7 +90,7 @@
                         <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
                         <Setter Property="TextColor" Value="Black"/>
                         <Setter Property="FontSize" Value="18"/>
-                        <Setter Property="IsEnabled" Value="False"/>
+                        <Setter Property="IsEnabled" Value="True"/>
                     </Trigger>
                 </Entry.Triggers>
             </Entry>
@@ -96,17 +101,17 @@
                         <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
                         <Setter Property="TextColor" Value="Black"/>
                         <Setter Property="FontSize" Value="18"/>
-                        <Setter Property="IsEnabled" Value="False"/>
+                        <Setter Property="IsEnabled" Value="True"/>
                     </Trigger>
                 </Entry.Triggers>
             </Entry>
 
-            <BoxView HeightRequest="1" Color="Black" Margin="0,15,0,15"/>
+            <BoxView x:Name="Bv2" HeightRequest="1" Color="Black" Margin="0,15,0,15"/>
 
             <StackLayout>
                 <Button x:Name="BtnAgregar" Text="Agregar" BackgroundColor="LightGreen"
                         TextColor="Black" CornerRadius="10" Clicked="BtnAgregar_Clicked"
-                        IsEnabled="False" FontSize="18" HeightRequest="60"/>
+                        IsEnabled="True" FontSize="18" HeightRequest="60"/>
                 <Button x:Name="BtnModificar" Text="Modificar" BackgroundColor="LightBlue"
                         TextColor="Black" CornerRadius="10" Clicked="BtnModificar_Clicked"
                         IsEnabled="False" FontSize="18" HeightRequest="60"/>

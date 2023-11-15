@@ -18,7 +18,7 @@ namespace APPMulticool.Models
         public string ContrasUs { get; set; }
         public int FKTipoUsuario { get; set; }
         public bool EstadoUs { get; set; }
-        public virtual TipoUsuario UsXTU { get; set; }
+        //public virtual TipoUsuario UsXTU { get; set; }
         public async Task<bool> ValidateLogin()
         {
             try
@@ -114,7 +114,7 @@ namespace APPMulticool.Models
         {
             try
             {
-                string RouteSuffix = string.Format("Usuarios");
+                string RouteSuffix = string.Format("Usuarios/PostUsuario", this);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Post);
@@ -122,7 +122,8 @@ namespace APPMulticool.Models
                 Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
                 string SerializedModel = JsonConvert.SerializeObject(this);
                 Request.AddBody(SerializedModel, GlobalObjects.MimeType);
-                RestResponse response = await client.ExecuteAsync(Request);
+                //RestResponse response = await client.ExecuteAsync(Request);
+                RestResponse response = await client.PostAsync(Request);
                 HttpStatusCode statusCode = response.StatusCode;
                 if (statusCode == HttpStatusCode.Created)
                 {
@@ -238,7 +239,8 @@ namespace APPMulticool.Models
                 Request = new RestRequest(URL, Method.Get);
                 Request.AddHeader(Services.APIConnection.ApiKeyName,
                     Services.APIConnection.ApiKeyValue);
-                Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
+                Request.AddHeader(GlobalObjects.ContentType, 
+                    GlobalObjects.MimeType);
                 RestResponse response = await client.ExecuteAsync(Request);
                 HttpStatusCode statusCode = response.StatusCode;
                 if (statusCode == HttpStatusCode.OK)

@@ -23,8 +23,9 @@ namespace APPMulticool.View
         {
             if (pTipoUs != 1)
             {
-                //BtnUsuarioManagement.IsEnabled = false;
-                //BtnTipoUsuarioManagement.IsEnabled = false;
+                GdMenu.TranslationY = 50;
+                BtnUsuarioManagement.IsVisible = false;
+                BtnTipoUsuarioManagement.IsVisible = false;
             }
         }
 
@@ -65,5 +66,9 @@ namespace APPMulticool.View
             Navigation.PushAsync(new TipoUsuarioPage());
         }
 
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PopToRootAsync();
+        }
     }
 }

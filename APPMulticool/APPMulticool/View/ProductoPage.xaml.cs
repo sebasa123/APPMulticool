@@ -22,6 +22,23 @@ namespace APPMulticool.View
             BindingContext = vm = new UserViewModel();
             LoadProdList();
             LoadTPList();
+            CheckTipoUsuario(GlobalObjects.LocalUsuario.FKTipoUsuario);
+        }
+
+        private void CheckTipoUsuario(int pTipoUs)
+        {
+            if (pTipoUs == 3)
+            {
+                Bv1.IsVisible = false;
+                LblProd.IsVisible = false;
+                TxtID.IsVisible = false;
+                TxtNombre.IsVisible = false;
+                PckrTP.IsVisible = false;
+                Bv2.IsVisible = false;
+                BtnAgregar.IsEnabled = false;
+                BtnModificar.IsEnabled = false;
+                BtnEliminar.IsEnabled = false;
+            }
         }
 
         private async void LoadProdList()
@@ -156,6 +173,11 @@ namespace APPMulticool.View
         {
             await Task.Delay(3000);
             this.LstProducto.IsRefreshing = false;
+        }
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PopToRootAsync();
         }
     }
 }

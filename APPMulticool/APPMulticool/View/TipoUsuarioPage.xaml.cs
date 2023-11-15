@@ -170,5 +170,10 @@ namespace APPMulticool.View
             await Task.Delay(3000);
             this.LstTipoUsuario.IsRefreshing = false;
         }
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PopToRootAsync();
+        }
     }
 }

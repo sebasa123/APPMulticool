@@ -17,8 +17,17 @@ namespace APPMulticool
             InitializeComponent();
             //CurrentItem = shellViews;
             //shellViews.CurrentItem = shellMainMenu;
-            Routing.RegisterRoute(nameof(MainMenuPage), typeof(MainMenuPage));
-            //Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+            Routing.RegisterRoute("menuPrincipal", typeof(MainMenuPage));
+            Routing.RegisterRoute("login", typeof(LoginPage));
+            Routing.RegisterRoute("usuario", typeof(UsuarioPage));
+            Routing.RegisterRoute("tipous", typeof(TipoUsuarioPage));
+            Routing.RegisterRoute("cliente", typeof(ClientePage));
+            Routing.RegisterRoute("pedido", typeof(PedidoPage));
+            Routing.RegisterRoute("repuesto", typeof(RepuestoPage));
+            Routing.RegisterRoute("tiporep", typeof(TipoRepuestoPage));
+            Routing.RegisterRoute("herramienta", typeof(HerramientaPage));
+            Routing.RegisterRoute("producto", typeof(ProductoPage));
+            Routing.RegisterRoute("tipoprod", typeof(TipoProdPage));
         }
 
         private void MenuItem_Clicked(object sender, EventArgs e)

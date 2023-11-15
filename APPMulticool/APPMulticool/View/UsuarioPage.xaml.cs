@@ -26,6 +26,7 @@ namespace APPMulticool.View
 
         private async void LoadUsuarioList()
         {
+            //LstUsuario.ItemsSource = await uvm.GetNombreUsuario("usuario2");
             LstUsuario.ItemsSource = await uvm.GetUsuarios();
         }
         private async void LoadTipoList()

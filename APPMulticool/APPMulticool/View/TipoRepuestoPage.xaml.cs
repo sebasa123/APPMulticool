@@ -22,8 +22,22 @@ namespace APPMulticool.View
             InitializeComponent();
             BindingContext = vm = new UserViewModel();
             LoadTipoRepList();
+            CheckTipoUsuario(GlobalObjects.LocalUsuario.FKTipoUsuario);
         }
-
+        private void CheckTipoUsuario(int pTipoUs)
+        {
+            if (pTipoUs == 3)
+            {
+                Bv1.IsVisible = false;
+                LblTR.IsVisible = false;
+                TxtID.IsVisible = false;
+                TxtDescripcion.IsVisible = false;
+                Bv2.IsVisible = false;
+                BtnAgregar.IsEnabled = false;
+                BtnModificar.IsEnabled = false;
+                BtnEliminar.IsEnabled = false;
+            }
+        }
         private async void LoadTipoRepList()
         {
             LstTipoRepuesto.ItemsSource = await vm.GetTipoRepuestos();
@@ -142,6 +156,11 @@ namespace APPMulticool.View
         {
             await Task.Delay(3000);
             this.LstTipoRepuesto.IsRefreshing = false;
+        }
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PopToRootAsync();
         }
     }
 }

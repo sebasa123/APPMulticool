@@ -62,8 +62,10 @@ namespace APPMulticool.View
             }
             if (R)
             {
-                //GlobalObjects.LocalUsuario = await vm.GetUsuarioData(TxtNombre.Text.Trim());
-                //await DisplayAlert(":O", "???", "OK");
+                GlobalObjects.LocalUsuario = await vm.GetUsuarioData(TxtNombre.Text.Trim());
+                TxtNombre.Text = null;
+                TxtContra.Text = null;
+                SwContra.IsToggled = false;
                 await Navigation.PushAsync(new MainMenuPage());
                 return;
             }

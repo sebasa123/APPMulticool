@@ -23,7 +23,7 @@ namespace APPMulticool.Models
             try
             {
                 string RouteSuffix =
-                    string.Format("Usuarios/GetUsuarioData?NombreUs={0}", nombre);
+                    string.Format("Usuarios/GetUserData?nombre={0}", nombre);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Get);

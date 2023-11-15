@@ -12,6 +12,7 @@ namespace APPMulticool
         public static string ContentType = "Content-Type";
         public static UsuarioDTO LocalUsuario = new UsuarioDTO();
 
+        #region .
         public static UsuarioDTO LocalUs = new UsuarioDTO();
         public static TipoUsuarioDTO LocalTipoUsuario = new TipoUsuarioDTO();
         public static ClienteDTO LocalCliente = new ClienteDTO();
@@ -21,5 +22,6 @@ namespace APPMulticool
         public static HerramientaDTO LocalHerramienta = new HerramientaDTO();
         public static ProductoDTO LocalProducto = new ProductoDTO();
         public static TipoProductoDTO LocalTipoProducto = new TipoProductoDTO();
+        #endregion
     }
 }
