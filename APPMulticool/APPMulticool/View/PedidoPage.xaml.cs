@@ -58,6 +58,7 @@ namespace APPMulticool.View
             {
                 Bv1.IsVisible = false;
                 LblPed.IsVisible = false;
+                TxtID.IsVisible = false;
                 TxtDesc.IsVisible = false;
                 DtPckrFecha.IsVisible = false;
                 PckrCli.IsVisible = false;

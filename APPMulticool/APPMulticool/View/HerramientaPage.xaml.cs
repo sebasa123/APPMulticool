@@ -29,6 +29,7 @@ namespace APPMulticool.View
             if (pTipoUs == 3)
             {
                 Bv1.IsVisible = false;
+                LblHer.IsVisible = false;
                 TxtID.IsVisible = false;
                 TxtNombre.IsVisible = false;
                 TxtNumero.IsVisible = false;

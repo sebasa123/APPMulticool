@@ -33,6 +33,7 @@ namespace APPMulticool.View
             var busq = SbTipoUsuario.Text;
             var itemsFilter = vm.GetNombreTipoUsuario(busq).Result;
             LstTipoUsuario.ItemsSource = itemsFilter;
+
         }
 
         private bool ValidateTipoUsuarioData()

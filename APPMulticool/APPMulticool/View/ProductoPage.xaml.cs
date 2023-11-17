@@ -35,9 +35,9 @@ namespace APPMulticool.View
                 TxtNombre.IsVisible = false;
                 PckrTP.IsVisible = false;
                 Bv2.IsVisible = false;
-                BtnAgregar.IsEnabled = false;
-                BtnModificar.IsEnabled = false;
-                BtnEliminar.IsEnabled = false;
+                BtnAgregar.IsVisible = false;
+                BtnModificar.IsVisible = false;
+                BtnEliminar.IsVisible = false;
             }
         }
 

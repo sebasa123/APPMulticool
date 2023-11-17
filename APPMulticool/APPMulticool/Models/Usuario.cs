@@ -170,36 +170,36 @@ namespace APPMulticool.Models
                 throw;
             }
         }
-        //public async Task<List<Usuario>> GetAllUserNameList(string pNombre)
-        //{
-        //    try
-        //    {
-        //        string RouteSuffix = string.Format("Usuarios");
-        //        string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
-        //        RestClient client = new RestClient(URL);
-        //        Request = new RestRequest(URL, Method.Get);
-        //        Request.AddHeader(Services.APIConnection.ApiKeyName,
-        //            Services.APIConnection.ApiKeyValue);
-        //        Request.AddHeader(GlobalObjects.ContentType,
-        //            GlobalObjects.MimeType);
-        //        RestResponse response = await client.ExecuteAsync(Request);
-        //        HttpStatusCode statusCode = response.StatusCode;
-        //        if (statusCode == HttpStatusCode.OK)
-        //        {
-        //            var NombreUsLista = JsonConvert.DeserializeObject<List<Usuario>>(pNombre);
-        //            return NombreUsLista;
-        //        }
-        //        else
-        //        {
-        //            return null;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        string ErrorMsg = ex.Message;
-        //        throw;
-        //    }
-        //}
+        public async Task<ObservableCollection<Usuario>> GetUsuarioListByName()
+        {
+            try
+            {
+                string RouteSuffix = string.Format("Usuarios/GetUsuarioListByNombre?pNombre={0}", this.NombreUs);
+                string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
+                RestClient client = new RestClient(URL);
+                Request = new RestRequest(URL, Method.Get);
+                Request.AddHeader(Services.APIConnection.ApiKeyName,
+                    Services.APIConnection.ApiKeyValue);
+                Request.AddHeader(GlobalObjects.ContentType,
+                    GlobalObjects.MimeType);
+                RestResponse response = await client.ExecuteAsync(Request);
+                HttpStatusCode statusCode = response.StatusCode;
+                if (statusCode == HttpStatusCode.OK)
+                {
+                    var NombreUsLista = JsonConvert.DeserializeObject<ObservableCollection<Usuario>>(response.Content);
+                    return NombreUsLista;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                string ErrorMsg = ex.Message;
+                throw;
+            }
+        }
         public async Task<List<Usuario>> GetAllUsuarioList()
         {
             try

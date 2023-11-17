@@ -6,8 +6,8 @@
     <ContentPage.Content>
         <StackLayout Padding="20, 0, 20, 20" BackgroundColor="White">
 
-            <SearchBar x:Name="SbUsuario" Placeholder="Busque un usuario..."
-                       TextChanged="SbUsuario_TextChanged" FontSize="18" CancelButtonColor="LightPink"/>
+            <SearchBar x:Name="SbUsuario" Placeholder="Busque un usuario..." FontSize="18" 
+                       CancelButtonColor="LightGray" SearchButtonPressed="SbUsuario_SearchButtonPressed"/>
 
             <ListView x:Name="LstUsuario" SelectionMode="Single" ItemSelected="LstUsuario_ItemSelected"
                       BackgroundColor="WhiteSmoke" IsPullToRefreshEnabled="True" Refreshing="LstUsuario_Refreshing"

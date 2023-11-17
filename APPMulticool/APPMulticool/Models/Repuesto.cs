@@ -109,6 +109,36 @@ namespace APPMulticool.Models
                 throw;
             }
         }
+        public async Task<ObservableCollection<Repuesto>> GetRepuestoListByName()
+        {
+            try
+            {
+                string RouteSuffix = string.Format("Repuestos/GetRepuestoListByNombre?pNombre={0}", this.DescripcionRep);
+                string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
+                RestClient client = new RestClient(URL);
+                Request = new RestRequest(URL, Method.Get);
+                Request.AddHeader(Services.APIConnection.ApiKeyName,
+                    Services.APIConnection.ApiKeyValue);
+                Request.AddHeader(GlobalObjects.ContentType,
+                    GlobalObjects.MimeType);
+                RestResponse response = await client.ExecuteAsync(Request);
+                HttpStatusCode statusCode = response.StatusCode;
+                if (statusCode == HttpStatusCode.OK)
+                {
+                    var NombreRepLista = JsonConvert.DeserializeObject<ObservableCollection<Repuesto>>(response.Content);
+                    return NombreRepLista;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                string ErrorMsg = ex.Message;
+                throw;
+            }
+        }
         public async Task<bool> DeleteRepuesto(int pID)
         {
             try

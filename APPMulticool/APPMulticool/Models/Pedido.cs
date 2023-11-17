@@ -24,36 +24,36 @@ namespace APPMulticool.Models
         public virtual Cliente PedXCli { get; set; }
         public virtual Usuario PedXUs { get; set; }
         public virtual Producto PedXProd { get; set; }
-        public async Task<ObservableCollection<Pedido>> GetPedidoListByCliente()
-        {
-            try
-            {
-                string RouteSuffix = string.Format("Pedidos/GetPedidoByCliente?pNombreCli={0}",
-                PedXCli.NombreCli);
-                string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
-                RestClient client = new RestClient(URL);
-                Request = new RestRequest(URL, Method.Get);
-                Request.AddHeader(Services.APIConnection.ApiKeyName,
-                    Services.APIConnection.ApiKeyValue);
-                Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
-                RestResponse response = await client.ExecuteAsync(Request);
-                HttpStatusCode statusCode = response.StatusCode;
-                if (statusCode == HttpStatusCode.OK)
-                {
-                    var PedidoLista = JsonConvert.DeserializeObject<ObservableCollection<Pedido>>(response.Content);
-                    return PedidoLista;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            catch (Exception ex)
-            {
-                string ErrorMsg = ex.Message;
-                throw;
-            }
-        }
+        //public async Task<ObservableCollection<Pedido>> GetPedidoListByCliente()
+        //{
+        //    try
+        //    {
+        //        string RouteSuffix = string.Format("Pedidos/GetPedidoByCliente?pNombreCli={0}",
+        //        PedXCli.NombreCli);
+        //        string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
+        //        RestClient client = new RestClient(URL);
+        //        Request = new RestRequest(URL, Method.Get);
+        //        Request.AddHeader(Services.APIConnection.ApiKeyName,
+        //            Services.APIConnection.ApiKeyValue);
+        //        Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
+        //        RestResponse response = await client.ExecuteAsync(Request);
+        //        HttpStatusCode statusCode = response.StatusCode;
+        //        if (statusCode == HttpStatusCode.OK)
+        //        {
+        //            var PedidoLista = JsonConvert.DeserializeObject<ObservableCollection<Pedido>>(response.Content);
+        //            return PedidoLista;
+        //        }
+        //        else
+        //        {
+        //            return null;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string ErrorMsg = ex.Message;
+        //        throw;
+        //    }
+        //}
         public async Task<bool> AddPedido()
         {
             try
@@ -102,6 +102,36 @@ namespace APPMulticool.Models
                 {
                     var DescPedLista = JsonConvert.DeserializeObject<List<Pedido>>(pDesc);
                     return DescPedLista;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                string ErrorMsg = ex.Message;
+                throw;
+            }
+        }
+        public async Task<ObservableCollection<Pedido>> GetPedidoListByCliente()
+        {
+            try
+            {
+                string RouteSuffix = string.Format("Pedidos/GetPedidoListByNombre?pCliente={0}", this.FKCli);
+                string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
+                RestClient client = new RestClient(URL);
+                Request = new RestRequest(URL, Method.Get);
+                Request.AddHeader(Services.APIConnection.ApiKeyName,
+                    Services.APIConnection.ApiKeyValue);
+                Request.AddHeader(GlobalObjects.ContentType,
+                    GlobalObjects.MimeType);
+                RestResponse response = await client.ExecuteAsync(Request);
+                HttpStatusCode statusCode = response.StatusCode;
+                if (statusCode == HttpStatusCode.OK)
+                {
+                    var pedidocliLista = JsonConvert.DeserializeObject<ObservableCollection<Pedido>>(response.Content);
+                    return pedidocliLista;
                 }
                 else
                 {

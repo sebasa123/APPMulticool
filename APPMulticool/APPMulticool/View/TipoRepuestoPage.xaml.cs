@@ -33,9 +33,9 @@ namespace APPMulticool.View
                 TxtID.IsVisible = false;
                 TxtDescripcion.IsVisible = false;
                 Bv2.IsVisible = false;
-                BtnAgregar.IsEnabled = false;
-                BtnModificar.IsEnabled = false;
-                BtnEliminar.IsEnabled = false;
+                BtnAgregar.IsVisible = false;
+                BtnModificar.IsVisible = false;
+                BtnEliminar.IsVisible = false;
             }
         }
         private async void LoadTipoRepList()

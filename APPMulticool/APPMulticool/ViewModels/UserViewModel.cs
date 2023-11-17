@@ -133,182 +133,254 @@ namespace APPMulticool.ViewModels
         #region GetNombre
         public async Task<ObservableCollection<Usuario>> GetNombreUsuario(string pNombre)
         {
+            if (IsBusy) return null;
+            IsBusy = true;
             try
             {
-                ObservableCollection<Usuario> nombreUs = new ObservableCollection<Usuario>();
-                nombreUs = await MyUsuario.GetAllUserNameList(pNombre);
-                if (nombreUs == null)
+                ObservableCollection<Usuario> list = new ObservableCollection<Usuario>();
+                MyUsuario.NombreUs = pNombre;
+                list = await MyUsuario.GetUsuarioListByName();
+                if (list == null)
                 {
                     return null;
                 }
                 else
                 {
-                    return nombreUs;
+                    return list;
                 }
             }
             catch (Exception)
             {
+                return null;
                 throw;
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
-        public async Task<List<TipoUsuario>> GetNombreTipoUsuario(string pNombre)
+        public async Task<ObservableCollection<TipoUsuario>> GetNombreTipoUsuario(string pNombre)
         {
+            if (IsBusy) return null;
+            IsBusy = true;
             try
             {
-                List<TipoUsuario> nombreTu = new List<TipoUsuario>();
-                nombreTu = await MyTipoUsuario.GetAllTipoUsuarioNameList(pNombre);
-                if (nombreTu == null)
+                ObservableCollection<TipoUsuario> list = new ObservableCollection<TipoUsuario>();
+                MyTipoUsuario.NombreTU = pNombre;
+                list = await MyTipoUsuario.GetTipoUsuarioListByName();
+                if (list == null)
                 {
                     return null;
                 }
                 else
                 {
-                    return nombreTu;
+                    return list;
                 }
             }
             catch (Exception)
             {
+                return null;
                 throw;
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
-        public async Task<List<TipoRepuesto>> GetNombreTipoRepuesto(string pDescripcion)
+        public async Task<ObservableCollection<Pedido>> GetNombrePedido(int pCliente)
         {
+            if (IsBusy) return null;
+            IsBusy = true;
             try
             {
-                List<TipoRepuesto> descTR = new List<TipoRepuesto>();
-                descTR = await MyTipoRepuesto.GetAllTipoRepuestoNameList(pDescripcion);
-                if (descTR == null)
+                ObservableCollection<Pedido> list = new ObservableCollection<Pedido>();
+                MyPedido.FKCli = pCliente;
+                list = await MyPedido.GetPedidoListByCliente();
+                if (list == null)
                 {
                     return null;
                 }
                 else
                 {
-                    return descTR;
+                    return list;
                 }
             }
             catch (Exception)
             {
+                return null;
                 throw;
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
-        public async Task<List<TipoProducto>> GetNombreTipoProducto(string pNombre)
+        public async Task<ObservableCollection<Repuesto>> GetNombreRepuesto(string pNombre)
         {
+            if (IsBusy) return null;
+            IsBusy = true;
             try
             {
-                List<TipoProducto> nom = new List<TipoProducto>();
-                nom = await MyTipoProducto.GetAllTipoProductoNameList(pNombre);
-                if (nom == null)
+                ObservableCollection<Repuesto> list = new ObservableCollection<Repuesto>();
+                MyRepuesto.DescripcionRep = pNombre;
+                list = await MyRepuesto.GetRepuestoListByName();
+                if (list == null)
                 {
                     return null;
                 }
                 else
                 {
-                    return nom;
+                    return list;
                 }
             }
             catch (Exception)
             {
+                return null;
                 throw;
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
-        public async Task<List<Repuesto>> GetNombreRepuesto(string pDesc)
+        public async Task<ObservableCollection<TipoRepuesto>> GetNombreTipoRepuesto(string pNombre)
         {
+            if (IsBusy) return null;
+            IsBusy = true;
             try
             {
-                List<Repuesto> desc = new List<Repuesto>();
-                desc = await MyRepuesto.GetAllRepuestoNameList(pDesc);
-                if (desc == null)
+                ObservableCollection<TipoRepuesto> list = new ObservableCollection<TipoRepuesto>();
+                MyTipoRepuesto.DescripcionTR = pNombre;
+                list = await MyTipoRepuesto.GetTipoRepuestoListByName();
+                if (list == null)
                 {
                     return null;
                 }
                 else
                 {
-                    return desc;
+                    return list;
                 }
             }
             catch (Exception)
             {
+                return null;
                 throw;
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
-        public async Task<List<Producto>> GetNombreProducto(string pNombre)
+        public async Task<ObservableCollection<Herramienta>> GetNombreHerramienta(string pNombre)
         {
+            if (IsBusy) return null;
+            IsBusy = true;
             try
             {
-                List<Producto> nom = new List<Producto>();
-                nom = await MyProducto.GetAllProductoNameList(pNombre);
-                if (nom == null)
+                ObservableCollection<Herramienta> list = new ObservableCollection<Herramienta>();
+                MyHerramienta.NombreHer = pNombre;
+                list = await MyHerramienta.GetHerramientaListByName();
+                if (list == null)
                 {
                     return null;
                 }
                 else
                 {
-                    return nom;
+                    return list;
                 }
             }
             catch (Exception)
             {
+                return null;
                 throw;
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
-        public async Task<List<Pedido>> GetNombrePedido(string pDesc)
+        public async Task<ObservableCollection<Cliente>> GetNombreCliente(string pNombre)
         {
+            if (IsBusy) return null;
+            IsBusy = true;
             try
             {
-                List<Pedido> desc = new List<Pedido>();
-                desc = await MyPedido.GetAllPedidoNameList(pDesc);
-                if (desc == null)
+                ObservableCollection<Cliente> list = new ObservableCollection<Cliente>();
+                MyCliente.NombreCli = pNombre;
+                list = await MyCliente.GetClienteListByName();
+                if (list == null)
                 {
                     return null;
                 }
                 else
                 {
-                    return desc;
+                    return list;
                 }
             }
             catch (Exception)
             {
+                return null;
                 throw;
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
-        public async Task<List<Herramienta>> GetNombreHerramienta(string pNombre)
+        public async Task<ObservableCollection<Producto>> GetNombreProducto(string pNombre)
         {
+            if (IsBusy) return null;
+            IsBusy = true;
             try
             {
-                List<Herramienta> nom = new List<Herramienta>();
-                nom = await MyHerramienta.GetAllHerramientaNameList(pNombre);
-                if (nom == null)
+                ObservableCollection<Producto> list = new ObservableCollection<Producto>();
+                MyProducto.NombreProd = pNombre;
+                list = await MyProducto.GetProductoListByName();
+                if (list == null)
                 {
                     return null;
                 }
                 else
                 {
-                    return nom;
+                    return list;
                 }
             }
             catch (Exception)
             {
+                return null;
                 throw;
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
-        public async Task<List<Cliente>> GetNombreCliente(string pNombre)
+        public async Task<ObservableCollection<TipoProducto>> GetNombreTipoProducto(string pNombre)
         {
+            if (IsBusy) return null;
+            IsBusy = true;
             try
             {
-                List<Cliente> nom = new List<Cliente>();
-                nom = await MyCliente.GetAllClienteNameList(pNombre);
-                if (nom == null)
+                ObservableCollection<TipoProducto> list = new ObservableCollection<TipoProducto>();
+                MyTipoProducto.NombreTP = pNombre;
+                list = await MyTipoProducto.GetTipoProductoListByName();
+                if (list == null)
                 {
                     return null;
                 }
                 else
                 {
-                    return nom;
+                    return list;
                 }
             }
             catch (Exception)
             {
+                return null;
                 throw;
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
         #endregion

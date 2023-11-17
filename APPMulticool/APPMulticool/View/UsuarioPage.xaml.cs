@@ -68,20 +68,6 @@ namespace APPMulticool.View
             return R;
         }
 
-        private async void SbUsuario_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (SbUsuario.Text.Trim() == null)
-            {
-                LstUsuario.ItemsSource = await uvm.GetUsuarios();
-            }
-            else
-            {
-                var busq = SbUsuario.Text.Trim();
-                var itemsFilter = uvm.GetNombreUsuario(busq).Result;
-                LstUsuario.ItemsSource = itemsFilter;
-            }
-        }
-
         private async void BtnAgregar_Clicked(object sender, EventArgs e)
         {
             if (ValidateUsuarioData())
@@ -175,6 +161,13 @@ namespace APPMulticool.View
         {
             await Task.Delay(3000);
             this.LstUsuario.IsRefreshing = false;
+        }
+
+        private async void SbUsuario_SearchButtonPressed(object sender, EventArgs e)
+        {
+            string busqueda = SbUsuario.Text.Trim();
+            var filtro = await uvm.GetNombreUsuario(busqueda);
+            LstUsuario.ItemsSource = filtro;
         }
     }
 }
