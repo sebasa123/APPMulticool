@@ -12,7 +12,7 @@
         <StackLayout Padding="20, 0, 20, 20" BackgroundColor="White" >
 
             <SearchBar x:Name="SbTipoUsuario" Placeholder="Busque un tipo de usuario..."
-                       TextChanged="SbTipoUsuario_TextChanged" FontSize="18" CancelButtonColor="LightPink"/>
+                       SearchButtonPressed="SbTipoUsuario_SearchButtonPressed" FontSize="18" CancelButtonColor="LightGray"/>
 
             <ListView x:Name="LstTipoUsuario" SelectionMode="Single" ItemSelected="LstTipoUsuario_ItemSelected"
                       BackgroundColor="WhiteSmoke" IsPullToRefreshEnabled="True" Refreshing="LstTipoUsuario_Refreshing"

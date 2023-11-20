@@ -71,14 +71,6 @@ namespace APPMulticool.View
                 BtnEliminar.IsVisible = false;
             }
         }
-
-        private void SbPedido_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var busq = SbPedido.Text;
-            var itemsFilter = vm.GetNombrePedido(busq).Result;
-            LstPedido.ItemsSource = itemsFilter;
-        }
-
         private bool ValidatePedidoData()
         {
             bool R = false;
@@ -137,27 +129,20 @@ namespace APPMulticool.View
                 var resp = await DisplayAlert("Pedido", "¿Desea agregar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    if (vm.GetNombrePedido(TxtDesc.Text.Trim()) == null)
+                    Repuesto rep = PckrRep.SelectedItem as Repuesto;
+                    Cliente cli = PckrCli.SelectedItem as Cliente;
+                    Producto prod = PckrProd.SelectedItem as Producto;
+                    Usuario us = PckrUs.SelectedItem as Usuario;
+                    bool R = await vm.AddPedido(TxtDesc.Text.Trim(), DtPckrFecha.Date, rep.IDRep,
+                        cli.IDCli, prod.IDProd, us.IDUs);
+                    if (R)
                     {
-                        Repuesto rep = PckrRep.SelectedItem as Repuesto;
-                        Cliente cli = PckrCli.SelectedItem as Cliente;
-                        Producto prod = PckrProd.SelectedItem as Producto;
-                        Usuario us = PckrUs.SelectedItem as Usuario;
-                        bool R = await vm.AddPedido(TxtDesc.Text.Trim(), DtPckrFecha.Date, rep.IDRep,
-                            cli.IDCli, prod.IDProd, us.IDUs);
-                        if (R)
-                        {
-                            await DisplayAlert("Pedido", "Pedido agregado", "OK");
-                            await Navigation.PopAsync();
-                        }
-                        else
-                        {
-                            await DisplayAlert("Pedido", "Algo salio mal", "OK");
-                        }
+                        await DisplayAlert("Pedido", "Pedido agregado", "OK");
+                        await Navigation.PopAsync();
                     }
                     else
                     {
-                        await DisplayAlert("Pedido", "El pedido ya existe", "OK");
+                        await DisplayAlert("Pedido", "Algo salio mal", "OK");
                     }
                 }
             }
@@ -167,30 +152,24 @@ namespace APPMulticool.View
         {
             if (ValidatePedidoData())
             {
+                var idped = (LstPedido.SelectedItem as Pedido).IDPed;
                 var resp = await DisplayAlert("Pedido", "¿Desea modificar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    if (vm.GetNombrePedido(TxtDesc.Text.Trim()) != null)
+                    Repuesto rep = PckrRep.SelectedItem as Repuesto;
+                    Cliente cli = PckrCli.SelectedItem as Cliente;
+                    Producto prod = PckrProd.SelectedItem as Producto;
+                    Usuario us = PckrUs.SelectedItem as Usuario;
+                    bool R = await vm.UpdatePedido(idped, TxtDesc.Text.Trim(), DtPckrFecha.Date, rep.IDRep,
+                        cli.IDCli, prod.IDProd, us.IDUs);
+                    if (R)
                     {
-                        Repuesto rep = PckrRep.SelectedItem as Repuesto;
-                        Cliente cli = PckrCli.SelectedItem as Cliente;
-                        Producto prod = PckrProd.SelectedItem as Producto;
-                        Usuario us = PckrUs.SelectedItem as Usuario;
-                        bool R = await vm.AddPedido(TxtDesc.Text.Trim(), DtPckrFecha.Date, rep.IDRep,
-                            cli.IDCli, prod.IDProd, us.IDUs);
-                        if (R)
-                        {
-                            await DisplayAlert("Pedido", "Pedido modificado", "OK");
-                            await Navigation.PopAsync();
-                        }
-                        else
-                        {
-                            await DisplayAlert("Pedido", "Algo salio mal", "OK");
-                        }
+                        await DisplayAlert("Pedido", "Pedido modificado", "OK");
+                        await Navigation.PopAsync();
                     }
                     else
                     {
-                        await DisplayAlert("Pedido", "El pedido no existe", "OK");
+                        await DisplayAlert("Pedido", "Algo salio mal", "OK");
                     }
                 }
             }
@@ -198,10 +177,11 @@ namespace APPMulticool.View
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
+            var idped = (LstPedido.SelectedItem as Pedido).IDPed;
             var result = await this.DisplayAlert("Pedido", "¿Desea borrar el pedido?", "OK", "Cancelar");
             if (result == true)
             {
-                bool R = await vm.DeletePedido(((int)TxtID.TextTransform));
+                bool R = await vm.DeletePedido(idped);
                 if (R)
                 {
                     await DisplayAlert("Pedido", "El pedido se borro correctamente", "OK");
@@ -234,6 +214,13 @@ namespace APPMulticool.View
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             Navigation.PopToRootAsync();
+        }
+
+        private async void SbPedido_SearchButtonPressed(object sender, EventArgs e)
+        {
+            int busqueda = ((int)SbPedido.TextTransform);
+            var filtro = await vm.GetNombrePedido(busqueda);
+            LstPedido.ItemsSource = filtro;
         }
     }
 }

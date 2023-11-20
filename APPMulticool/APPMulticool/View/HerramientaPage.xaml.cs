@@ -44,13 +44,6 @@ namespace APPMulticool.View
             LstHerramienta.ItemsSource = await vm.GetHerramientas();
         }
 
-        private void SbHeramienta_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var busq = SbHeramienta.Text;
-            var itemsFilter = vm.GetNombreHerramienta(busq).Result;
-            LstHerramienta.ItemsSource = itemsFilter;
-        }
-
         private bool ValidateHerramientaData()
         {
             bool R = false;
@@ -84,22 +77,15 @@ namespace APPMulticool.View
                 var resp = await DisplayAlert("Herramienta", "¿Desea agregar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    if (vm.GetNombreHerramienta(TxtNombre.Text.Trim()) == null)
+                    bool R = await vm.AddHerramienta(TxtNombre.Text.Trim(), ((int)TxtNumero.TextTransform));
+                    if (R)
                     {
-                        bool R = await vm.AddHerramienta(TxtNombre.Text.Trim(), ((int)TxtNumero.TextTransform));
-                        if (R)
-                        {
-                            await DisplayAlert("Herramienta", "Herramienta agregada", "OK");
-                            await Navigation.PopAsync();
-                        }
-                        else
-                        {
-                            await DisplayAlert("Herramienta", "Algo salio mal", "OK");
-                        }
+                        await DisplayAlert("Herramienta", "Herramienta agregada", "OK");
+                        await Navigation.PopAsync();
                     }
                     else
                     {
-                        await DisplayAlert("Herramienta", "La herramienta ya existe", "OK");
+                        await DisplayAlert("Herramienta", "Algo salio mal", "OK");
                     }
                 }
             }
@@ -109,25 +95,19 @@ namespace APPMulticool.View
         {
             if (ValidateHerramientaData())
             {
+                var idher = (LstHerramienta.SelectedItem as Herramienta).IDHer;
                 var resp = await DisplayAlert("Herramienta", "¿Desea modificar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    if (vm.GetNombreHerramienta(TxtNombre.Text.Trim()) != null)
+                    bool R = await vm.UpdateHerramienta(idher, TxtNombre.Text.Trim(), ((int)TxtNumero.TextTransform));
+                    if (R)
                     {
-                        bool R = await vm.AddHerramienta(TxtNombre.Text.Trim(), ((int)TxtNumero.TextTransform));
-                        if (R)
-                        {
-                            await DisplayAlert("Herramienta", "Herramienta modificada", "OK");
-                            await Navigation.PopAsync();
-                        }
-                        else
-                        {
-                            await DisplayAlert("Herramienta", "Algo salio mal", "OK");
-                        }
+                        await DisplayAlert("Herramienta", "Herramienta modificada", "OK");
+                        await Navigation.PopAsync();
                     }
                     else
                     {
-                        await DisplayAlert("Herramienta", "La herramienta no existe", "OK");
+                        await DisplayAlert("Herramienta", "Algo salio mal", "OK");
                     }
                 }
             }
@@ -135,10 +115,11 @@ namespace APPMulticool.View
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
+            var idher = (LstHerramienta.SelectedItem as Herramienta).IDHer;
             var result = await this.DisplayAlert("Herramienta", "¿Desea borrar la herramienta?", "OK", "Cancelar");
             if (result == true)
             {
-                bool R = await vm.DeleteHerramienta(((int)TxtID.TextTransform));
+                bool R = await vm.DeleteHerramienta(idher);
                 if (R)
                 {
                     await DisplayAlert("Herramienta", "La herramienta se borro correctamente", "OK");
@@ -170,6 +151,13 @@ namespace APPMulticool.View
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             Navigation.PopToRootAsync();
+        }
+
+        private async void SbHeramienta_SearchButtonPressed(object sender, EventArgs e)
+        {
+            string busqueda = SbHeramienta.Text.Trim();
+            var filtro = await vm.GetNombreHerramienta(busqueda);
+            LstHerramienta.ItemsSource = filtro;
         }
     }
 }

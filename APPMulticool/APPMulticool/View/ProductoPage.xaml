@@ -12,7 +12,7 @@
 
         <StackLayout Padding="20, 0, 20, 20" BackgroundColor="White">
             <SearchBar x:Name="SbProducto" Placeholder="Busque un producto..."
-                       TextChanged="SbProducto_TextChanged" FontSize="18" CancelButtonColor="LightPink"/>
+                       SearchButtonPressed="SbProducto_SearchButtonPressed" FontSize="18" CancelButtonColor="LightGray"/>
 
             <ListView x:Name="LstProducto" SelectionMode="Single" ItemSelected="LstProducto_ItemSelected"
                       BackgroundColor="WhiteSmoke" IsPullToRefreshEnabled="True" Refreshing="LstProducto_Refreshing"

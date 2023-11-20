@@ -91,13 +91,6 @@ namespace APPMulticool.View
             return R;
         }
 
-        private void SbRepuesto_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var busq = SbRepuesto.Text;
-            var itemsFilter = vm.GetNombreRepuesto(busq).Result;
-            LstRepuesto.ItemsSource = itemsFilter;
-        }
-
         private async void BtnAgregar_Clicked(object sender, EventArgs e)
         {
             if (ValidateRepuestoData())
@@ -105,25 +98,18 @@ namespace APPMulticool.View
                 var resp = await DisplayAlert("Repuesto", "¿Desea agregar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    if (vm.GetNombreRepuesto(TxtDesc.Text.Trim()) == null)
+                    TipoRepuesto tr = PckrTR.SelectedItem as TipoRepuesto;
+                    Herramienta her = PckrHer.SelectedItem as Herramienta;
+                    bool R = await vm.AddRepuesto(SwCompleto.IsToggled, TxtDesc.Text.Trim(),
+                        tr.IDTR, her.IDHer);
+                    if (R)
                     {
-                        TipoRepuesto tr = PckrTR.SelectedItem as TipoRepuesto;
-                        Herramienta her = PckrHer.SelectedItem as Herramienta;
-                        bool R = await vm.AddRepuesto(SwCompleto.IsToggled, TxtDesc.Text.Trim(),
-                            tr.IDTR, her.IDHer);
-                        if (R)
-                        {
-                            await DisplayAlert("Repuesto", "Repuesto agregado", "OK");
-                            await Navigation.PopAsync();
-                        }
-                        else
-                        {
-                            await DisplayAlert("Repuesto", "Algo salio mal", "OK");
-                        }
+                        await DisplayAlert("Repuesto", "Repuesto agregado", "OK");
+                        await Navigation.PopAsync();
                     }
                     else
                     {
-                        await DisplayAlert("Repuesto", "El repuesto ya existe", "OK");
+                        await DisplayAlert("Repuesto", "Algo salio mal", "OK");
                     }
                 }
             }
@@ -131,10 +117,11 @@ namespace APPMulticool.View
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
+            var idrep = (LstRepuesto.SelectedItem as Repuesto).IDRep;
             var result = await DisplayAlert("Repuesto", "¿Desea borrar el repuesto?", "OK", "Cancelar");
             if (result == true)
             {
-                bool R = await vm.DeleteRepuesto(((int)TxtID.TextTransform));
+                bool R = await vm.DeleteRepuesto(idrep);
                 if (R)
                 {
                     await DisplayAlert("Respuesto", "El repuesto se borro correctamente", "OK");
@@ -150,28 +137,22 @@ namespace APPMulticool.View
         {
             if (ValidateRepuestoData())
             {
+                var idrep = (LstRepuesto.SelectedItem as Repuesto).IDRep;
                 var resp = await DisplayAlert("Repuesto", "¿Desea modificar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    if (vm.GetNombreRepuesto(TxtDesc.Text.Trim()) != null)
+                    TipoRepuesto tr = PckrTR.SelectedItem as TipoRepuesto;
+                    Herramienta her = PckrHer.SelectedItem as Herramienta;
+                    bool R = await vm.UpdateRepuesto(idrep, SwCompleto.IsToggled, TxtDesc.Text.Trim(),
+                        tr.IDTR, her.IDHer);
+                    if (R)
                     {
-                        TipoRepuesto tr = PckrTR.SelectedItem as TipoRepuesto;
-                        Herramienta her = PckrHer.SelectedItem as Herramienta;
-                        bool R = await vm.AddRepuesto(SwCompleto.IsToggled, TxtDesc.Text.Trim(),
-                            tr.IDTR, her.IDHer);
-                        if (R)
-                        {
-                            await DisplayAlert("Repuesto", "Repuesto modificado", "OK");
-                            await Navigation.PopAsync();
-                        }
-                        else
-                        {
-                            await DisplayAlert("Repuesto", "Algo salio mal", "OK");
-                        }
+                        await DisplayAlert("Repuesto", "Repuesto modificado", "OK");
+                        await Navigation.PopAsync();
                     }
                     else
                     {
-                        await DisplayAlert("Repuesto", "El repuesto no existe", "OK");
+                        await DisplayAlert("Repuesto", "Algo salio mal", "OK");
                     }
                 }
             }
@@ -199,6 +180,13 @@ namespace APPMulticool.View
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             Navigation.PopToRootAsync();
+        }
+
+        private async void SbRepuesto_SearchButtonPressed(object sender, EventArgs e)
+        {
+            string busqueda = SbRepuesto.Text.Trim();
+            var filtro = await vm.GetNombreRepuesto(busqueda);
+            LstRepuesto.ItemsSource = filtro;
         }
     }
 }

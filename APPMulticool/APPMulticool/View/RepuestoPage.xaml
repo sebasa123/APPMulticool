@@ -12,7 +12,7 @@
         
         <StackLayout Padding="20, 0, 20, 20" BackgroundColor="White">
             <SearchBar x:Name="SbRepuesto" Placeholder="Busque un repuesto..."
-                       TextChanged="SbRepuesto_TextChanged" FontSize="18"/>
+                       SearchButtonPressed="SbRepuesto_SearchButtonPressed" FontSize="18" CancelButtonColor="LightGray"/>
 
             <ListView x:Name="LstRepuesto" SelectionMode="Single" ItemSelected="LstRepuesto_ItemSelected"
                       BackgroundColor="WhiteSmoke" IsPullToRefreshEnabled="True" Refreshing="LstRepuesto_Refreshing"

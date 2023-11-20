@@ -1062,12 +1062,13 @@ namespace APPMulticool.ViewModels
 
         #region Add
         public async Task<bool> AddUsuario(string pNombreUs, 
-            string pContraUs, int pTipo, bool pEstado = true)
+            string pContraUs, int pTipo, int pIDUs = 0, bool pEstado = true)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
+                MyUsuario.IDUs = pIDUs;
                 MyUsuario.NombreUs = pNombreUs;
                 MyUsuario.ContrasUs = pContraUs;
                 MyUsuario.FKTipoUsuario = pTipo;
@@ -1085,12 +1086,13 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> AddTipoUsuario(string pNombreTU)
+        public async Task<bool> AddTipoUsuario(string pNombreTU, int pID = 0)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
+                MyTipoUsuario.IDTU = pID;
                 MyTipoUsuario.NombreTU = pNombreTU;
                 bool R = await MyTipoUsuario.AddTipoUsuario();
                 return R;
@@ -1105,16 +1107,18 @@ namespace APPMulticool.ViewModels
             }
         }
         public async Task<bool> AddCliente(string pNombreCli, string pApellido,
-            int pCedula, string pDireccion)
+            int pCedula, string pDireccion, int pID = 0, bool pEstado = true)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
+                MyCliente.IDCli = pID;
                 MyCliente.NombreCli = pNombreCli;
                 MyCliente.ApellidoCli = pApellido;
                 MyCliente.CedulaCli = pCedula;
                 MyCliente.DireccionCli = pDireccion;
+                MyCliente.EstadoCli = pEstado;
                 bool R = await MyCliente.AddCliente();
                 return R;
             }
@@ -1128,18 +1132,20 @@ namespace APPMulticool.ViewModels
             }
         }
         public async Task<bool> AddPedido(string pDescripcionPed, DateTime pFecha,
-            int pRep, int pCli, int pUs, int pProd)
+            int pRep, int pCli, int pUs, int pProd, int pID = 0, bool pEstado = true)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
+                MyPedido.IDPed = pID;
                 MyPedido.DescripcionPed = pDescripcionPed;
                 MyPedido.FechaPed = pFecha;
                 MyPedido.FKRep = pRep;
                 MyPedido.FKCli = pCli;
                 MyPedido.FKUs = pUs;
                 MyPedido.FKProd = pProd;
+                MyPedido.EstadoPed = pEstado;
                 bool R = await MyPedido.AddPedido();
                 return R;
             }
@@ -1153,12 +1159,13 @@ namespace APPMulticool.ViewModels
             }
         }
         public async Task<bool> AddRepuesto(bool pCompletoRep, string pDescripcionRep, int pTR,
-            int pHer)
+            int pHer, int pIDRep = 0)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
+                MyRepuesto.IDRep = pIDRep;
                 MyRepuesto.CompletoRep = pCompletoRep;
                 MyRepuesto.DescripcionRep = pDescripcionRep;
                 MyRepuesto.FKTipoRep = pTR;
@@ -1175,14 +1182,17 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> AddHerramienta(string pNombreHer, int pNumero)
+        public async Task<bool> AddHerramienta(string pNombreHer, int pNumero,
+            int pID = 0, bool pEstado = true)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
+                MyHerramienta.IDHer = pID;
                 MyHerramienta.NombreHer = pNombreHer;
                 MyHerramienta.NumeroHer = pNumero;
+                MyHerramienta.EstadoHer = pEstado;
                 bool R = await MyHerramienta.AddHerramienta();
                 return R;
             }
@@ -1195,12 +1205,13 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> AddTipoRepuesto(string pDescripcionTR)
+        public async Task<bool> AddTipoRepuesto(string pDescripcionTR, int pIDTR = 0)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
+                MyTipoRepuesto.IDTR = pIDTR;
                 MyTipoRepuesto.DescripcionTR = pDescripcionTR;
                 bool R = await MyTipoRepuesto.AddTipoRepuesto();
                 return R;
@@ -1214,14 +1225,17 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> AddProducto(string pNombreProd, int pTP)
+        public async Task<bool> AddProducto(string pNombreProd, int pTP,
+            int pID = 0, bool pEstado = true)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
+                MyProducto.IDProd = pID;
                 MyProducto.NombreProd = pNombreProd;
                 MyProducto.FKTipoProd = pTP;
+                MyProducto.EstadoProd = pEstado;
                 bool R = await MyProducto.AddProducto();
                 return R;
             }
@@ -1234,12 +1248,13 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> AddTipoProducto(string pNombreTP)
+        public async Task<bool> AddTipoProducto(string pNombreTP, int pIDTP = 0)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
+                MyTipoProducto.IDTP = pIDTP;
                 MyTipoProducto.NombreTP = pNombreTP;
                 bool R = await MyTipoProducto.AddTipoProducto();
                 return R;
@@ -1302,13 +1317,18 @@ namespace APPMulticool.ViewModels
         #endregion
 
         #region Update
-        public async Task<bool> UpdateUsuario(UsuarioDTO pUsuario)
+        public async Task<bool> UpdateUsuario(int pIDUs, string pNombreUs,
+            string pContraUs, int pTipo, bool pEstado = true)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
-                MyUsuarioDTO = pUsuario;
+                MyUsuarioDTO.IDUs = pIDUs;
+                MyUsuarioDTO.NombreUs = pNombreUs;
+                MyUsuarioDTO.ContrasUs = pContraUs;
+                MyUsuarioDTO.FKTipoUsuario = pTipo;
+                MyUsuarioDTO.EstadoUs = pEstado;
                 bool R = await MyUsuarioDTO.UpdateUsuario();
                 return R;
             }
@@ -1322,13 +1342,14 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> UpdateTipoUsuario(TipoUsuarioDTO pTipoUsuario)
+        public async Task<bool> UpdateTipoUsuario(int pID, string pNombre)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
-                MyTipoUsuarioDTO = pTipoUsuario;
+                MyTipoUsuarioDTO.IDTU = pID;
+                MyTipoUsuarioDTO.NombreTU = pNombre;
                 bool R = await MyTipoUsuarioDTO.UpdateTipoUsuario();
                 return R;
             }
@@ -1342,13 +1363,19 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> UpdateCliente(ClienteDTO pCliente)
+        public async Task<bool> UpdateCliente(int pID, string pNombre,
+            string pApellido, int pCedula, string pDireccion, bool pEstado = true)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
-                MyClienteDTO = pCliente;
+                MyClienteDTO.IDCli = pID;
+                MyClienteDTO.NombreCli = pNombre;
+                MyClienteDTO.ApellidoCli = pApellido;
+                MyClienteDTO.CedulaCli = pCedula;
+                MyClienteDTO.DireccionCli = pDireccion;
+                MyClienteDTO.EstadoCli = pEstado;
                 bool R = await MyClienteDTO.UpdateCliente();
                 return R;
             }
@@ -1362,13 +1389,22 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> UpdatePedido(PedidoDTO pPedido)
+        public async Task<bool> UpdatePedido(int pID, string pDesc,
+            DateTime pFecha, int pFKRep, int pFKCli, int pFKUs, int pFKProd,
+            bool pEstado = true)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
-                MyPedidoDTO = pPedido;
+                MyPedidoDTO.IDPed = pID;
+                MyPedidoDTO.DescripcionPed = pDesc;
+                MyPedidoDTO.FechaPed = pFecha;
+                MyPedidoDTO.FKRep = pFKRep;
+                MyPedidoDTO.FKCli = pFKCli;
+                MyPedidoDTO.FKUs = pFKUs;
+                MyPedidoDTO.FKProd = pFKProd;
+                MyPedidoDTO.EstadoPed = pEstado;
                 bool R = await MyPedidoDTO.UpdatePedido();
                 return R;
             }
@@ -1382,13 +1418,18 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> UpdateRepuesto(RepuestoDTO pRepuesto)
+        public async Task<bool> UpdateRepuesto(int pID, bool pComp, 
+            string pDesc, int pFKTR, int pHer)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
-                MyRepuestoDTO = pRepuesto;
+                MyRepuestoDTO.IDRep = pID;
+                MyRepuestoDTO.CompletoRep = pComp;
+                MyRepuestoDTO.DescripcionRep = pDesc;
+                MyRepuestoDTO.FKTipoRep = pFKTR;
+                MyRepuestoDTO.FKHerramientas = pHer;
                 bool R = await MyRepuestoDTO.UpdateRepuesto();
                 return R;
             }
@@ -1402,13 +1443,14 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> UpdateTipoRepuesto(TipoRepuestoDTO pTipoRepuesto)
+        public async Task<bool> UpdateTipoRepuesto(int pIDTR, string pDesc)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
-                MyTipoRepuestoDTO = pTipoRepuesto;
+                MyTipoRepuestoDTO.IDTR = pIDTR;
+                MyTipoRepuestoDTO.DescripcionTR = pDesc;
                 bool R = await MyTipoRepuestoDTO.UpdateTipoRepuesto();
                 return R;
             }
@@ -1422,13 +1464,16 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> UpdateHerramienta(HerramientaDTO pHerramienta)
+        public async Task<bool> UpdateHerramienta(int pID, string pNombre, 
+            int pNumero, bool pEstado = true)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
-                MyHerramientaDTO = pHerramienta;
+                MyHerramientaDTO.IDHer = pID;
+                MyHerramientaDTO.NombreHer = pNombre;
+                MyHerramientaDTO.NumeroHer = pNumero;
                 bool R = await MyHerramientaDTO.UpdateHerramienta();
                 return R;
             }
@@ -1442,13 +1487,17 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> UpdateProducto(ProductoDTO pProducto)
+        public async Task<bool> UpdateProducto(int pID, string pNombre, 
+            int pFKTP, bool pEstado = true)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
-                MyProductoDTO = pProducto;
+                MyProductoDTO.IDProd = pID;
+                MyProductoDTO.NombreProd = pNombre;
+                MyProductoDTO.FKTipoProd = pFKTP;
+                MyProductoDTO.EstadoProd = pEstado;
                 bool R = await MyProductoDTO.UpdateProducto();
                 return R;
             }
@@ -1462,13 +1511,14 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> UpdateTipoProducto(TipoProductoDTO pTipoProducto)
+        public async Task<bool> UpdateTipoProducto(int pIDTP, string pNombre)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
-                MyTipoProductoDTO = pTipoProducto;
+                MyTipoProductoDTO.IDTP = pIDTP;
+                MyTipoProductoDTO.NombreTP = pNombre;
                 bool R = await MyTipoProductoDTO.UpdateTipoProducto();
                 return R;
             }

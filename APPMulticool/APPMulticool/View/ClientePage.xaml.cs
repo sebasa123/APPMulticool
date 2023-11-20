@@ -47,13 +47,6 @@ namespace APPMulticool.View
             LstCliente.ItemsSource = await vm.GetClientes();
         }
 
-        private void SbCliente_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var busq = SbCliente.Text;
-            var itemsFilter = vm.GetNombreCliente(busq).Result;
-            LstCliente.ItemsSource = itemsFilter;
-        }
-
         private bool ValidateClienteData()
         {
             bool R = false;
@@ -101,24 +94,17 @@ namespace APPMulticool.View
                 var resp = await DisplayAlert("Cliente", "¿Desea agregar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    if (vm.GetNombreCliente(TxtNombre.Text.Trim()) == null)
-                    {
-                        bool R = await vm.AddCliente(TxtNombre.Text.Trim(),
+                    bool R = await vm.AddCliente(TxtNombre.Text.Trim(),
                             TxtApellido.Text.Trim(), ((int)TxtCedula.TextTransform),
                             TxtDireccion.Text.Trim());
-                        if (R)
-                        {
-                            await DisplayAlert("Cliente", "Cliente agregado", "OK");
-                            await Navigation.PopAsync();
-                        }
-                        else
-                        {
-                            await DisplayAlert("Cliente", "Algo salio mal", "OK");
-                        }
+                    if (R)
+                    {
+                        await DisplayAlert("Cliente", "Cliente agregado", "OK");
+                        await Navigation.PopAsync();
                     }
                     else
                     {
-                        await DisplayAlert("Cliente", "El cliente ya existe", "OK");
+                        await DisplayAlert("Cliente", "Algo salio mal", "OK");
                     }
                 }
             }
@@ -128,27 +114,21 @@ namespace APPMulticool.View
         {
             if (ValidateClienteData())
             {
+                var idcli = (LstCliente.SelectedItem as Cliente).IDCli;
                 var resp = await DisplayAlert("Cliente", "¿Desea modificar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    if (vm.GetNombreCliente(TxtNombre.Text.Trim()) != null)
-                    {
-                        bool R = await vm.AddCliente(TxtNombre.Text.Trim(),
+                    bool R = await vm.UpdateCliente(idcli, TxtNombre.Text.Trim(),
                             TxtApellido.Text.Trim(), ((int)TxtCedula.TextTransform),
                             TxtDireccion.Text.Trim());
-                        if (R)
-                        {
-                            await DisplayAlert("Cliente", "Cliente modificado", "OK");
-                            await Navigation.PopAsync();
-                        }
-                        else
-                        {
-                            await DisplayAlert("Cliente", "Algo salio mal", "OK");
-                        }
+                    if (R)
+                    {
+                        await DisplayAlert("Cliente", "Cliente modificado", "OK");
+                        await Navigation.PopAsync();
                     }
                     else
                     {
-                        await DisplayAlert("Cliente", "El cliente no existe", "OK");
+                        await DisplayAlert("Cliente", "Algo salio mal", "OK");
                     }
                 }
             }
@@ -156,10 +136,11 @@ namespace APPMulticool.View
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
+            var idcli = (LstCliente.SelectedItem as Cliente).IDCli;
             var result = await this.DisplayAlert("Cliente", "¿Desea borrar el cliente?", "OK", "Cancelar");
             if (result == true)
             {
-                bool R = await vm.DeleteCliente(((int)TxtID.TextTransform));
+                bool R = await vm.DeleteCliente(idcli);
                 if (R)
                 {
                     await DisplayAlert("Cliente", "El cliente se borro correctamente", "OK");
@@ -193,6 +174,13 @@ namespace APPMulticool.View
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             Navigation.PopToRootAsync();
+        }
+
+        private async void SbCliente_SearchButtonPressed(object sender, EventArgs e)
+        {
+            string busqueda = SbCliente.Text.Trim();
+            var filtro = await vm.GetNombreCliente(busqueda);
+            LstCliente.ItemsSource = filtro;
         }
     }
 }

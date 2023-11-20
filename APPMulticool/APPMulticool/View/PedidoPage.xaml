@@ -11,8 +11,8 @@
     <ContentPage.Content>
 
         <StackLayout Padding="20, 5, 20, 20" BackgroundColor="White">
-            <SearchBar x:Name="SbPedido" Placeholder="Busque un pedido..."
-                       TextChanged="SbPedido_TextChanged"/>
+            <SearchBar x:Name="SbPedido" Placeholder="Digite el numero del cliente..." Keyboard="Numeric"
+                       SearchButtonPressed="SbPedido_SearchButtonPressed" FontSize="18" CancelButtonColor="LightGray"/>
 
             <ListView x:Name="LstPedido" SelectionMode="Single" ItemSelected="LstPedido_ItemSelected"
                       BackgroundColor="WhiteSmoke" IsPullToRefreshEnabled="True" Refreshing="LstPedido_Refreshing"

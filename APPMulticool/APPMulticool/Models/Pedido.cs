@@ -58,15 +58,28 @@ namespace APPMulticool.Models
         {
             try
             {
-                string RouteSuffix = string.Format("Pedidos");
+                string RouteSuffix = string.Format("Pedidos/PostPedido");
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Post);
+                Request.RequestFormat = DataFormat.Json;
                 Request.AddHeader(Services.APIConnection.ApiKeyName,
                     Services.APIConnection.ApiKeyValue);
                 Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
-                string SerializedModel = JsonConvert.SerializeObject(this);
-                Request.AddBody(SerializedModel, GlobalObjects.MimeType);
+                Request.AddJsonBody(
+                    new
+                    {
+                        idPed = this.IDPed,
+                        descripcionPed = this.DescripcionPed,
+                        fechaPed = this.FechaPed,
+                        fkrep = this.FKRep,
+                        fkcli = this.FKCli,
+                        fkus = this.FKUs,
+                        fkprod = this.FKProd,
+                        estadoPed = this.EstadoPed
+                    });
+                //string SerializedModel = JsonConvert.SerializeObject(this);
+                //Request.AddBody(SerializedModel, GlobalObjects.MimeType);
                 RestResponse response = await client.ExecuteAsync(Request);
                 HttpStatusCode statusCode = response.StatusCode;
                 if (statusCode == HttpStatusCode.Created)
@@ -179,11 +192,13 @@ namespace APPMulticool.Models
             try
             {
                 string RouteSuffix =
-                     string.Format("Pedidos/DeletePedido?pIDPed={0}", pID);
+                     string.Format("Pedidos/{0}", pID);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
+                Request = new RestRequest(URL, Method.Delete);
                 Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);
                 Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
+                Request.AddHeader("Accept", "*/*");
                 RestResponse response = await client.ExecuteAsync(Request);
                 HttpStatusCode statusCode = response.StatusCode;
                 if (statusCode == HttpStatusCode.OK)

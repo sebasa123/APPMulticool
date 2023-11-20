@@ -53,31 +53,19 @@ namespace APPMulticool.View
 
         private async void BtnApply_Clicked(object sender, EventArgs e)
         {
-            var us = vm.GetUsuarioData((string)PckrUsuarios.SelectedItem);
-            UsuarioDTO backup = new UsuarioDTO();
-            backup = GlobalObjects.LocalUs;
-            GlobalObjects.LocalUs.NombreUs = us.Result.NombreUs;
-            GlobalObjects.LocalUs.ContrasUs = us.Result.ContrasUs;
-            GlobalObjects.LocalUs.FKTipoUsuario = us.Result.FKTipoUsuario;
-            GlobalObjects.LocalUs.EstadoUs = true;
-
-            try
+            int id = (PckrUsuarios.SelectedItem as Usuario).IDUs;
+            string nom = (PckrUsuarios.SelectedItem as Usuario).NombreUs;
+            int tipo = (PckrUsuarios.SelectedItem as Usuario).FKTipoUsuario;
+            bool R = await vm.UpdateUsuario(id, nom,
+                    TxtContra.Text.Trim(), tipo);
+            if (R)
             {
-                bool R = await vm.UpdateUsuario(GlobalObjects.LocalUs);
-                if (R)
-                {
-                    await DisplayAlert("Contraseña", "La contraseña se ha cambiado", "OK");
-                    await Navigation.PopAsync();
-                }
-                else
-                {
-                    await DisplayAlert("Contraseña", "Algo salio mal", "OK");
-                    GlobalObjects.LocalUs = backup;
-                }
+                await DisplayAlert("Contraseña", "La contraseña se ha cambiado", "OK");
+                await Navigation.PopAsync();
             }
-            catch (Exception)
+            else
             {
-                GlobalObjects.LocalUs = backup;
+                await DisplayAlert("Contraseña", "Algo salio mal", "OK");
             }
         }
 

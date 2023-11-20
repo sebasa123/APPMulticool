@@ -18,15 +18,22 @@ namespace APPMulticool.Models
         {
             try
             {
-                string RouteSuffix = string.Format("TipoProducto");
+                string RouteSuffix = string.Format("TipoProducto/PostTipoProducto");
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Post);
+                Request.RequestFormat = DataFormat.Json;
                 Request.AddHeader(Services.APIConnection.ApiKeyName,
                     Services.APIConnection.ApiKeyValue);
                 Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
-                string SerializedModel = JsonConvert.SerializeObject(this);
-                Request.AddBody(SerializedModel, GlobalObjects.MimeType);
+                Request.AddJsonBody(
+                    new
+                    {
+                        idtp = this.IDTP,
+                        nombreTp = this.NombreTP
+                    });
+                //string SerializedModel = JsonConvert.SerializeObject(this);
+                //Request.AddBody(SerializedModel, GlobalObjects.MimeType);
                 RestResponse response = await client.ExecuteAsync(Request);
                 HttpStatusCode statusCode = response.StatusCode;
                 if (statusCode == HttpStatusCode.Created)
@@ -138,11 +145,13 @@ namespace APPMulticool.Models
             try
             {
                 string RouteSuffix =
-                     string.Format("TipoProductos/DeleteTipoProducto?pIDTP={0}", pID);
+                     string.Format("TipoProductos/{0}", pID);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
+                Request = new RestRequest(URL, Method.Delete);
                 Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);
                 Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
+                Request.AddHeader("Accept", "*/*");
                 RestResponse response = await client.ExecuteAsync(Request);
                 HttpStatusCode statusCode = response.StatusCode;
                 if (statusCode == HttpStatusCode.OK)

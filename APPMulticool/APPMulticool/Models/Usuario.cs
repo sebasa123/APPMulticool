@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RestSharp;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
+using Newtonsoft.Json.Linq;
 
 namespace APPMulticool.Models
 {
@@ -56,13 +57,13 @@ namespace APPMulticool.Models
             try
             {
                 string RouteSuffix =
-                     string.Format("Usuarios/DeleteUser?pIDUs={0}",
-                     pID);
+                     string.Format("Usuarios/{0}", pID);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Delete);
                 Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);
-                Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
+                //Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
+                Request.AddHeader("Accept", "*/*");
                 RestResponse response = await client.ExecuteAsync(Request);
                 HttpStatusCode statusCode = response.StatusCode;
                 if (statusCode == HttpStatusCode.OK)
@@ -114,16 +115,25 @@ namespace APPMulticool.Models
         {
             try
             {
-                string RouteSuffix = string.Format("Usuarios/PostUsuario", this);
+                string RouteSuffix = string.Format("Usuarios/PostUsuario");
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Post);
+                Request.RequestFormat = DataFormat.Json;
                 Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);
                 Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
-                string SerializedModel = JsonConvert.SerializeObject(this);
-                Request.AddBody(SerializedModel, GlobalObjects.MimeType);
-                //RestResponse response = await client.ExecuteAsync(Request);
-                RestResponse response = await client.PostAsync(Request);
+                Request.AddJsonBody(
+                    new
+                    {
+                        idus = this.IDUs,
+                        nombreUs = this.NombreUs,
+                        contraUs = this.ContrasUs,
+                        fktipoUsuario = this.FKTipoUsuario,
+                        estadoUs = this.EstadoUs
+                    });
+                //string SerializedModel = JsonConvert.SerializeObject(this);
+                //Request.AddBody(SerializedModel, GlobalObjects.MimeType);
+                RestResponse response = await client.ExecuteAsync(Request);
                 HttpStatusCode statusCode = response.StatusCode;
                 if (statusCode == HttpStatusCode.Created)
                 {

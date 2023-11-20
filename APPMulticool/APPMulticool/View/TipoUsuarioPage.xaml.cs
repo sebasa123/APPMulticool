@@ -28,14 +28,6 @@ namespace APPMulticool.View
             LstTipoUsuario.ItemsSource = await vm.GetTipoUsuarios();
         }
 
-        private void SbTipoUsuario_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var busq = SbTipoUsuario.Text;
-            var itemsFilter = vm.GetNombreTipoUsuario(busq).Result;
-            LstTipoUsuario.ItemsSource = itemsFilter;
-
-        }
-
         private bool ValidateTipoUsuarioData()
         {
             bool R = false;
@@ -73,27 +65,6 @@ namespace APPMulticool.View
                         await DisplayAlert("Tipo de usuario", "Algo salio mal", "OK");
                     }
                 }
-                //var resp = await DisplayAlert("Tipo de usuario", "¿Desea agregar la informacion?", "Si", "No");
-                //if (resp)
-                //{
-                //    if (vm.GetNombreTipoUsuario(TxtNombre.Text.Trim()) == null)
-                //    {
-                //        bool R = await vm.AddTipoUsuario(TxtNombre.Text.Trim());
-                //        if (R)
-                //        {
-                //            await DisplayAlert("Tipo de usuario", "Tipo de usuario agregado", "OK");
-                //            await Navigation.PopAsync();
-                //        }
-                //        else
-                //        {
-                //            await DisplayAlert("Tipo de usuario", "Algo salio mal", "OK");
-                //        }
-                //    }
-                //    else
-                //    {
-                //        await DisplayAlert("Tipo de usuario", "El tipo de usuario ya existe", "OK");
-                //    }
-                //}
             }
         }
 
@@ -101,10 +72,11 @@ namespace APPMulticool.View
         {
             if (ValidateTipoUsuarioData())
             {
+                var idtu = (LstTipoUsuario.SelectedItem as TipoUsuario).IDTU;
                 var resp = await DisplayAlert("Tipo de usuario", "¿Desea modificar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    bool R = await vm.AddTipoUsuario(TxtNombre.Text.Trim());
+                    bool R = await vm.UpdateTipoUsuario(idtu, TxtNombre.Text.Trim());
                     if (R)
                     {
                         await DisplayAlert("Tipo de usuario", "Tipo de usuario modificado", "OK");
@@ -115,36 +87,16 @@ namespace APPMulticool.View
                         await DisplayAlert("Tipo de usuario", "Algo salio mal", "OK");
                     }
                 }
-                //var resp = await DisplayAlert("Tipo de usuario", "¿Desea modificar la informacion?", "Si", "No");
-                //if (resp)
-                //{
-                //    if (vm.GetNombreTipoUsuario(TxtNombre.Text.Trim()) != null)
-                //    {
-                //        bool R = await vm.AddTipoUsuario(TxtNombre.Text.Trim());
-                //        if (R)
-                //        {
-                //            await DisplayAlert("Tipo de usuario", "Tipo de usuario modificado", "OK");
-                //            await Navigation.PopAsync();
-                //        }
-                //        else
-                //        {
-                //            await DisplayAlert("Tipo de usuario", "Algo salio mal", "OK");
-                //        }
-                //    }
-                //    else
-                //    {
-                //        await DisplayAlert("Tipo de usuario", "El tipo de usuario no existe", "OK");
-                //    }
-                //}
             }
         }
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
+            var idtu = (LstTipoUsuario.SelectedItem as TipoUsuario).IDTU;
             var result = await this.DisplayAlert("Tipo de usuario", "¿Desea borrar el tipo de usuario?", "OK", "Cancelar");
             if (result)
             {
-                bool R = await vm.DeleteTipoUsuario(((int)TxtID.TextTransform));
+                bool R = await vm.DeleteTipoUsuario(idtu);
                 if (R)
                 {
                     await DisplayAlert("Tipo de usuario", "El tipo de usuario se borro correctamente", "OK");
@@ -175,6 +127,13 @@ namespace APPMulticool.View
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             Navigation.PopToRootAsync();
+        }
+
+        private async void SbTipoUsuario_SearchButtonPressed(object sender, EventArgs e)
+        {
+            string busqueda = SbTipoUsuario.Text.Trim();
+            var filtro = await vm.GetNombreTipoUsuario(busqueda);
+            LstTipoUsuario.ItemsSource = filtro;
         }
     }
 }

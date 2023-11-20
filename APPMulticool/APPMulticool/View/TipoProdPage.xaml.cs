@@ -42,13 +42,6 @@ namespace APPMulticool.View
             LstTipoProducto.ItemsSource = await vm.GetTipoProductos();
         }
 
-        private void SbTipoProducto_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var busq = SbTipoProducto.Text;
-            var itemsFilter = vm.GetNombreTipoProducto(busq).Result;
-            LstTipoProducto.ItemsSource = itemsFilter;
-        }
-
         private bool ValidateTipoProdData()
         {
             bool R = false;
@@ -75,22 +68,15 @@ namespace APPMulticool.View
                 var resp = await DisplayAlert("Tipo de producto", "¿Desea agregar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    if (vm.GetNombreTipoProducto(TxtNombre.Text.Trim()) == null)
+                    bool R = await vm.AddTipoProducto(TxtNombre.Text.Trim());
+                    if (R)
                     {
-                        bool R = await vm.AddTipoProducto(TxtNombre.Text.Trim());
-                        if (R)
-                        {
-                            await DisplayAlert("Tipo de producto", "Tipo de producto agregado", "OK");
-                            await Navigation.PopAsync();
-                        }
-                        else
-                        {
-                            await DisplayAlert("Tipo de producto", "Algo salio mal", "OK");
-                        }
+                        await DisplayAlert("Tipo de producto", "Tipo de producto agregado", "OK");
+                        await Navigation.PopAsync();
                     }
                     else
                     {
-                        await DisplayAlert("Tipo de producto", "El tipo de productoario ya existe", "OK");
+                        await DisplayAlert("Tipo de producto", "Algo salio mal", "OK");
                     }
                 }
             }
@@ -98,10 +84,11 @@ namespace APPMulticool.View
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
+            var idtp = (LstTipoProducto.SelectedItem as TipoProducto).IDTP;
             var result = await DisplayAlert("Tipo de producto", "¿Desea borrar el tipo de producto?", "OK", "Cancelar");
             if (result == true)
             {
-                bool R = await vm.DeleteTipoProducto(((int)TxtID.TextTransform));
+                bool R = await vm.DeleteTipoProducto(idtp);
                 if (R)
                 {
                     await DisplayAlert("Tipo de producto", "El tipo de producto se borro correctamente", "OK");
@@ -117,25 +104,19 @@ namespace APPMulticool.View
         {
             if (ValidateTipoProdData())
             {
+                var idtp = (LstTipoProducto.SelectedItem as TipoProducto).IDTP;
                 var resp = await DisplayAlert("Tipo de producto", "¿Desea modificar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    if (vm.GetNombreTipoProducto(TxtNombre.Text.Trim()) != null)
+                    bool R = await vm.UpdateTipoProducto(idtp, TxtNombre.Text.Trim());
+                    if (R)
                     {
-                        bool R = await vm.AddTipoProducto(TxtNombre.Text.Trim());
-                        if (R)
-                        {
-                            await DisplayAlert("Tipo de producto", "Tipo de producto modificado", "OK");
-                            await Navigation.PopAsync();
-                        }
-                        else
-                        {
-                            await DisplayAlert("Tipo de producto", "Algo salio mal", "OK");
-                        }
+                        await DisplayAlert("Tipo de producto", "Tipo de producto modificado", "OK");
+                        await Navigation.PopAsync();
                     }
                     else
                     {
-                        await DisplayAlert("Tipo de producto", "El tipo de productoario no existe", "OK");
+                        await DisplayAlert("Tipo de producto", "Algo salio mal", "OK");
                     }
                 }
             }
@@ -161,6 +142,13 @@ namespace APPMulticool.View
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             Navigation.PopToRootAsync();
+        }
+
+        private async void SbTipoProducto_SearchButtonPressed(object sender, EventArgs e)
+        {
+            string busqueda = SbTipoProducto.Text.Trim();
+            var filtro = await vm.GetNombreTipoProducto(busqueda);
+            LstTipoProducto.ItemsSource = filtro;
         }
     }
 }

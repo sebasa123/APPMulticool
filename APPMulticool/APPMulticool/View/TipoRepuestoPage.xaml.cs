@@ -62,13 +62,6 @@ namespace APPMulticool.View
             return R;
         }
 
-        private void SbTipoRepuesto_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var busq = SbTipoRepuesto.Text;
-            var itemsFilter = vm.GetNombreTipoRepuesto(busq).Result;
-            LstTipoRepuesto.ItemsSource = itemsFilter;
-        }
-
         private async void BtnAgregar_Clicked(object sender, EventArgs e)
         {
             if (ValidateTipoRepData())
@@ -76,22 +69,15 @@ namespace APPMulticool.View
                 var resp = await DisplayAlert("Tipo de repuesto", "¿Desea agregar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    if (vm.GetNombreTipoRepuesto(TxtDescripcion.Text.Trim()) == null)
+                    bool R = await vm.AddTipoRepuesto(TxtDescripcion.Text.Trim());
+                    if (R)
                     {
-                        bool R = await vm.AddTipoRepuesto(TxtDescripcion.Text.Trim());
-                        if (R)
-                        {
-                            await DisplayAlert("Tipo de repuesto", "Tipo de repuesto agregado", "OK");
-                            await Navigation.PopAsync();
-                        }
-                        else
-                        {
-                            await DisplayAlert("Tipo de repuesto", "Algo salio mal", "OK");
-                        }
+                        await DisplayAlert("Tipo de repuesto", "Tipo de repuesto agregado", "OK");
+                        await Navigation.PopAsync();
                     }
                     else
                     {
-                        await DisplayAlert("Tipo de repuesto", "El tipo de repuesto ya existe", "OK");
+                        await DisplayAlert("Tipo de repuesto", "Algo salio mal", "OK");
                     }
                 }
             }
@@ -101,25 +87,19 @@ namespace APPMulticool.View
         {
             if (ValidateTipoRepData())
             {
+                var idtr = (LstTipoRepuesto.SelectedItem as TipoRepuesto).IDTR;
                 var resp = await DisplayAlert("Tipo de repuesto", "¿Desea agregar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    if (vm.GetNombreTipoRepuesto(TxtDescripcion.Text.Trim()) != null)
+                    bool R = await vm.UpdateTipoRepuesto(idtr, TxtDescripcion.Text.Trim());
+                    if (R)
                     {
-                        bool R = await vm.AddTipoRepuesto(TxtDescripcion.Text.Trim());
-                        if (R)
-                        {
-                            await DisplayAlert("Tipo de repuesto", "Tipo de repuesto modificado", "OK");
-                            await Navigation.PopAsync();
-                        }
-                        else
-                        {
-                            await DisplayAlert("Tipo de repuesto", "Algo salio mal", "OK");
-                        }
+                        await DisplayAlert("Tipo de repuesto", "Tipo de repuesto modificado", "OK");
+                        await Navigation.PopAsync();
                     }
                     else
                     {
-                        await DisplayAlert("Tipo de repuesto", "El tipo de repuesto no existe", "OK");
+                        await DisplayAlert("Tipo de repuesto", "Algo salio mal", "OK");
                     }
                 }
             }
@@ -127,10 +107,11 @@ namespace APPMulticool.View
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
+            var idtr = (LstTipoRepuesto.SelectedItem as TipoRepuesto).IDTR;
             var result = await this.DisplayAlert("Tipo de repuesto", "¿Desea borrar el tipo de repuesto?", "OK", "Cancelar");
             if (result)
             {
-                bool R = await vm.DeleteTipoRepuesto(((int)TxtID.TextTransform));
+                bool R = await vm.DeleteTipoRepuesto(idtr);
                 if (R)
                 {
                     await DisplayAlert("Tipo de repuesto", "El tipo de repuesto se borro correctamente", "OK");
@@ -161,6 +142,13 @@ namespace APPMulticool.View
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             Navigation.PopToRootAsync();
+        }
+
+        private async void SbTipoRepuesto_SearchButtonPressed(object sender, EventArgs e)
+        {
+            string busq = SbTipoRepuesto.Text;
+            var itemsFilter = await vm.GetNombreTipoRepuesto(busq);
+            LstTipoRepuesto.ItemsSource = itemsFilter;
         }
     }
 }

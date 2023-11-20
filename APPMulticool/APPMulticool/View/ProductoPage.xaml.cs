@@ -75,14 +75,6 @@ namespace APPMulticool.View
             }
             return R;
         }
-
-        private void SbProducto_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var busq = SbProducto.Text;
-            var itemsFilter = vm.GetNombreProducto(busq).Result;
-            LstProducto.ItemsSource = itemsFilter;
-        }
-
         private async void BtnAgregar_Clicked(object sender, EventArgs e)
         {
             if (ValidateProductoData())
@@ -90,23 +82,16 @@ namespace APPMulticool.View
                 var resp = await DisplayAlert("Producto", "¿Desea agregar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    if (vm.GetNombreProducto(TxtNombre.Text.Trim()) == null)
+                    TipoProducto tp = PckrTP.SelectedItem as TipoProducto;
+                    bool R = await vm.AddProducto(TxtNombre.Text.Trim(), tp.IDTP);
+                    if (R)
                     {
-                        TipoProducto tp = PckrTP.SelectedItem as TipoProducto;
-                        bool R = await vm.AddProducto(TxtNombre.Text.Trim(), tp.IDTP);
-                        if (R)
-                        {
-                            await DisplayAlert("Producto", "Producto agregado", "OK");
-                            await Navigation.PopAsync();
-                        }
-                        else
-                        {
-                            await DisplayAlert("Producto", "Algo salio mal", "OK");
-                        }
+                        await DisplayAlert("Producto", "Producto agregado", "OK");
+                        await Navigation.PopAsync();
                     }
                     else
                     {
-                        await DisplayAlert("Producto", "El producto ya existe", "OK");
+                        await DisplayAlert("Producto", "Algo salio mal", "OK");
                     }
                 }
             }
@@ -116,26 +101,20 @@ namespace APPMulticool.View
         {
             if (ValidateProductoData())
             {
+                var idprod = (LstProducto.SelectedItem as Producto).IDProd;
                 var resp = await DisplayAlert("Producto", "¿Desea modificar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    if (vm.GetNombreProducto(TxtNombre.Text.Trim()) != null)
+                    TipoProducto tp = PckrTP.SelectedItem as TipoProducto;
+                    bool R = await vm.UpdateProducto(idprod, TxtNombre.Text.Trim(), tp.IDTP);
+                    if (R)
                     {
-                        TipoProducto tp = PckrTP.SelectedItem as TipoProducto;
-                        bool R = await vm.AddProducto(TxtNombre.Text.Trim(), tp.IDTP);
-                        if (R)
-                        {
-                            await DisplayAlert("Producto", "Producto modificado", "OK");
-                            await Navigation.PopAsync();
-                        }
-                        else
-                        {
-                            await DisplayAlert("Producto", "Algo salio mal", "OK");
-                        }
+                        await DisplayAlert("Producto", "Producto modificado", "OK");
+                        await Navigation.PopAsync();
                     }
                     else
                     {
-                        await DisplayAlert("Producto", "El producto no existe", "OK");
+                        await DisplayAlert("Producto", "Algo salio mal", "OK");
                     }
                 }
             }
@@ -143,10 +122,11 @@ namespace APPMulticool.View
 
         private async void BtnEliminar_Clicked(object sender, EventArgs e)
         {
+            var idprod = (LstProducto.SelectedItem as Producto).IDProd;
             var result = await DisplayAlert("Producto", "¿Desea borrar el producto?", "OK", "Cancelar");
             if (result)
             {
-                bool R = await vm.DeleteProducto(((int)TxtID.TextTransform));
+                bool R = await vm.DeleteProducto(idprod);
                 if (R)
                 {
                     await DisplayAlert("Producto", "El producto se borro correctamente", "OK");
@@ -178,6 +158,13 @@ namespace APPMulticool.View
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             Navigation.PopToRootAsync();
+        }
+
+        private async void SbProducto_SearchButtonPressed(object sender, EventArgs e)
+        {
+            string busqueda = SbProducto.Text.Trim();
+            var filtro = await vm.GetNombreProducto(busqueda);
+            LstProducto.ItemsSource = filtro;
         }
     }
 }

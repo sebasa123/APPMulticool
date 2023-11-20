@@ -62,10 +62,23 @@ namespace APPMulticool.ModelsDTO
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSufix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Put);
+                Request.RequestFormat = DataFormat.Json;
                 Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);
                 Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
-                string SerializedModel = JsonConvert.SerializeObject(this);
-                Request.AddBody(SerializedModel, GlobalObjects.MimeType);
+                Request.AddJsonBody(
+                    new
+                    {
+                        idPed = this.IDPed,
+                        descripcionPed = this.DescripcionPed,
+                        fechaPed = this.FechaPed,
+                        fkrep = this.FKRep,
+                        fkcli = this.FKCli,
+                        fkus = this.FKUs,
+                        fkprod = this.FKProd,
+                        estadoPed = this.EstadoPed
+                    });
+                //string SerializedModel = JsonConvert.SerializeObject(this);
+                //Request.AddBody(SerializedModel, GlobalObjects.MimeType);
                 RestResponse response = await client.ExecuteAsync(Request);
                 HttpStatusCode statusCode = response.StatusCode;
                 if (statusCode == HttpStatusCode.OK)

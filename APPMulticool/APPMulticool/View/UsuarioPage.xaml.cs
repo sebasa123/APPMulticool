@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Acr.UserDialogs;
 using APPMulticool.Models;
 using APPMulticool.Services;
 using APPMulticool.ViewModels;
@@ -26,7 +27,6 @@ namespace APPMulticool.View
 
         private async void LoadUsuarioList()
         {
-            //LstUsuario.ItemsSource = await uvm.GetNombreUsuario("usuario2");
             LstUsuario.ItemsSource = await uvm.GetUsuarios();
         }
         private async void LoadTipoList()
@@ -95,33 +95,21 @@ namespace APPMulticool.View
         {
             if (ValidateUsuarioData())
             {
+                var idus = (LstUsuario.SelectedItem as Usuario).IDUs;
                 var resp = await DisplayAlert("Usuario", "¿Desea modificar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    UsuarioDTO backup = new UsuarioDTO();
-                    backup = GlobalObjects.LocalUs;
-                    GlobalObjects.LocalUs.NombreUs = TxtNombre.Text.Trim();
-                    GlobalObjects.LocalUs.ContrasUs = TxtContra.Text.Trim();
-                    GlobalObjects.LocalUs.FKTipoUsuario = PckrTU.SelectedIndex;
-                    GlobalObjects.LocalUs.EstadoUs = true;
-
-                    try
+                    TipoUsuario tu = PckrTU.SelectedItem as TipoUsuario;
+                    bool R = await uvm.UpdateUsuario(idus, TxtNombre.Text.Trim(),
+                        TxtContra.Text.Trim(), tu.IDTU);
+                    if (R)
                     {
-                        bool R = await uvm.UpdateUsuario(GlobalObjects.LocalUs);
-                        if (R)
-                        {
-                            await DisplayAlert("Usuario", "Usuario modificado", "OK");
-                            await Navigation.PopAsync();
-                        }
-                        else
-                        {
-                            await DisplayAlert("Usuario", "Algo salio mal", "OK");
-                            GlobalObjects.LocalUs = backup;
-                        }
+                        await DisplayAlert("Usuario", "Usuario modificado", "OK");
+                        await Navigation.PopAsync();
                     }
-                    catch (Exception)
+                    else
                     {
-                        GlobalObjects.LocalUs = backup;
+                        await DisplayAlert("Usuario", "Algo salio mal", "OK");
                     }
                 }
             }
