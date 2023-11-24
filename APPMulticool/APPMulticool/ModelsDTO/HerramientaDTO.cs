@@ -54,7 +54,7 @@ namespace APPMulticool.ModelsDTO
             try
             {
 
-                string RouteSufix = string.Format("Herramientas/PutHerramienta/{0}", this.IDHer);
+                string RouteSufix = string.Format("Herramientas/PutHerramientum/{0}", this.IDHer);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSufix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Put);
@@ -73,7 +73,7 @@ namespace APPMulticool.ModelsDTO
                 //Request.AddBody(SerializedModel, GlobalObjects.MimeType);
                 RestResponse response = await client.ExecuteAsync(Request);
                 HttpStatusCode statusCode = response.StatusCode;
-                if (statusCode == HttpStatusCode.OK)
+                if (statusCode == HttpStatusCode.NoContent)
                 {
                     return true;
                 }

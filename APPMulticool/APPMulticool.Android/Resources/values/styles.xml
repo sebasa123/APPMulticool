@@ -16,5 +16,6 @@
     <item name="colorAccent">#08E880</item>
 	 <!--<item name="android:StatusBarColor">#87CEFA</item>-->
 	  <!--<item name="android:textColorSecondary">@android:color/holo_red_dark</item>-->
+	  <item name="android:colorActivatedHighlight">@android:color/holo_blue_dark</item>
   </style>
 </resources>

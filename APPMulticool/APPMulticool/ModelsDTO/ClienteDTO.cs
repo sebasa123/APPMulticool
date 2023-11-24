@@ -77,7 +77,7 @@ namespace APPMulticool.ModelsDTO
                 //Request.AddBody(SerializedModel, GlobalObjects.MimeType);
                 RestResponse response = await client.ExecuteAsync(Request);
                 HttpStatusCode statusCode = response.StatusCode;
-                if (statusCode == HttpStatusCode.OK)
+                if (statusCode == HttpStatusCode.NoContent)
                 {
                     return true;
                 }

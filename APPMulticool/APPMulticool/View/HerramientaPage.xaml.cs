@@ -99,7 +99,8 @@ namespace APPMulticool.View
                 var resp = await DisplayAlert("Herramienta", "¿Desea modificar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    bool R = await vm.UpdateHerramienta(idher, TxtNombre.Text.Trim(), ((int)TxtNumero.TextTransform));
+                    int num = int.Parse(TxtNumero.Text);
+                    bool R = await vm.UpdateHerramienta(idher, TxtNombre.Text.Trim(), num);
                     if (R)
                     {
                         await DisplayAlert("Herramienta", "Herramienta modificada", "OK");

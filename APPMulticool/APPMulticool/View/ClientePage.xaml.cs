@@ -94,9 +94,9 @@ namespace APPMulticool.View
                 var resp = await DisplayAlert("Cliente", "¿Desea agregar la informacion?", "Si", "No");
                 if (resp)
                 {
+                    int ced = int.Parse(TxtCedula.Text);
                     bool R = await vm.AddCliente(TxtNombre.Text.Trim(),
-                            TxtApellido.Text.Trim(), ((int)TxtCedula.TextTransform),
-                            TxtDireccion.Text.Trim());
+                            TxtApellido.Text.Trim(), ced, TxtDireccion.Text.Trim());
                     if (R)
                     {
                         await DisplayAlert("Cliente", "Cliente agregado", "OK");
@@ -115,12 +115,12 @@ namespace APPMulticool.View
             if (ValidateClienteData())
             {
                 var idcli = (LstCliente.SelectedItem as Cliente).IDCli;
+                int ced = int.Parse(TxtCedula.Text);
                 var resp = await DisplayAlert("Cliente", "¿Desea modificar la informacion?", "Si", "No");
                 if (resp)
                 {
                     bool R = await vm.UpdateCliente(idcli, TxtNombre.Text.Trim(),
-                            TxtApellido.Text.Trim(), ((int)TxtCedula.TextTransform),
-                            TxtDireccion.Text.Trim());
+                            TxtApellido.Text.Trim(), ced, TxtDireccion.Text.Trim());
                     if (R)
                     {
                         await DisplayAlert("Cliente", "Cliente modificado", "OK");
