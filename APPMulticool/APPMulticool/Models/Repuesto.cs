@@ -18,13 +18,13 @@ namespace APPMulticool.Models
         public string DescripcionRep { get; set; }
         public int FKTipoRep { get; set; }
         public int FKHerramientas { get; set; }
-        public virtual TipoRepuesto RepXTR { get; set; }
-        public virtual Herramienta RepXHer { get; set; }
+        //public virtual TipoRepuesto RepXTR { get; set; }
+        //public virtual Herramienta RepXHer { get; set; }
         public async Task<bool> AddRepuesto()
         {
             try
             {
-                string RouteSuffix = string.Format("Repuesto/PostRepuesto");
+                string RouteSuffix = string.Format("Repuestos/PostRepuesto");
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Post);
@@ -154,22 +154,22 @@ namespace APPMulticool.Models
             try
             {
                 string RouteSuffix =
-                     string.Format("Repuestos/{0}", pID);
+                     string.Format("Repuestos/DeleteRepuesto/{0}", pID);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Delete);
                 Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);
                 Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
                 Request.AddHeader("Accept", "*/*");
-                RestResponse response = await client.ExecuteAsync(Request);
+                RestResponse response = await client.DeleteAsync(Request);
                 HttpStatusCode statusCode = response.StatusCode;
                 if (statusCode == HttpStatusCode.OK)
                 {
-                    return true;
+                    return false;
                 }
                 else
                 {
-                    return false;
+                    return true;
                 }
             }
             catch (Exception ex)

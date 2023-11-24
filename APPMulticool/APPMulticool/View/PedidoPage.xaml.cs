@@ -185,6 +185,7 @@ namespace APPMulticool.View
                 if (R)
                 {
                     await DisplayAlert("Pedido", "El pedido se borro correctamente", "OK");
+                    await Navigation.PopAsync();
                 }
                 else
                 {

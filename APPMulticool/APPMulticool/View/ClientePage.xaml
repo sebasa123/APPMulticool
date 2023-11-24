@@ -91,6 +91,7 @@
                         <Setter Property="TextColor" Value="Black"/>
                         <Setter Property="FontSize" Value="18"/>
                         <Setter Property="IsEnabled" Value="True"/>
+                        <Setter Property="Keyboard" Value="Numeric"/>
                     </Trigger>
                 </Entry.Triggers>
             </Entry>

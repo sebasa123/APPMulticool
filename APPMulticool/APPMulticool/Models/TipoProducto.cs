@@ -18,7 +18,7 @@ namespace APPMulticool.Models
         {
             try
             {
-                string RouteSuffix = string.Format("TipoProducto/PostTipoProducto");
+                string RouteSuffix = string.Format("TipoProductos/PostTipoProducto");
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Post);
@@ -145,22 +145,22 @@ namespace APPMulticool.Models
             try
             {
                 string RouteSuffix =
-                     string.Format("TipoProductos/{0}", pID);
+                     string.Format("TipoProductos/DeleteTipoProducto/{0}", pID);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Delete);
                 Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);
                 Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
                 Request.AddHeader("Accept", "*/*");
-                RestResponse response = await client.ExecuteAsync(Request);
+                RestResponse response = await client.DeleteAsync(Request);
                 HttpStatusCode statusCode = response.StatusCode;
                 if (statusCode == HttpStatusCode.OK)
                 {
-                    return true;
+                    return false;
                 }
                 else
                 {
-                    return false;
+                    return true;
                 }
             }
             catch (Exception ex)
@@ -173,7 +173,7 @@ namespace APPMulticool.Models
         {
             try
             {
-                string RouteSuffix = string.Format("TipoProducto");
+                string RouteSuffix = string.Format("TipoProductos");
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Get);

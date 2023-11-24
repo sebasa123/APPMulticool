@@ -144,6 +144,7 @@ namespace APPMulticool.View
                 if (R)
                 {
                     await DisplayAlert("Cliente", "El cliente se borro correctamente", "OK");
+                    await Navigation.PopAsync();
                 }
                 else
                 {

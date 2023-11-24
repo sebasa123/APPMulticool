@@ -129,7 +129,8 @@ namespace APPMulticool.View
                 bool R = await vm.DeleteProducto(idprod);
                 if (R)
                 {
-                    await DisplayAlert("Producto", "El producto se borro correctamente", "OK");
+                    await DisplayAlert("Producto", "El producto se borro correctamente", "OK"); 
+                    await Navigation.PopAsync();
                 }
                 else
                 {

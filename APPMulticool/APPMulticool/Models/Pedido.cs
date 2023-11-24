@@ -192,14 +192,14 @@ namespace APPMulticool.Models
             try
             {
                 string RouteSuffix =
-                     string.Format("Pedidos/{0}", pID);
+                     string.Format("Pedidos/DeletePedido/{0}", pID);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Delete);
                 Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);
                 Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
                 Request.AddHeader("Accept", "*/*");
-                RestResponse response = await client.ExecuteAsync(Request);
+                RestResponse response = await client.DeleteAsync(Request);
                 HttpStatusCode statusCode = response.StatusCode;
                 if (statusCode == HttpStatusCode.OK)
                 {

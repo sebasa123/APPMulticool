@@ -54,7 +54,7 @@ namespace APPMulticool.ModelsDTO
             try
             {
 
-                string RouteSufix = string.Format("Herramientas/{0}", this.IDHer);
+                string RouteSufix = string.Format("Herramientas/PutHerramienta/{0}", this.IDHer);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSufix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Put);

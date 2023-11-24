@@ -55,7 +55,7 @@ namespace APPMulticool.ModelsDTO
             try
             {
 
-                string RouteSufix = string.Format("Repuestos/{0}", this.IDRep);
+                string RouteSufix = string.Format("Repuestos/PutRepuesto/{0}", this.IDRep);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSufix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Put);

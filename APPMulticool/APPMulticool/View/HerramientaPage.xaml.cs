@@ -123,6 +123,7 @@ namespace APPMulticool.View
                 if (R)
                 {
                     await DisplayAlert("Herramienta", "La herramienta se borro correctamente", "OK");
+                    await Navigation.PopAsync();
                 }
                 else
                 {

@@ -57,7 +57,7 @@ namespace APPMulticool.Models
             try
             {
 
-                string RouteSufix = string.Format("Usuarios/{0}", this.IDUs);
+                string RouteSufix = string.Format("Usuarios/PutUsuario/{0}", this.IDUs);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSufix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Put);

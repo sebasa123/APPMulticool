@@ -26,8 +26,8 @@
                                     <ColumnDefinition Width="20*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Label FontSize="15" Grid.Column="0" Text="{Binding IDUs}" VerticalOptions="Center" HorizontalOptions="Center"/>
-                                <Label FontSize="18" Text="{Binding NombreTP}"/>
+                                <Label FontSize="15" Grid.Column="0" Text="{Binding IDTP}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <Label FontSize="18" Grid.Column="1" Text="{Binding NombreTP}"/>
 
                             </Grid>
                         </ViewCell>

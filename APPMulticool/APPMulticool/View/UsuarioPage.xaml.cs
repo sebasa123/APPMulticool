@@ -125,6 +125,7 @@ namespace APPMulticool.View
                 if (R)
                 {
                     await DisplayAlert("Usuario", "El usuario se borro correctamente", "OK");
+                    await Navigation.PopAsync();
                 }
                 else
                 {

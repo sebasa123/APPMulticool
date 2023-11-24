@@ -20,7 +20,7 @@ namespace APPMulticool.Models
         {
             try
             {
-                string RouteSuffix = string.Format("Producto/PostProducto");
+                string RouteSuffix = string.Format("Productos/PostProducto");
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Post);
@@ -149,22 +149,22 @@ namespace APPMulticool.Models
             try
             {
                 string RouteSuffix =
-                     string.Format("Productos/{0}", pID);
+                     string.Format("Productos/DeleteProducto/{0}", pID);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Delete);
                 Request.AddHeader(Services.APIConnection.ApiKeyName, Services.APIConnection.ApiKeyValue);
                 Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
                 Request.AddHeader("Accept", "*/*");
-                RestResponse response = await client.ExecuteAsync(Request);
+                RestResponse response = await client.DeleteAsync(Request);
                 HttpStatusCode statusCode = response.StatusCode;
                 if (statusCode == HttpStatusCode.OK)
                 {
-                    return true;
+                    return false;
                 }
                 else
                 {
-                    return false;
+                    return true;
                 }
             }
             catch (Exception ex)

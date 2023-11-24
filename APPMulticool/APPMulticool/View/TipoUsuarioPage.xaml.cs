@@ -100,6 +100,7 @@ namespace APPMulticool.View
                 if (R)
                 {
                     await DisplayAlert("Tipo de usuario", "El tipo de usuario se borro correctamente", "OK");
+                    await Navigation.PopAsync();
                 }
                 else
                 {

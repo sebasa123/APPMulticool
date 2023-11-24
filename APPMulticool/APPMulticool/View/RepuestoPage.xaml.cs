@@ -125,6 +125,7 @@ namespace APPMulticool.View
                 if (R)
                 {
                     await DisplayAlert("Respuesto", "El repuesto se borro correctamente", "OK");
+                    await Navigation.PopAsync();
                 }
                 else
                 {

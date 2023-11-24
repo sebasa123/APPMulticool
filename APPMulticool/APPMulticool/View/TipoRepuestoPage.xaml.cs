@@ -115,6 +115,7 @@ namespace APPMulticool.View
                 if (R)
                 {
                     await DisplayAlert("Tipo de repuesto", "El tipo de repuesto se borro correctamente", "OK");
+                    await Navigation.PopAsync();
                 }
                 else
                 {

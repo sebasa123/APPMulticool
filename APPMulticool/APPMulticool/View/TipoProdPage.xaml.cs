@@ -92,6 +92,7 @@ namespace APPMulticool.View
                 if (R)
                 {
                     await DisplayAlert("Tipo de producto", "El tipo de producto se borro correctamente", "OK");
+                    await Navigation.PopAsync();
                 }
                 else
                 {

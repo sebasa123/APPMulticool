@@ -149,7 +149,7 @@ namespace APPMulticool.Models
             try
             {
                 string RouteSuffix =
-                     string.Format("Herramientas/{0}", pID);
+                     string.Format("Herramientas/DeleteHerramienta/{0}", pID);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Delete);
@@ -160,11 +160,11 @@ namespace APPMulticool.Models
                 HttpStatusCode statusCode = response.StatusCode;
                 if (statusCode == HttpStatusCode.OK)
                 {
-                    return true;
+                    return false;
                 }
                 else
                 {
-                    return false;
+                    return true;
                 }
             }
             catch (Exception ex)
