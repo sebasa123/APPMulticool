@@ -1268,7 +1268,7 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> AddCodigoRecuperacion(string pEmail)
+        public async Task<bool> AddCodigoRecuperacion(string pEmail, int us)
         {
             if (IsBusy) return false;
             IsBusy = true;
@@ -1294,6 +1294,8 @@ namespace APPMulticool.ViewModels
                 MyCodigoRec.CodigoRec = codigo;
                 MyCodigoRec.IDCR = 0;
                 MyCodigoRec.FechaCR = DateTime.Now;
+                MyCodigoRec.EstadoCR = true;
+                MyCodigoRec.FKUsuario = us;
                 bool R = await MyCodigoRec.AddCodigoRecuperacion();
                 if (R)
                 {

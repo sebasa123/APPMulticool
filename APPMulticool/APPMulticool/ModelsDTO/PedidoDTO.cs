@@ -69,8 +69,8 @@ namespace APPMulticool.ModelsDTO
                     new
                     {
                         idPed = this.IDPed,
-                        descripcionPed = this.DescripcionPed,
-                        fechaPed = this.FechaPed,
+                        decripcionPed = this.DescripcionPed,
+                        fechaPed = this.FechaPed.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
                         fkrep = this.FKRep,
                         fkcli = this.FKCli,
                         fkus = this.FKUs,

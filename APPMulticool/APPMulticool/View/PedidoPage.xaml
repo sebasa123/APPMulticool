@@ -22,7 +22,7 @@
                         <ViewCell>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="0.4*"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
@@ -75,7 +75,7 @@
                 </Entry.Triggers>
             </Entry>
 
-            <DatePicker x:Name="DtPckrFecha" Format="dd_MM_yyyy"
+            <DatePicker x:Name="DtPckrFecha" Format="yyyy/MM/dd"
                         IsEnabled="True" MinimumDate="1/1/2023"
                         MaximumDate="12/12/2030" FontSize="18"/>
 

@@ -158,5 +158,10 @@ namespace APPMulticool.View
             var filtro = await uvm.GetNombreUsuario(busqueda);
             LstUsuario.ItemsSource = filtro;
         }
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PopToRootAsync();
+        }
     }
 }

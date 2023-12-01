@@ -20,10 +20,10 @@ namespace APPMulticool.Models
         public int FKUs { get; set; }
         public int FKProd { get; set; }
         public bool EstadoPed { get; set; }
-        public virtual Repuesto PedXRep { get; set; }
-        public virtual Cliente PedXCli { get; set; }
-        public virtual Usuario PedXUs { get; set; }
-        public virtual Producto PedXProd { get; set; }
+        //public virtual Repuesto PedXRep { get; set; }
+        //public virtual Cliente PedXCli { get; set; }
+        //public virtual Usuario PedXUs { get; set; }
+        //public virtual Producto PedXProd { get; set; }
         //public async Task<ObservableCollection<Pedido>> GetPedidoListByCliente()
         //{
         //    try
@@ -66,12 +66,13 @@ namespace APPMulticool.Models
                 Request.AddHeader(Services.APIConnection.ApiKeyName,
                     Services.APIConnection.ApiKeyValue);
                 Request.AddHeader(GlobalObjects.ContentType, GlobalObjects.MimeType);
+                //var fecha = this.FechaPed.ToString("yyyy-MM-ddTHH:mm:ss")
                 Request.AddJsonBody(
                     new
                     {
                         idPed = this.IDPed,
-                        descripcionPed = this.DescripcionPed,
-                        fechaPed = this.FechaPed,
+                        decripcionPed = this.DescripcionPed,
+                        fechaPed = this.FechaPed.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
                         fkrep = this.FKRep,
                         fkcli = this.FKCli,
                         fkus = this.FKUs,
@@ -88,6 +89,7 @@ namespace APPMulticool.Models
                 }
                 else
                 {
+                    Console.Out.WriteLine(response.StatusCode);
                     return false;
                 }
             }
@@ -203,11 +205,11 @@ namespace APPMulticool.Models
                 HttpStatusCode statusCode = response.StatusCode;
                 if (statusCode == HttpStatusCode.OK)
                 {
-                    return true;
+                    return false;
                 }
                 else
                 {
-                    return false;
+                    return true;
                 }
             }
             catch (Exception ex)

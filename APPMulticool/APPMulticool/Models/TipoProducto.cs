@@ -55,7 +55,7 @@ namespace APPMulticool.Models
         {
             try
             {
-                string RouteSuffix = string.Format("TipoProducto");
+                string RouteSuffix = string.Format("TipoProductos");
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Get);

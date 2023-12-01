@@ -48,6 +48,7 @@ namespace APPMulticool.View
         private async void LoadTPList()
         {
             PckrTP.ItemsSource = await vm.GetTipoProducto();
+            PckrTP.ItemDisplayBinding = new Binding("NombreTP");
         }
 
         private bool ValidateProductoData()

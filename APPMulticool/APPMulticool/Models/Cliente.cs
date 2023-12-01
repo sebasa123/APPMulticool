@@ -155,7 +155,7 @@ namespace APPMulticool.Models
             try
             {
                 string RouteSuffix =
-                     string.Format("Clientes/DeleteClinte/{0}", pID);
+                     string.Format("Clientes/DeleteCliente/{0}", pID);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Delete);

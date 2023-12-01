@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using APPMulticool.Models;
 using APPMulticool.ModelsDTO;
 using APPMulticool.ViewModels;
+using FluentAssertions.Common;
+using FluentAssertions.Extensions;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -129,11 +131,13 @@ namespace APPMulticool.View
                 var resp = await DisplayAlert("Pedido", "¿Desea agregar la informacion?", "Si", "No");
                 if (resp)
                 {
+                    DateTime fecha = DtPckrFecha.Date.ToUniversalTime();
+                    //await DisplayAlert("Pedido", fecha.ToString(), "OK");
                     Repuesto rep = PckrRep.SelectedItem as Repuesto;
                     Cliente cli = PckrCli.SelectedItem as Cliente;
                     Producto prod = PckrProd.SelectedItem as Producto;
                     Usuario us = PckrUs.SelectedItem as Usuario;
-                    bool R = await vm.AddPedido(TxtDesc.Text.Trim(), DtPckrFecha.Date, rep.IDRep,
+                    bool R = await vm.AddPedido(TxtDesc.Text.Trim(), fecha, rep.IDRep,
                         cli.IDCli, prod.IDProd, us.IDUs);
                     if (R)
                     {
@@ -204,6 +208,9 @@ namespace APPMulticool.View
             PckrCli.SelectedIndex = seleccion.FKCli - 1;
             PckrProd.SelectedIndex = seleccion.FKProd - 1;
             PckrUs.SelectedIndex = seleccion.FKUs - 1;
+            BtnAgregar.IsEnabled = false;
+            BtnModificar.IsEnabled = true;
+            BtnEliminar.IsEnabled = true;
         }
 
         private async void LstPedido_Refreshing(object sender, EventArgs e)

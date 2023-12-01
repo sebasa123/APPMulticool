@@ -32,10 +32,12 @@ namespace APPMulticool.View
         {
             if (!string.IsNullOrEmpty(TxtEmail.Text.Trim()))
             {
-                bool R = await vm.AddCodigoRecuperacion(TxtEmail.Text.Trim());
+                Usuario us = PckrUsuarios.SelectedItem as Usuario;
+                bool R = await vm.AddCodigoRecuperacion(TxtEmail.Text.Trim(), us.IDUs);
                 if (R)
                 {
                     TxtEmail.IsEnabled = false;
+                    PckrUsuarios.IsEnabled = false;
                     TxtCodigo.IsEnabled = true;
                     BtnCheckCodigo.IsEnabled = true;
                     await DisplayAlert("Codigo de recuperacion", "El codigo fue enviado", "OK");
@@ -81,9 +83,9 @@ namespace APPMulticool.View
                 bool R = await vm.ValidacionCodigoRecuperacion(TxtEmail.Text, TxtCodigo.Text);
                 if (R)
                 {
-                    PckrUsuarios.IsEnabled = true;
-                    TxtContra.IsEnabled = true;
-                    BtnApply.IsEnabled = true;
+
+                    TxtContra.IsVisible = true;
+                    BtnApply.IsVisible = true;
                     await DisplayAlert("Codigo correcto", "Digite la contraseña nueva", "OK");
                 }
                 else

@@ -3,6 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="APPMulticool.View.UsuarioPage"
              Title="Usuario">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Salir" Order="Secondary" Priority="0" Clicked="ToolbarItem_Clicked"/>
+    </ContentPage.ToolbarItems>
+
+
     <ContentPage.Content>
         <StackLayout Padding="20, 0, 20, 20" BackgroundColor="White">
 
