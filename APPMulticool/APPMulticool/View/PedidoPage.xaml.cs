@@ -29,7 +29,7 @@ namespace APPMulticool.View
             LoadUsList();
             CheckTipoUsuario(GlobalObjects.LocalUsuario.FKTipoUsuario);
         }
-
+        
         private async void LoadPedidoList()
         {
             LstPedido.ItemsSource = await vm.GetPedidos();
@@ -142,7 +142,15 @@ namespace APPMulticool.View
                     if (R)
                     {
                         await DisplayAlert("Pedido", "Pedido agregado", "OK");
-                        await Navigation.PopAsync();
+                        LstPedido.ItemsSource = await vm.GetPedidos();
+                        TxtID.Text = null;
+                        TxtDesc.Text = null;
+                        DtPckrFecha.Date = DateTime.Now;
+                        PckrRep.SelectedIndex = -1;
+                        PckrCli.SelectedIndex = -1;
+                        PckrProd.SelectedIndex = -1;
+                        PckrUs.SelectedIndex = -1;
+                        //await Navigation.PopAsync();
                     }
                     else
                     {
@@ -169,7 +177,18 @@ namespace APPMulticool.View
                     if (R)
                     {
                         await DisplayAlert("Pedido", "Pedido modificado", "OK");
-                        await Navigation.PopAsync();
+                        LstPedido.ItemsSource = await vm.GetPedidos();
+                        TxtID.Text = null;
+                        TxtDesc.Text = null;
+                        DtPckrFecha.Date = DateTime.Now;
+                        PckrRep.SelectedIndex = -1;
+                        PckrCli.SelectedIndex = -1;
+                        PckrProd.SelectedIndex = -1;
+                        PckrUs.SelectedIndex = -1;
+                        BtnAgregar.IsEnabled = true;
+                        BtnModificar.IsEnabled = false;
+                        BtnEliminar.IsEnabled = false;
+                        //await Navigation.PopAsync();
                     }
                     else
                     {
@@ -189,7 +208,18 @@ namespace APPMulticool.View
                 if (R)
                 {
                     await DisplayAlert("Pedido", "El pedido se borro correctamente", "OK");
-                    await Navigation.PopAsync();
+                    LstPedido.ItemsSource = await vm.GetPedidos();
+                    TxtID.Text = null;
+                    TxtDesc.Text = null;
+                    DtPckrFecha.Date = DateTime.Now;
+                    PckrRep.SelectedIndex = -1;
+                    PckrCli.SelectedIndex = -1;
+                    PckrProd.SelectedIndex = -1;
+                    PckrUs.SelectedIndex = -1;
+                    BtnAgregar.IsEnabled = true;
+                    BtnModificar.IsEnabled = false;
+                    BtnEliminar.IsEnabled = false;
+                    //await Navigation.PopAsync();
                 }
                 else
                 {
@@ -202,7 +232,7 @@ namespace APPMulticool.View
         {
             var seleccion = (Pedido)e.SelectedItem;
             TxtID.Text = seleccion.IDPed.ToString();
-            TxtDesc.Text = seleccion.DescripcionPed;
+            TxtDesc.Text = seleccion.DecripcionPed;
             DtPckrFecha.Date = seleccion.FechaPed;
             PckrRep.SelectedIndex = seleccion.FKRep - 1;
             PckrCli.SelectedIndex = seleccion.FKCli - 1;

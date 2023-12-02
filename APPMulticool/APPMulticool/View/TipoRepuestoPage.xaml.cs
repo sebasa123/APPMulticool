@@ -73,7 +73,10 @@ namespace APPMulticool.View
                     if (R)
                     {
                         await DisplayAlert("Tipo de repuesto", "Tipo de repuesto agregado", "OK");
-                        await Navigation.PopAsync();
+                        LstTipoRepuesto.ItemsSource = await vm.GetTipoRepuestos();
+                        TxtID.Text = null;
+                        TxtDescripcion.Text = null;
+                        //await Navigation.PopAsync();
                     }
                     else
                     {
@@ -95,7 +98,13 @@ namespace APPMulticool.View
                     if (R)
                     {
                         await DisplayAlert("Tipo de repuesto", "Tipo de repuesto modificado", "OK");
-                        await Navigation.PopAsync();
+                        LstTipoRepuesto.ItemsSource = await vm.GetTipoRepuestos();
+                        TxtID.Text = null;
+                        TxtDescripcion.Text = null;
+                        BtnAgregar.IsEnabled = true;
+                        BtnModificar.IsEnabled = false;
+                        BtnEliminar.IsEnabled = false;
+                        //await Navigation.PopAsync();
                     }
                     else
                     {
@@ -115,7 +124,13 @@ namespace APPMulticool.View
                 if (R)
                 {
                     await DisplayAlert("Tipo de repuesto", "El tipo de repuesto se borro correctamente", "OK");
-                    await Navigation.PopAsync();
+                    LstTipoRepuesto.ItemsSource = await vm.GetTipoRepuestos();
+                    TxtID.Text = null;
+                    TxtDescripcion.Text = null;
+                    BtnAgregar.IsEnabled = true;
+                    BtnModificar.IsEnabled = false;
+                    BtnEliminar.IsEnabled = false;
+                    //await Navigation.PopAsync();
                 }
                 else
                 {

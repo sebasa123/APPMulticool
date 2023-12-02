@@ -88,7 +88,11 @@ namespace APPMulticool.View
                     if (R)
                     {
                         await DisplayAlert("Producto", "Producto agregado", "OK");
-                        await Navigation.PopAsync();
+                        LstProducto.ItemsSource = await vm.GetProducto();
+                        TxtID.Text = null;
+                        TxtNombre.Text = null;
+                        PckrTP.SelectedIndex = -1;
+                        //await Navigation.PopAsync();
                     }
                     else
                     {
@@ -111,7 +115,14 @@ namespace APPMulticool.View
                     if (R)
                     {
                         await DisplayAlert("Producto", "Producto modificado", "OK");
-                        await Navigation.PopAsync();
+                        LstProducto.ItemsSource = await vm.GetProducto();
+                        TxtID.Text = null;
+                        TxtNombre.Text = null;
+                        PckrTP.SelectedIndex = -1;
+                        BtnAgregar.IsEnabled = true;
+                        BtnModificar.IsEnabled = false;
+                        BtnEliminar.IsEnabled = false;
+                        //await Navigation.PopAsync();
                     }
                     else
                     {
@@ -130,8 +141,15 @@ namespace APPMulticool.View
                 bool R = await vm.DeleteProducto(idprod);
                 if (R)
                 {
-                    await DisplayAlert("Producto", "El producto se borro correctamente", "OK"); 
-                    await Navigation.PopAsync();
+                    await DisplayAlert("Producto", "El producto se borro correctamente", "OK");
+                    LstProducto.ItemsSource = await vm.GetProducto();
+                    TxtID.Text = null;
+                    TxtNombre.Text = null;
+                    PckrTP.SelectedIndex = -1;
+                    BtnAgregar.IsEnabled = true;
+                    BtnModificar.IsEnabled = false;
+                    BtnEliminar.IsEnabled = false;
+                    //await Navigation.PopAsync();
                 }
                 else
                 {

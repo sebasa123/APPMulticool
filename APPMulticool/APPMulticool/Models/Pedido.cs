@@ -13,7 +13,7 @@ namespace APPMulticool.Models
     {
         public RestRequest Request { get; set; }
         public int IDPed { get; set; }
-        public string DescripcionPed { get; set; }
+        public string DecripcionPed { get; set; }
         public DateTime FechaPed { get; set; }
         public int FKRep { get; set; }
         public int FKCli { get; set; }
@@ -71,7 +71,7 @@ namespace APPMulticool.Models
                     new
                     {
                         idPed = this.IDPed,
-                        decripcionPed = this.DescripcionPed,
+                        decripcionPed = this.DecripcionPed,
                         fechaPed = this.FechaPed.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
                         fkrep = this.FKRep,
                         fkcli = this.FKCli,

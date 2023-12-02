@@ -100,7 +100,13 @@ namespace APPMulticool.View
                     if (R)
                     {
                         await DisplayAlert("Cliente", "Cliente agregado", "OK");
-                        await Navigation.PopAsync();
+                        LstCliente.ItemsSource = await vm.GetClientes();
+                        TxtID.Text = null;
+                        TxtNombre.Text = null;
+                        TxtApellido.Text = null;
+                        TxtCedula.Text = null;
+                        TxtDireccion.Text = null;
+                        //await Navigation.PopAsync();
                     }
                     else
                     {
@@ -124,7 +130,16 @@ namespace APPMulticool.View
                     if (R)
                     {
                         await DisplayAlert("Cliente", "Cliente modificado", "OK");
-                        await Navigation.PopAsync();
+                        LstCliente.ItemsSource = await vm.GetClientes();
+                        TxtID.Text = null;
+                        TxtNombre.Text = null;
+                        TxtApellido.Text = null;
+                        TxtCedula.Text = null;
+                        TxtDireccion.Text = null;
+                        BtnAgregar.IsEnabled = true;
+                        BtnModificar.IsEnabled = false;
+                        BtnEliminar.IsEnabled = false;
+                        //await Navigation.PopAsync();
                     }
                     else
                     {
@@ -144,7 +159,16 @@ namespace APPMulticool.View
                 if (R)
                 {
                     await DisplayAlert("Cliente", "El cliente se borro correctamente", "OK");
-                    await Navigation.PopAsync();
+                    LstCliente.ItemsSource = await vm.GetClientes();
+                    TxtID.Text = null;
+                    TxtNombre.Text = null;
+                    TxtApellido.Text = null;
+                    TxtCedula.Text = null;
+                    TxtDireccion.Text = null;
+                    BtnAgregar.IsEnabled = true;
+                    BtnModificar.IsEnabled = false;
+                    BtnEliminar.IsEnabled = false;
+                    //await Navigation.PopAsync();
                 }
                 else
                 {
@@ -155,6 +179,7 @@ namespace APPMulticool.View
 
         private void LstCliente_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+
             var seleccion = (Cliente)e.SelectedItem;
             TxtID.Text = seleccion.IDCli.ToString();
             TxtNombre.Text = seleccion.NombreCli;

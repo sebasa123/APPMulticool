@@ -81,7 +81,12 @@ namespace APPMulticool.View
                     if (R)
                     {
                         await DisplayAlert("Usuario", "Usuario agregado", "OK");
-                        await Navigation.PopAsync();
+                        LstUsuario.ItemsSource = await uvm.GetUsuarios();
+                        TxtID.Text = null;
+                        TxtNombre.Text = null;
+                        TxtContra.Text = null;
+                        PckrTU.SelectedIndex = -1;
+                        //await Navigation.PopAsync();
                     }
                     else
                     {
@@ -105,7 +110,15 @@ namespace APPMulticool.View
                     if (R)
                     {
                         await DisplayAlert("Usuario", "Usuario modificado", "OK");
-                        await Navigation.PopAsync();
+                        LstUsuario.ItemsSource = await uvm.GetUsuarios();
+                        TxtID.Text = null;
+                        TxtNombre.Text = null;
+                        TxtContra.Text = null;
+                        PckrTU.SelectedIndex = -1;
+                        BtnAgregar.IsEnabled = true;
+                        BtnModificar.IsEnabled = false;
+                        BtnEliminar.IsEnabled = false;
+                        //await Navigation.PopAsync();
                     }
                     else
                     {
@@ -125,7 +138,15 @@ namespace APPMulticool.View
                 if (R)
                 {
                     await DisplayAlert("Usuario", "El usuario se borro correctamente", "OK");
-                    await Navigation.PopAsync();
+                    LstUsuario.ItemsSource = await uvm.GetUsuarios();
+                    TxtID.Text = null;
+                    TxtNombre.Text = null;
+                    TxtContra.Text = null;
+                    PckrTU.SelectedIndex = -1;
+                    BtnAgregar.IsEnabled = true;
+                    BtnModificar.IsEnabled = false;
+                    BtnEliminar.IsEnabled = false;
+                    //await Navigation.PopAsync();
                 }
                 else
                 {

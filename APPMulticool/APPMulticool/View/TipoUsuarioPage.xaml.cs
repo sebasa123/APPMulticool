@@ -58,7 +58,10 @@ namespace APPMulticool.View
                     if (R)
                     {
                         await DisplayAlert("Tipo de usuario", "Tipo de usuario agregado", "OK");
-                        await Navigation.PopAsync();
+                        LstTipoUsuario.ItemsSource = await vm.GetTipoUsuarios();
+                        TxtID.Text = null;
+                        TxtNombre.Text = null;
+                        //await Navigation.PopAsync();
                     }
                     else
                     {
@@ -80,7 +83,13 @@ namespace APPMulticool.View
                     if (R)
                     {
                         await DisplayAlert("Tipo de usuario", "Tipo de usuario modificado", "OK");
-                        await Navigation.PopAsync();
+                        LstTipoUsuario.ItemsSource = await vm.GetTipoUsuarios();
+                        TxtID.Text = null;
+                        TxtNombre.Text = null;
+                        BtnAgregar.IsEnabled = true;
+                        BtnModificar.IsEnabled = false;
+                        BtnEliminar.IsEnabled = false;
+                        //await Navigation.PopAsync();
                     }
                     else
                     {
@@ -100,7 +109,13 @@ namespace APPMulticool.View
                 if (R)
                 {
                     await DisplayAlert("Tipo de usuario", "El tipo de usuario se borro correctamente", "OK");
-                    await Navigation.PopAsync();
+                    LstTipoUsuario.ItemsSource = await vm.GetTipoUsuarios();
+                    TxtID.Text = null;
+                    TxtNombre.Text = null;
+                    BtnAgregar.IsEnabled = true;
+                    BtnModificar.IsEnabled = false;
+                    BtnEliminar.IsEnabled = false;
+                    //await Navigation.PopAsync();
                 }
                 else
                 {

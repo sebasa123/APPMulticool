@@ -105,7 +105,13 @@ namespace APPMulticool.View
                     if (R)
                     {
                         await DisplayAlert("Repuesto", "Repuesto agregado", "OK");
-                        await Navigation.PopAsync();
+                        LstRepuesto.ItemsSource = await vm.GetRepuestos();
+                        TxtID.Text = null;
+                        SwCompleto.IsToggled = false;
+                        TxtDesc.Text = null;
+                        PckrTR.SelectedIndex = -1;
+                        PckrHer.SelectedIndex = -1;
+                        //await Navigation.PopAsync();
                     }
                     else
                     {
@@ -125,7 +131,16 @@ namespace APPMulticool.View
                 if (R)
                 {
                     await DisplayAlert("Respuesto", "El repuesto se borro correctamente", "OK");
-                    await Navigation.PopAsync();
+                    LstRepuesto.ItemsSource = await vm.GetRepuestos();
+                    TxtID.Text = null;
+                    SwCompleto.IsToggled = false;
+                    TxtDesc.Text = null;
+                    PckrTR.SelectedIndex = -1;
+                    PckrHer.SelectedIndex = -1;
+                    BtnAgregar.IsEnabled = true;
+                    BtnModificar.IsEnabled = false;
+                    BtnEliminar.IsEnabled = false;
+                    //await Navigation.PopAsync();
                 }
                 else
                 {
@@ -149,7 +164,16 @@ namespace APPMulticool.View
                     if (R)
                     {
                         await DisplayAlert("Repuesto", "Repuesto modificado", "OK");
-                        await Navigation.PopAsync();
+                        LstRepuesto.ItemsSource = await vm.GetRepuestos();
+                        TxtID.Text = null;
+                        SwCompleto.IsToggled = false;
+                        TxtDesc.Text = null;
+                        PckrTR.SelectedIndex = -1;
+                        PckrHer.SelectedIndex = -1;
+                        BtnAgregar.IsEnabled = true;
+                        BtnModificar.IsEnabled = false;
+                        BtnEliminar.IsEnabled = false;
+                        //await Navigation.PopAsync();
                     }
                     else
                     {

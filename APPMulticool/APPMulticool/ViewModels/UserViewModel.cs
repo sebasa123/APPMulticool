@@ -1139,7 +1139,7 @@ namespace APPMulticool.ViewModels
             try
             {
                 MyPedido.IDPed = pID;
-                MyPedido.DescripcionPed = pDescripcionPed;
+                MyPedido.DecripcionPed = pDescripcionPed;
                 MyPedido.FechaPed = pFecha;
                 MyPedido.FKRep = pRep;
                 MyPedido.FKCli = pCli;

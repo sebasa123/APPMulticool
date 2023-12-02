@@ -77,12 +77,16 @@ namespace APPMulticool.View
                 var resp = await DisplayAlert("Herramienta", "¿Desea agregar la informacion?", "Si", "No");
                 if (resp)
                 {
-                    int ced = int.Parse(TxtNumero.Text);
-                    bool R = await vm.AddHerramienta(TxtNombre.Text.Trim(), ced);
+                    int cant = int.Parse(TxtNumero.Text);
+                    bool R = await vm.AddHerramienta(TxtNombre.Text.Trim(), cant);
                     if (R)
                     {
                         await DisplayAlert("Herramienta", "Herramienta agregada", "OK");
-                        await Navigation.PopAsync();
+                        LstHerramienta.ItemsSource = await vm.GetHerramientas();
+                        TxtID.Text = null;
+                        TxtNombre.Text = null;
+                        TxtNumero.Text = null;
+                        //await Navigation.PopAsync();
                     }
                     else
                     {
@@ -105,7 +109,14 @@ namespace APPMulticool.View
                     if (R)
                     {
                         await DisplayAlert("Herramienta", "Herramienta modificada", "OK");
-                        await Navigation.PopAsync();
+                        LstHerramienta.ItemsSource = await vm.GetHerramientas();
+                        TxtID.Text = null;
+                        TxtNombre.Text = null;
+                        TxtNumero.Text = null;
+                        BtnAgregar.IsEnabled = true;
+                        BtnModificar.IsEnabled = false;
+                        BtnEliminar.IsEnabled = false;
+                        //await Navigation.PopAsync();
                     }
                     else
                     {
@@ -125,7 +136,14 @@ namespace APPMulticool.View
                 if (R)
                 {
                     await DisplayAlert("Herramienta", "La herramienta se borro correctamente", "OK");
-                    await Navigation.PopAsync();
+                    LstHerramienta.ItemsSource = await vm.GetHerramientas();
+                    TxtID.Text = null;
+                    TxtNombre.Text = null;
+                    TxtNumero.Text = null;
+                    BtnAgregar.IsEnabled = true;
+                    BtnModificar.IsEnabled = false;
+                    BtnEliminar.IsEnabled = false;
+                    //await Navigation.PopAsync();
                 }
                 else
                 {
