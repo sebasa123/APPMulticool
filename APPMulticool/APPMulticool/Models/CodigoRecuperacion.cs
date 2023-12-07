@@ -23,8 +23,7 @@ namespace APPMulticool.Models
             try
             {
                 string RouteSuffix =
-                string.Format("CodigoRecuperacions/ValidateCode?pEmail={0}&pCodigo={1}",
-                this.Email, this.CodigoRec);
+                string.Format("CodigoRecuperacions/ValidateCode?pCodigo={0}", this.CodigoRec);
                 string URL = Services.APIConnection.ProductionURLPrefix + RouteSuffix;
                 RestClient client = new RestClient(URL);
                 Request = new RestRequest(URL, Method.Get);
@@ -35,11 +34,11 @@ namespace APPMulticool.Models
                 HttpStatusCode statusCode = response.StatusCode;
                 if (statusCode == HttpStatusCode.OK)
                 {
-                    return false;
+                    return true;
                 }
                 else
                 {
-                    return true;
+                    return false;
                 }
             }
             catch (Exception ex)

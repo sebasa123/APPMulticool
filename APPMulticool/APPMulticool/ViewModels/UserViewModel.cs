@@ -107,13 +107,12 @@ namespace APPMulticool.ViewModels
                 IsBusy = false;
             }
         }
-        public async Task<bool> ValidacionCodigoRecuperacion(string pEmail, string pCodigo)
+        public async Task<bool> ValidacionCodigoRecuperacion(string pCodigo)
         {
             if (IsBusy) return false;
             IsBusy = true;
             try
             {
-                MyCodigoRec.Email = pEmail;
                 MyCodigoRec.CodigoRec = pCodigo;
                 bool R = await MyCodigoRec.ValidarCodigoRec();
                 return R;

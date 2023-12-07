@@ -62,12 +62,12 @@ namespace APPMulticool.View
                     TxtContra.Text.Trim(), tipo);
             if (R)
             {
-                await DisplayAlert("Contraseña", "La contraseña se ha cambiado", "OK");
-                await Navigation.PopAsync();
+                await DisplayAlert("Contraseña", "Algo salio mal", "OK");
             }
             else
             {
-                await DisplayAlert("Contraseña", "Algo salio mal", "OK");
+                await DisplayAlert("Contraseña", "La contraseña se ha cambiado", "OK");
+                await Navigation.PopAsync();
             }
         }
 
@@ -80,7 +80,7 @@ namespace APPMulticool.View
         {
             if (!string.IsNullOrEmpty(TxtCodigo.Text))
             {
-                bool R = await vm.ValidacionCodigoRecuperacion(TxtEmail.Text, TxtCodigo.Text);
+                bool R = await vm.ValidacionCodigoRecuperacion(TxtCodigo.Text);
                 if (R)
                 {
 
